@@ -10,7 +10,7 @@
                         <div class="card-content">
                             <div class="row">
                                 <div>
-                                    <form action="#">
+                                    <form action="/add-video" method="POST">
                                         <div class="file-field input-field col s6">
                                             <div class="btn grey darken-4">
                                                 <span>File</span>
@@ -21,34 +21,32 @@
                                                        placeholder="Upload one or more files">
                                             </div>
                                         </div>
+
+
+                                        <div class="input-field col s12">
+                                            <textarea id="icon_prefix" id="title" name="title"
+                                                      class="materialize-textarea"></textarea>
+                                            <label for="icon_prefix">Title</label>
+                                        </div>
+
+                                        <div class="input-field col s12 ">
+                                            <textarea id="icon_prefix" id="message" name="message"
+                                                      class="materialize-textarea"></textarea>
+                                            <label for="icon_prefix">Message</label>
+                                        </div>
+
+
+                                        <div class="col">
+                                            <button class="btn waves-effect waves-light grey darken-4" type="submit"
+                                                    name="action">Submit
+                                                <i class="material-icons right ">send</i>
+                                            </button>
+
+                                        </div>
                                     </form>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <textarea id="icon_prefix" class="materialize-textarea"></textarea>
-                                    <label for="icon_prefix">Title</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12 ">
-                                    <textarea id="icon_prefix" class="materialize-textarea "></textarea>
-                                    <label for="icon_prefix">Message</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                            name="action">Submit
-                                        <i class="material-icons right ">send</i>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
