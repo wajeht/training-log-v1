@@ -4,7 +4,7 @@
 
 <p align="center">A full-stack web application to log taining videos from a 4 days split.</p>
 
-<center><span style="color:red">THIS PROJECT IS STILL UNDER DEVELOPMENT</span></center>
+## <p align="center"><em><span style="color:red">THIS PROJECT IS STILL UNDER DEVELOPMENT</span></em></p>
 
 ## Motivation
 
