@@ -8,6 +8,8 @@ exports.getAddVideo = (req, res, next) => {
 
 exports.postAddVideo = (req, res, next) => {
     const data = {
+        video: req.body.video,
+        date: req.body.date,
         title: req.body.title,
         message: req.body.message,
     };
