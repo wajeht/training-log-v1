@@ -27,9 +27,10 @@ Instagram used to be really good before facebook bought it. Now it has gotta a l
 # Development
 
 0. `git clone https://github.com/wajeht/training-vlog.git` to download this repo
-1. `npm install`
-2. `npm start` to launch the app
-3. `npm run make` build the app
+1. `npm install` to install npm packages
+2. `npm run dev` to launch the app
+3. `npm run start` to launch the app
+4. visit `localhost:6969` in the browser to visit the site
 
 # Contribute
 
