@@ -21,73 +21,96 @@
         </div>
 
 
+        <% if (comments.length> 0) { %>
+            <% for (let comment of comments) { %>
 
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-                            <br>
-                            <div class="row">
-                                <div class="col s2">
-                                    <img src="images/sample-1.jpg" alt="" class="circle responsive-img">
-                                    <!-- notice the "circle" class -->
-                                </div>
-                                <div class="col s10">
-                                    <span class="card-title grey-text text-darken-4">Card Title</span>
-                                    <span class="black-text">
-                                        This is a square image. Add the "circle" class to it to make it appear circular.
-                                    </span>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col s2">
+                                            <img src="images/sample-1.jpg" alt="" class="circle responsive-img">
+                                            <!-- notice the "circle" class -->
+                                        </div>
+                                        <div class="col s10">
+                                            <span class="card-title grey-text text-darken-4">
+                                                <%= comment.name %>
+                                            </span>
+                                            <span class="black-text">
+                                                <%= comment.message %>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
 
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
+                <% } %>
+                    <% } %>
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="container">
                             <div class="row">
-
                                 <div class="col s12">
-                                    <span class="card-title grey-text text-darken-4">Comment</span>
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="row">
+
+                                                <div class="col s12">
+                                                    <span class="card-title grey-text text-darken-4">Comment</span>
+                                                </div>
+
+                                                <form action="/add-comment" method="post">
+                                                    <div class="input-field col s6 ">
+                                                        <textarea id="icon_prefix" id="name" name="name"
+                                                                  class="materialize-textarea" required></textarea>
+                                                        <label for="icon_prefix">Name</label>
+                                                    </div>
+
+
+
+                                                    <div class="input-field col s12 ">
+                                                        <textarea id="icon_prefix" id="message" name="message"
+                                                                  class="materialize-textarea" required></textarea>
+                                                        <label for="icon_prefix">Message</label>
+                                                    </div>
+
+
+                                                    <div class="col">
+                                                        <button class="btn waves-effect waves-light grey darken-4"
+                                                                type="submit" name="action">Submit
+                                                            <i class="material-icons right ">send</i>
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-
-                                <div class="input-field col s6 ">
-                                    <textarea id="icon_prefix" id="message" name="message" class="materialize-textarea"
-                                              required></textarea>
-                                    <label for="icon_prefix">Name</label>
-                                </div>
-
-
-
-                                <div class="input-field col s12 ">
-                                    <textarea id="icon_prefix" id="message" name="message" class="materialize-textarea"
-                                              required></textarea>
-                                    <label for="icon_prefix">Message</label>
-                                </div>
-
-
-                                <div class="col">
-                                    <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                            name="action">Submit
-                                        <i class="material-icons right ">send</i>
-                                    </button>
-
-                                </div>
-
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <%- include("./includes/bottom.ejs") %>

@@ -13,4 +13,7 @@ router.get('/add-video', adminController.getAddVideo);
 // /admin/add-video => POST
 router.post('/add-video', adminController.postAddVideo);
 
+// /admin/add-video => POST
+router.post('/add-comment', adminController.postAddComment);
+
 module.exports = router;
