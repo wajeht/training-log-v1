@@ -4,6 +4,8 @@
 
 <p align="center">A full-stack web application to log taining videos from a 4 days split.</p>
 
+<p align="center"><span style="color:red">THIS PROJECT IS STILL IN DEVELOPMENT</span></p>
+
 ## Motivation
 
 Instagram is the best medium for powerlifters among other social media. Back in the day, YouTube used to be it. Ever since powerlifting has gotten popular, majority of the content usually reside on Instagram.
