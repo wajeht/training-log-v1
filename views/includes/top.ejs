@@ -26,15 +26,25 @@
 
 
 <script>
+    // this will auto set default date object when add-video loaded
     document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.sidenav');
-        M.Sidenav.init(elems);
+        var options = {
+            defaultDate: new Date(),
+            setDefaultDate: true
+        };
+        var elems = document.querySelector('.datepicker');
+        var instance = M.Datepicker.init(elems, options);
+        // instance.open();
+        instance.setDate(new Date());
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.datepicker');
-        M.Datepicker.init(elems);
-    });
+
+        var elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems);
+    })
+
+
 </script>
 
 

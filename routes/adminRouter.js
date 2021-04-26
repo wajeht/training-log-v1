@@ -16,6 +16,12 @@ router.get('/login', adminController.getLogin);
 // /admin/login => POST
 router.post('/login', adminController.postLogin);
 
+// /admin/forgot-password => GET
+router.get('/forgot-password', adminController.getForgotPassword);
+
+// /admin/signup => GET
+router.get('/signup', adminController.getSignup);
+
 // /admin/add-video => POST
 router.post('/add-video', adminController.postAddVideo);
 

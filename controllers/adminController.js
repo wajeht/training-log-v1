@@ -14,6 +14,14 @@ exports.postLogin = (req, res, next) => {
     res.redirect('/');
 };
 
+exports.getSignup = (req, res, next) => {
+    res.render('signup.ejs');
+};
+
+exports.getForgotPassword = (req, res, next) => {
+    res.render('forgot-password.ejs');
+};
+
 exports.getVideoDetails = (req, res, next) => {
     res.render('video-details.ejs', {
         pageTitle: 'video-details',
@@ -29,6 +37,7 @@ exports.getAddVideo = (req, res, next) => {
 exports.postAddVideo = (req, res, next) => {
     const data = {
         date: req.body.date,
+        imageUrl: req.body.imageUrl,
         title: req.body.title,
         message: req.body.message,
     };
