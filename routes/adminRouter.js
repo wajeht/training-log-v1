@@ -10,6 +10,12 @@ router.get('/video-details', adminController.getVideoDetails);
 // /admin/add-video => GET
 router.get('/add-video', adminController.getAddVideo);
 
+// /admin/login => GET
+router.get('/login', adminController.getLogin);
+
+// /admin/login => POST
+router.post('/login', adminController.postLogin);
+
 // /admin/add-video => POST
 router.post('/add-video', adminController.postAddVideo);
 

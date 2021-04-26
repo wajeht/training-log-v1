@@ -1,59 +1,61 @@
 <%- include("./includes/top.ejs") %>
 
     <main>
+
         <div class="container">
             <br><br>
             <div class="row">
                 <div class="col s12">
                     <div class="card">
                         <div class="card-content">
-                            <div class="row">
-                                <div>
-                                    <form action="/add-video" method="POST">
-                                        <div class="file-field input-field col s6">
-                                            <div class="btn grey darken-4">
-                                                <span>File</span>
-                                                <input type="file" multiple id="video" name="video" required>
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text"
-                                                       placeholder="Upload one or more files">
-                                            </div>
-                                        </div>
+                            <span class="card-title grey-text text-darken-4">Add video</span>
 
-                                        <div class="input-field col s12">
-                                            <input type="text" class="datepicker" name="date" id="date">
-                                            <label for="icon_prefix">Date</label>
-                                        </div>
+                            <form action="/add-video" method="POST">
 
-                                        <div class="input-field col s12">
-                                            <textarea id="icon_prefix" id="title" name="title"
-                                                      class="materialize-textarea" required></textarea>
-                                            <label for="icon_prefix">Title</label>
-                                        </div>
-
-                                        <div class="input-field col s12 ">
-                                            <textarea id="icon_prefix" id="message" name="message"
-                                                      class="materialize-textarea" required></textarea>
-                                            <label for="icon_prefix">Message</label>
-                                        </div>
-
-
-                                        <div class="col">
-                                            <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                                    name="action">Submit
-                                                <i class="material-icons right ">send</i>
-                                            </button>
-
-                                        </div>
-                                    </form>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" class="datepicker" name="date" id="date">
+                                        <label for="icon_prefix">Date</label>
+                                    </div>
                                 </div>
-                            </div>
+
+
+                                <div class="row">
+                                    <div class="input-field  center col s12">
+                                        <textarea id="icon_prefix" id="title" name="title" class="materialize-textarea"
+                                                  required></textarea>
+                                        <label for="icon_prefix">Title</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="input-field  center col s12">
+                                        <textarea id="icon_prefix" id="message" name="message"
+                                                  class="materialize-textarea" required></textarea>
+                                        <label for="icon_prefix">Message</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="input-field  center col s12">
+                                        <button class="btn waves-effect waves-light grey darken-4" type="submit"
+                                                name="action">add
+                                            <i class="material-icons right ">add</i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
+
     </main>
 
     <%- include("./includes/bottom.ejs") %>
