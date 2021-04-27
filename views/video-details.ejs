@@ -7,20 +7,17 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-image">
-                            <img src="images/sample-1.jpg" />
+                            <img src="<%= video.videoUrl %> " />
                         </div>
 
                         <div class="card-content">
-                            <span class="card-title grey-text text-darken-4">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                            <span class="card-title grey-text text-darken-4">
+                                <%= video.title %>
+                            </span>
 
-                            <br>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
-                            <br>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                            <p>
+                                <%= video.message %>
+                            </p>
                         </div>
                         <div class="card-action center">
                             <a href="#">Edit</a>

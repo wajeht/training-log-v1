@@ -5,7 +5,7 @@ const router = express.Router();
 const adminController = require('../controllers/adminController.js');
 
 // /admin/video-details => GET
-router.get('/video-details', adminController.getVideoDetails);
+router.get('/video/:id', adminController.getVideo);
 
 // /admin/add-video => GET
 router.get('/add-video', adminController.getAddVideo);

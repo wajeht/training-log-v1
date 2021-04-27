@@ -10,109 +10,38 @@
             <!-- Page Content goes here -->
             <div class="row">
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <% if ( videosArray.length> 0 ) { %>
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                    <% for (let v of videosArray) { %>
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
+                        <div class="col s3">
+                            <a href="/video/<%= v.id %> ">
+                                <div class="card hoverable">
+                                    <div class="card-image waves-effect waves-block waves-light">
+                                        <img src="<%= v.videoUrl %>" />
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="grey-text text-darken-4">
+                                            <%= v.title %>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        <% } %>
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                            <% } else { %>
 
-                <div class="col s3">
-                    <a href="/video-details">
-                        <div class="card hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img src="images/sample-1.jpg" />
-                            </div>
-                            <div class="card-content">
-                                <span class="grey-text text-darken-4">Card Title</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                                <!-- empty -->
+
+                                <% } %>
+
+
+
+
 
             </div>
     </main>

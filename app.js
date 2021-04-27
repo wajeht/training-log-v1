@@ -3,13 +3,13 @@ const app = express();
 
 // util
 const path = require('path');
+const bodyParser = require('body-parser');
 
 // routes
 const indexRouter = require('./routes/indexRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const adminRouter = require('./routes/adminRouter.js');
 const errorController = require('./controllers/errorController.js');
-const bodyParser = require('body-parser');
 
 // html
 app.set('view engine', 'ejs');

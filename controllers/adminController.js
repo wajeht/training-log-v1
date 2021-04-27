@@ -1,5 +1,5 @@
+const Video = require('../models/video.js');
 const comments = [];
-const videos = [];
 
 exports.getLogin = (req, res, nexdt) => {
     res.render('login.ejs');
@@ -22,12 +22,19 @@ exports.getForgotPassword = (req, res, next) => {
     res.render('forgot-password.ejs');
 };
 
-exports.getVideoDetails = (req, res, next) => {
-    res.render('video-details.ejs', {
-        pageTitle: 'video-details',
-        comments: comments,
-    });
-    console.log({ comments: comments });
+exports.getVideo = (req, res, next) => {
+    const id = req.params.id;
+    // console.log(id);
+
+    Video.findById(id)
+        .then(([video]) => {
+            res.render('video-details.ejs', {
+                video: video[0],
+                pageTitle: video.title,
+                comments: comments,
+            });
+        })
+        .catch((err) => console.log(err));
 };
 
 exports.getAddVideo = (req, res, next) => {
@@ -37,13 +44,19 @@ exports.getAddVideo = (req, res, next) => {
 exports.postAddVideo = (req, res, next) => {
     const data = {
         date: req.body.date,
-        imageUrl: req.body.imageUrl,
+        videoUrl: req.body.videoUrl,
         title: req.body.title,
         message: req.body.message,
     };
-    videos.push(data);
-    console.log({ videos: videos });
-    res.redirect('/');
+
+    const video = new Video(null, data.date, data.title, data.message, data.videoUrl);
+
+    video
+        .save()
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch((err) => console.log(err));
 };
 
 exports.postAddComment = (req, res, next) => {
