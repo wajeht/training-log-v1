@@ -26,15 +26,16 @@ exports.getVideo = (req, res, next) => {
     const id = req.params.id;
     // console.log(id);
 
-    Video.findById(id)
-        .then(([video]) => {
-            res.render('video-details.ejs', {
-                video: video[0],
-                pageTitle: video.title,
-                comments: comments,
-            });
-        })
-        .catch((err) => console.log(err));
+    // impliment way to get data out of database
+    // Video.findById(id)
+    //     .then(([video]) => {
+    //         res.render('video-details.ejs', {
+    //             video: video[0],
+    //             pageTitle: video.title,
+    //             comments: comments,
+    //         });
+    //     })
+    //     .catch((err) => console.log(err));
 };
 
 exports.getAddVideo = (req, res, next) => {
@@ -49,14 +50,7 @@ exports.postAddVideo = (req, res, next) => {
         message: req.body.message,
     };
 
-    const video = new Video(null, data.date, data.title, data.message, data.videoUrl);
-
-    video
-        .save()
-        .then(() => {
-            res.redirect('/');
-        })
-        .catch((err) => console.log(err));
+    // impliment logic to save into databae
 };
 
 exports.postAddComment = (req, res, next) => {

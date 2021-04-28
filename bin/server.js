@@ -1,6 +1,6 @@
-require('dotenv').config();
 const app = require('../app.js');
-const PORT = process.env.PORT || 6969;
+const config = require('../config/config.js');
+const PORT = config.port.serverPort || 6969;
 
 app.listen(PORT, (err) => {
     if (err) {
