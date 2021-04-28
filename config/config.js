@@ -1,6 +1,9 @@
 const path = require('path');
+// only get "root", destructure syntax
+const { root } = require('../util/directory.js');
+
 require('dotenv').config({
-    path: path.join(__dirname, '../', '.env'),
+    path: path.join(root, '.env'),
 });
 
 const config = {
