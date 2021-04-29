@@ -2,9 +2,9 @@ const Video = require('../models/video.js');
 
 exports.getIndex = (req, res, next) => {
     Video.fetchAll()
-        .then((result) => {
+        .then((videosArray) => {
             res.render('index.ejs', {
-                videosArray: result,
+                videosArray: videosArray,
                 pageTitle: 'index',
             });
         })

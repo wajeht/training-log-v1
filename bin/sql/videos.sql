@@ -13,5 +13,6 @@ CREATE TABLE videos (
 \echo 'inserting data into "videos" table'
 INSERT INTO videos (id, date, videoUrl, title, message, userId)
 VALUES
-(1, '04/29/2021', 'https://jaw.cool/images/profile.jpg', 'week 1 day 1', 'Today, I feel really strong. I goota eat more food',1);
+(1, '04/29/2021', 'https://jaw.cool/images/profile.jpg', 'week 1 day 1', 'Today, I feel really strong. I goota eat more food',1),
+(8, '1/30/1993', 'https://jaw.cool/images/attempt_calculator.jpg', 'week 3 day 4', 'Lifting sucks. I should run instead!',1);
 \echo 

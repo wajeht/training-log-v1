@@ -1,19 +1,35 @@
 const pool = require('../config/database.js');
 module.exports = class Video {
-    static async fetchAll() {
-        try {
-            const { rows } = await pool.query('SELECT * FROM videos');
-            return rows;
-        } catch (error) {
-            console.log(error);
-        }
+    static fetchAll() {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT * FROM videos', (error, response) => {
+                if (error) return reject(error);
+
+                resolve(response.rows);
+            });
+        });
     }
 
-    static findById() {
-        // TODO: fid by id stuff ehre
+    static findById(id) {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT * FROM videos WHERE id = $1', [id], (error, response) => {
+                if (error) return reject(error);
+                resolve(response.rows[0]);
+            });
+        });
     }
 
-    static addVideo() {
-        // TODO: add video suff ehre
+    static addVideo(id, date, videourl, title, message, userid) {
+        return new Promise((resolve, reject) => {
+            pool.query(
+                'INSERT INTO videos (id, date, videourl, title, message, userid) VALUES ($1, $2, $3, $4, $5, $6)',
+                [id, date, videourl, title, message, userid],
+                (error, response) => {
+                    if (error) return reject(error);
+                    console.log(response);
+                    resolve(response.rows[0]);
+                }
+            );
+        });
     }
 };

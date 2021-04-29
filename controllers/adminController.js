@@ -24,18 +24,17 @@ exports.getForgotPassword = (req, res, next) => {
 
 exports.getVideo = (req, res, next) => {
     const id = req.params.id;
-    // console.log(id);
 
-    // impliment way to get data out of database
-    // Video.findById(id)
-    //     .then(([video]) => {
-    //         res.render('video-details.ejs', {
-    //             video: video[0],
-    //             pageTitle: video.title,
-    //             comments: comments,
-    //         });
-    //     })
-    //     .catch((err) => console.log(err));
+    Video.findById(id)
+        .then((video) => {
+            console.log({ 'adminController.getVideo': video });
+            res.render('video-details.ejs', {
+                video: video,
+                pageTitle: video.title,
+                comments: comments,
+            });
+        })
+        .catch((err) => console.log(err));
 };
 
 exports.getAddVideo = (req, res, next) => {
@@ -43,14 +42,16 @@ exports.getAddVideo = (req, res, next) => {
 };
 
 exports.postAddVideo = (req, res, next) => {
-    const data = {
-        date: req.body.date,
-        videoUrl: req.body.videoUrl,
-        title: req.body.title,
-        message: req.body.message,
-    };
+    const { date, videoUrl, title, message, userId } = req.body;
+    const random = Math.floor(Math.random() * 1000);
 
-    // impliment logic to save into databae
+    Video.addVideo(random, date, videoUrl, title, message, random)
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 exports.postAddComment = (req, res, next) => {
