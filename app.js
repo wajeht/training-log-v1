@@ -3,7 +3,6 @@ const app = express();
 
 // util
 const path = require('path');
-const bodyParser = require('body-parser');
 
 // routes
 const indexRouter = require('./routes/indexRouter.js');
@@ -16,8 +15,8 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 // middlewares
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: false }));
 app.use(indexRouter);
 app.use(adminRouter);
 app.use(errorController.get404);

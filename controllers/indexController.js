@@ -1,13 +1,14 @@
 const Video = require('../models/video.js');
 
 exports.getIndex = (req, res, next) => {
-    // Video.fetchFall()
-    //     .then(([videosArray]) => {
-    //         // console.log(videosArray);
-    res.render('index.ejs', {
-        pageTitle: 'index',
-        videosArray: videosArray,
-    });
-    //     })
-    //     .catch((err) => console.log(err));
+    Video.fetchAll()
+        .then((result) => {
+            res.render('index.ejs', {
+                videosArray: result,
+                pageTitle: 'index',
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
