@@ -5,7 +5,8 @@
     "main": "app.js",
     "scripts": {
         "start": "node bin/server.js",
-        "dev": "nodemon bin/server.js"
+        "dev": "nodemon bin/server.js",
+        "configure": "bash bin/configureDatabase.sh"
     },
     "keywords": [
         "powerlifting",
