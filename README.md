@@ -24,13 +24,27 @@ Instagram used to be really good before facebook bought it. Now it has gotta a l
 
 <em>soon!</em>
 
-# Development
+# Database configuration (do this before development)
+
+Within this project I have include `.evn.example` file with secret credentials. Name that file to .env and put in proper credentials. And also make sure to install `postgresql` database and create proper account first.
+
+```
+PORT=0000
+DB_HOST="localhost"
+DB_USERNAME="username"
+DB_PASSWORD="password"
+DB_DATABASE="database"
+DB_PORT=0000
+```
+
+## Development
 
 0. `git clone https://github.com/wajeht/training-vlog.git` to download this repo
-1. `npm install` to install npm packages
-2. `npm run dev` to launch the app
-3. `npm run start` to launch the app
-4. visit `localhost:6969` in the browser to visit the site
+1. `npm run configure` to to set up database and table
+2. `npm install` to install npm packages
+3. `npm run dev` to launch the app in dev enviroment
+4. `npm run start` to launch the app
+5. visit `localhost:6969` or whatever port you set in the browser to visit the site
 
 # Contribute
 
