@@ -25,6 +25,12 @@ router.get('/signup', adminController.getSignup);
 // /admin/add-video => POST
 router.post('/add-video', adminController.postAddVideo);
 
+// /admin/delete-video => POST
+router.post('/delete-video/:id', adminController.postDeleteVideo);
+
+// /admin/edit-video => POST
+router.post('/edit-video/:id', adminController.postEditVideo);
+
 // /admin/add-video => POST
 router.post('/add-comment', adminController.postAddComment);
 

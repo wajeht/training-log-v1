@@ -12,9 +12,18 @@ module.exports = class Video {
 
     static findById(id) {
         return new Promise((resolve, reject) => {
-            pool.query('SELECT * FROM videos WHERE id = $1', [id], (error, response) => {
+            pool.query('SELECT * FROM videos WHERE id = ($1)', [id], (error, response) => {
                 if (error) return reject(error);
                 resolve(response.rows[0]);
+            });
+        });
+    }
+
+    static deleteById(id) {
+        return new Promise((resolve, reject) => {
+            pool.query('DELETE FROM videos where id = ($1)', [id], (err, response) => {
+                if (err) reject(err);
+                resolve(response.rows);
             });
         });
     }

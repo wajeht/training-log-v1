@@ -27,7 +27,7 @@ exports.getVideo = (req, res, next) => {
 
     Video.findById(id)
         .then((video) => {
-            console.log({ 'adminController.getVideo': video });
+            console.log({ '***** adminController.getVideo ***** ': video });
             res.render('video-details.ejs', {
                 video: video,
                 pageTitle: video.title,
@@ -38,7 +38,9 @@ exports.getVideo = (req, res, next) => {
 };
 
 exports.getAddVideo = (req, res, next) => {
-    res.render('add-video.ejs');
+    res.render('add-video.ejs', {
+        pageTitle: 'add video page',
+    });
 };
 
 exports.postAddVideo = (req, res, next) => {
@@ -52,6 +54,25 @@ exports.postAddVideo = (req, res, next) => {
         .catch((err) => {
             console.log(err);
         });
+};
+
+exports.postEditVideo = (req, res, next) => {
+    const { id } = req.body;
+    console.log({ '***** adminController.postEditVideo ***** ': id });
+};
+
+exports.postDeleteVideo = (req, res, next) => {
+    const id = parseInt(req.body.id);
+    let video = Video.findById(id).then((result) => {
+        video = result;
+    });
+
+    Video.deleteById(id)
+        .then(() => {
+            console.log({ '***** adminController.postDeleteVideo (DELETED) ***** ': video });
+            res.redirect('/');
+        })
+        .catch((err) => console.log(err));
 };
 
 exports.postAddComment = (req, res, next) => {

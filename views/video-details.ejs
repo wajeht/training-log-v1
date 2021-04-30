@@ -15,9 +15,17 @@
 
                         <p><%= video.message %></p>
                     </div>
-                    <div class="card-action center">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                    <div class="card-action">
+                        <form class="left" action="/edit-video/<%= video.id %>" method="post">
+                            <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                            <button class="btn" type="submit">edit</button>
+                        </form>
+                        <form class="right" action="/delete-video/<%= video.id %>" method="post">
+                            <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                            <button class="btn" type="submit">delete</button>
+                        </form>
+                        <br />
+                        <br />
                     </div>
                 </div>
             </div>
