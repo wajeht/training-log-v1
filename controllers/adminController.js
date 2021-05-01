@@ -3,7 +3,7 @@ const comments = [];
 
 // ---------- AUTH ----------
 exports.getLogin = (req, res, nexdt) => {
-    res.render('login.ejs');
+    res.render('auth/login.ejs');
 };
 
 exports.postLogin = (req, res, next) => {
@@ -16,11 +16,11 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
-    res.render('signup.ejs');
+    res.render('auth/signup.ejs');
 };
 
 exports.getForgotPassword = (req, res, next) => {
-    res.render('forgot-password.ejs');
+    res.render('auth/forgot-password.ejs');
 };
 
 // ---------- VIDEO ----------
@@ -30,7 +30,7 @@ exports.getVideo = (req, res, next) => {
     Video.findById(id)
         .then((video) => {
             console.log({ '***** adminController.getVideo ***** ': video });
-            res.render('video-details.ejs', {
+            res.render('video/video-details.ejs', {
                 video: video,
                 pageTitle: video.title,
                 comments: comments,
@@ -41,7 +41,7 @@ exports.getVideo = (req, res, next) => {
 
 exports.getAddVideo = (req, res, next) => {
     console.log({ '***** adminController.getAddVideo ***** ': '' });
-    res.render('add-video.ejs', {
+    res.render('video/add-video.ejs', {
         pageTitle: 'add video page',
     });
 };
@@ -75,7 +75,7 @@ exports.postEditVideo = (req, res, next) => {
     Video.findById(id)
         .then((result) => {
             console.log({ '***** adminController.postEditVideo ***** ': result });
-            res.render('edit-video.ejs', {
+            res.render('video/edit-video.ejs', {
                 videoArray: result,
                 pageTitle: 'edit videos',
             });

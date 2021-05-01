@@ -7,5 +7,5 @@ app.listen(PORT, (err) => {
         console.log(err);
     }
 
-    console.log(`Server started on port ${PORT}!`);
+    console.log(`Server is started on http://localhost:${PORT}`);
 });

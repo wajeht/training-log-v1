@@ -1,4 +1,4 @@
-<%- include("./includes/top.ejs") %>
+<%- include("../includes/top.ejs") %>
 
     <main>
 
@@ -11,12 +11,20 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <span class="card-title grey-text text-darken-4">Forgot password</span>
+                                    <span class="card-title grey-text text-darken-4">Signup</span>
                                 </div>
                             </div>
 
 
-                            <form action="/forgot-password" method="POST">
+                            <form action="/signup" method="POST">
+
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="email" type="text" name="email" id="email" class="validate" required>
+                                        <label for="email">Username</label>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -27,6 +35,13 @@
                                 </div>
 
 
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="password" type="password" name="password" id="password"
+                                               class="validate" required>
+                                        <label for="password">Password</label>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="center col s12">
@@ -50,4 +65,4 @@
 
     </main>
 
-    <%- include("./includes/bottom.ejs") %>
+    <%- include("../includes/bottom.ejs") %>
