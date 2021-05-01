@@ -29,11 +29,11 @@
                                 value="<%= video.message %>"
                             />
                             <input type="hidden" name="id" id="id" value="<%= video.id %>" />
-                            <button class="btn" type="submit">edit</button>
+                            <button class="btn waves-effect waves-light grey darken-4" type="submit">edit<i class="material-icons right">edit</i></button>
                         </form>
                         <form class="right" action="/delete-video/<%= video.id %>" method="post">
                             <input type="hidden" name="id" id="id" value="<%= video.id %>" />
-                            <button class="btn" type="submit">delete</button>
+                            <button class="btn waves-effect waves-light grey darken-4" type="submit">delete<i class="material-icons right">delete</i></button>
                         </form>
                         <br />
                         <br />
