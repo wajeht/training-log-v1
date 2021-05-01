@@ -12,8 +12,9 @@ createdb -U node_user $database
 echo "created $database database"
 echo ""
 
-psql -U node_user trainingvlog < ./bin/sql/videos.sql
-psql -U node_user trainingvlog < ./bin/sql/users.sql
+psql -U node_user trainingvlog < ./bin/sql/video.sql
+psql -U node_user trainingvlog < ./bin/sql/user.sql
+psql -U node_user trainingvlog < ./bin/sql/seed.sql
 
 echo "------------------------"
 echo "database has been conigured"

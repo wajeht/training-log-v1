@@ -7,6 +7,8 @@ const adminController = require('../controllers/adminController.js');
 // /admin/video-details => GET
 router.get('/video/:id', adminController.getVideo);
 
+router.post('/video/:id', adminController.postUpdateVideo);
+
 // /admin/add-video => GET
 router.get('/add-video', adminController.getAddVideo);
 
@@ -22,14 +24,14 @@ router.get('/forgot-password', adminController.getForgotPassword);
 // /admin/signup => GET
 router.get('/signup', adminController.getSignup);
 
-// /admin/add-video => POST
-router.post('/add-video', adminController.postAddVideo);
-
 // /admin/delete-video => POST
 router.post('/delete-video/:id', adminController.postDeleteVideo);
 
 // /admin/edit-video => POST
 router.post('/edit-video/:id', adminController.postEditVideo);
+
+// /admin/add-video => POST
+router.post('/add-video', adminController.postAddVideo);
 
 // /admin/add-video => POST
 router.post('/add-comment', adminController.postAddComment);

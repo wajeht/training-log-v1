@@ -7,7 +7,7 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-image">
-                        <img src="<%= video.videourl %> " />
+                        <img src="<%= video.videoUrl %> " />
                     </div>
 
                     <div class="card-content">
@@ -17,6 +17,18 @@
                     </div>
                     <div class="card-action">
                         <form class="left" action="/edit-video/<%= video.id %>" method="post">
+                            <input
+                                type="hidden"
+                                name="title"
+                                id="title"
+                                value="<%= video.title %>"
+                            />
+                            <input
+                                type="hidden"
+                                name="message"
+                                id="message"
+                                value="<%= video.message %>"
+                            />
                             <input type="hidden" name="id" id="id" value="<%= video.id %>" />
                             <button class="btn" type="submit">edit</button>
                         </form>
