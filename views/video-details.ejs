@@ -12,8 +12,7 @@
 
                     <div class="card-content">
                         <span class="card-title grey-text text-darken-4"> <%= video.title %> </span>
-
-                        <p><%= video.message %></p>
+                        <div style="white-space: pre-wrap"><%= video.message %></div>
                     </div>
                     <div class="card-action">
                         <form class="left" action="/edit-video/<%= video.id %>" method="post">
