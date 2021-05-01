@@ -37,6 +37,8 @@ DB_DATABASE="database"
 DB_PORT=0000
 ```
 
+After setting up your `.env` file, set your postgres user credentials within `configureDaatabase.sh`
+
 ## Development
 
 0. `git clone https://github.com/wajeht/training-vlog.git` to download this repo
