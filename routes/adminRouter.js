@@ -12,18 +12,6 @@ router.post('/video/:id', adminController.postUpdateVideo);
 // /admin/add-video => GET
 router.get('/add-video', adminController.getAddVideo);
 
-// /admin/login => GET
-router.get('/login', adminController.getLogin);
-
-// /admin/login => POST
-router.post('/login', adminController.postLogin);
-
-// /admin/forgot-password => GET
-router.get('/forgot-password', adminController.getForgotPassword);
-
-// /admin/signup => GET
-router.get('/signup', adminController.getSignup);
-
 // /admin/delete-video => POST
 router.post('/delete-video/:id', adminController.postDeleteVideo);
 
