@@ -10,7 +10,7 @@ exports.getVideo = (req, res, next) => {
             console.log({ '***** adminController.getVideo ***** ': video });
             res.render('video/video-details.ejs', {
                 video: video,
-                pageTitle: video.title,
+                pageTitle: `Video ${id}: ${video.title}`,
                 comments: comments,
                 isAuthenticated: req.session.user,
             });

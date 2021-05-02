@@ -6,7 +6,7 @@ exports.getIndex = (req, res, next) => {
             console.log({ '***** indexController.getIndex *****': videosArray });
             res.render('index.ejs', {
                 videosArray: videosArray,
-                pageTitle: 'index',
+                pageTitle: 'Home',
                 isAuthenticated: req.session.user,
             });
         })
