@@ -61,10 +61,16 @@
                     <% if (isAuthenticated) { %>
 
                         <li><a href="/add-video">add-video</a></li>
-                        <li><a href="/logout">logout</a></li>
+                        <li>
+                            <form action="/logout" method="post">
+                                <button class="btn-flat waves-effect waves-light white black-text text-darken-4"
+                                        type="submit">logout</button>
+                            </form>
+                        </li>
 
-                        <% } %>
+                        <% } else { %>
                             <li><a href="/login">login</a></li>
+                            <% } %>
                 </ul>
 
                 <ul id="nav-mobile" class="sidenav">
@@ -74,8 +80,11 @@
                         <li><a href="/add-video">add-video</a></li>
                         <li><a href="/logout">logout</a></li>
 
-                        <% } %>
+
+                        <% } else { %>
                             <li><a href="/login">login</a></li>
+                            <% } %>
+
                 </ul>
                 <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>

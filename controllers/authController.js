@@ -3,29 +3,32 @@ const bcrypt = require('bcrypt');
 
 // ---------- AUTH ----------
 exports.getLogin = (req, res, nexdt) => {
-    console.log(req.session);
+    console.log('isLoggedIn', req.session.isLoggedIn);
     res.render('auth/login.ejs', {
-        isAuthenticated: false,
+        isAuthenticated: req.session.user,
     });
 };
 
 exports.postLogin = (req, res, next) => {
-    req.session.isLoggedIn = true;
-
-    res.redirect('/');
+    User.findById(1)
+        .then((user) => {
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            res.redirect('/');
+        })
+        .catch((err) => console.log(err));
 };
 
 exports.postLogout = (req, res, next) => {
-    req.session.destory((err) => {
-        console.log(err);
-        res.redirect('/');
-    });
+    delete req.session.user;
+    req.session.isLoggedIn = false;
+    res.redirect('/');
 };
 
 exports.postSignup = (req, res, next) => {
     const { email, username, password } = req.body;
 
-    User.findOne(email)
+    User.findByEmail(email)
         .then((result) => {
             // if user exist, redirect to '/signup' page
             // else do the registration
@@ -46,12 +49,12 @@ exports.postSignup = (req, res, next) => {
 
 exports.getSignup = (req, res, next) => {
     res.render('auth/signup.ejs', {
-        isAuthenticated: req.isLoggedIn,
+        isAuthenticated: req.session.user,
     });
 };
 
 exports.getForgotPassword = (req, res, next) => {
     res.render('auth/forgot-password.ejs', {
-        isAuthenticated: req.isLoggedIn,
+        isAuthenticated: req.session.user,
     });
 };

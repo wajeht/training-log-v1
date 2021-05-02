@@ -17,6 +17,9 @@ const config = {
     port: {
         serverPort: process.env.PORT,
     },
+    cookie: {
+        secret: process.env.COOKIE_SECRET,
+    },
 };
 
 module.exports = config;

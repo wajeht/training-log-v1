@@ -1,9 +1,18 @@
 const pool = require('../config/database.js');
 
 module.exports = class User {
-    static findOne(email) {
+    static findByEmail(email) {
         return new Promise((resolve, reject) => {
             pool.query('SELECT * FROM users WHERE email=($1)', [email], (err, response) => {
+                if (err) return reject(err);
+                resolve(response.rows[0]);
+            });
+        });
+    }
+
+    static findById(id) {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT * FROM users WHERE id=($1)', [id], (err, response) => {
                 if (err) return reject(err);
                 resolve(response.rows[0]);
             });
