@@ -9,6 +9,9 @@ router.get('/login', authController.getLogin);
 // /admin/login => POST
 router.post('/login', authController.postLogin);
 
+// /admin/login => POST
+router.post('/logout', authController.postLogout);
+
 // /admin/forgot-password => GET
 router.get('/forgot-password', authController.getForgotPassword);
 

@@ -1,138 +1,125 @@
 <%- include("../includes/top.ejs") %>
 
-<main>
-    <div class="container">
-        <br /><br />
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="<%= video.videoUrl %> " />
-                    </div>
+    <main>
+        <div class="container">
+            <br /><br />
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="<%= video.videoUrl %> " />
+                        </div>
 
-                    <div class="card-content">
-                        <span class="card-title grey-text text-darken-4"> <%= video.title %> </span>
-                        <div style="white-space: pre-wrap"><%= video.message %></div>
-                    </div>
-                    <div class="card-action">
-                        <form class="left" action="/edit-video/<%= video.id %>" method="post">
-                            <input
-                                type="hidden"
-                                name="title"
-                                id="title"
-                                value="<%= video.title %>"
-                            />
-                            <input
-                                type="hidden"
-                                name="message"
-                                id="message"
-                                value="<%= video.message %>"
-                            />
-                            <input type="hidden" name="id" id="id" value="<%= video.id %>" />
-                            <button class="btn waves-effect waves-light grey darken-4" type="submit">edit<i class="material-icons right">edit</i></button>
-                        </form>
-                        <form class="right" action="/delete-video/<%= video.id %>" method="post">
-                            <input type="hidden" name="id" id="id" value="<%= video.id %>" />
-                            <button class="btn waves-effect waves-light grey darken-4" type="submit">delete<i class="material-icons right">delete</i></button>
-                        </form>
-                        <br />
-                        <br />
+                        <div class="card-content">
+                            <span class="card-title grey-text text-darken-4">
+                                <%= video.title %>
+                            </span>
+                            <div style="white-space: pre-wrap">
+                                <%= video.message %>
+                            </div>
+                        </div>
+
+
+                        <% if (isAuthenticated) { %>
+
+
+                            <div class="card-action">
+                                <form class="left" action="/edit-video/<%= video.id %>" method="post">
+                                    <input type="hidden" name="title" id="title" value="<%= video.title %>" />
+                                    <input type="hidden" name="message" id="message" value="<%= video.message %>" />
+                                    <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                                    <button class="btn waves-effect waves-light grey darken-4" type="submit">edit<i
+                                           class="material-icons right">edit</i></button>
+                                </form>
+                                <form class="right" action="/delete-video/<%= video.id %>" method="post">
+                                    <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                                    <button class="btn waves-effect waves-light grey darken-4" type="submit">delete<i
+                                           class="material-icons right">delete</i></button>
+                                </form>
+                                <br />
+                                <br />
+                            </div>
+                            <% } %>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <% if (comments.length> 0) { %> <% for (let comment of comments) { %>
+        <!-- <% if (comments.length> 0) { %> <% for (let comment of comments) { %>
 
-    <div class="container">
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <br />
-                        <div class="row">
-                            <div class="col s2">
-                                <img
-                                    src="images/sample-1.jpg"
-                                    alt=""
-                                    class="circle responsive-img"
-                                />
-                                <!-- notice the "circle" class -->
-                            </div>
-                            <div class="col s10">
-                                <span class="card-title grey-text text-darken-4">
-                                    <%= comment.name %>
-                                </span>
-                                <span class="black-text">
-                                    <p><%= comment.message %></p>
-                                </span>
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <br />
+                                    <div class="row">
+                                        <div class="col s2">
+                                            <img src="images/sample-1.jpg" alt="" class="circle responsive-img" />
+                                        </div>
+                                        <div class="col s10">
+                                            <span class="card-title grey-text text-darken-4">
+                                                <%= comment.name %>
+                                            </span>
+                                            <span class="black-text">
+                                                <p>
+                                                    <%= comment.message %>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <% } %> <% } %>
+                <% } %>
+                    <% } %>
 
-    <div class="container">
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <span class="card-title grey-text text-darken-4">Comment</span>
-                            </div>
-                        </div>
-
-                        <form action="/add-comment" method="POST">
+                        <div class="container">
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <textarea
-                                        id="icon_prefix"
-                                        id="name"
-                                        name="name"
-                                        class="materialize-textarea"
-                                        required
-                                    ></textarea>
-                                    <label for="icon_prefix">Name</label>
+                                <div class="col s12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <span class="card-title grey-text text-darken-4">Comment</span>
+                                                </div>
+                                            </div>
+
+                                            <form action="/add-comment" method="POST">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <textarea id="icon_prefix" id="name" name="name"
+                                                                  class="materialize-textarea" required></textarea>
+                                                        <label for="icon_prefix">Name</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <textarea id="icon_prefix" id="message" name="message"
+                                                                  class="materialize-textarea" required></textarea>
+                                                        <label for="icon_prefix">Message</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="center col s12">
+                                                        <button class="btn waves-effect waves-light grey darken-4"
+                                                                type="submit" name="action">
+                                                            Submit
+                                                            <i class="material-icons right">send</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div> -->
+    </main>
 
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <textarea
-                                        id="icon_prefix"
-                                        id="message"
-                                        name="message"
-                                        class="materialize-textarea"
-                                        required
-                                    ></textarea>
-                                    <label for="icon_prefix">Message</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="center col s12">
-                                    <button
-                                        class="btn waves-effect waves-light grey darken-4"
-                                        type="submit"
-                                        name="action"
-                                    >
-                                        Submit
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<%- include("../includes/bottom.ejs") %>
+    <%- include("../includes/bottom.ejs") %>

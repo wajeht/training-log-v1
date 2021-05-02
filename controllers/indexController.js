@@ -7,6 +7,7 @@ exports.getIndex = (req, res, next) => {
             res.render('index.ejs', {
                 videosArray: videosArray,
                 pageTitle: 'index',
+                isAuthenticated: req.isLoggedIn,
             });
         })
         .catch((err) => {

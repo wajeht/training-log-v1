@@ -14,6 +14,7 @@ echo ""
 
 psql -U node_user trainingvlog < ./bin/sql/video.sql
 psql -U node_user trainingvlog < ./bin/sql/user.sql
+psql -U node_user trainingvlog < ./bin/sql/session.sql
 psql -U node_user trainingvlog < ./bin/sql/seed.sql
 
 echo "------------------------"

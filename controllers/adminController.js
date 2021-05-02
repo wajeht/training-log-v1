@@ -1,7 +1,6 @@
 const Video = require('../models/video.js');
 const comments = [];
 
-
 // ---------- VIDEO ----------
 exports.getVideo = (req, res, next) => {
     const id = req.params.id;
@@ -13,6 +12,7 @@ exports.getVideo = (req, res, next) => {
                 video: video,
                 pageTitle: video.title,
                 comments: comments,
+                isAuthenticated: req.isLoggedIn,
             });
         })
         .catch((err) => console.log(err));
@@ -22,6 +22,7 @@ exports.getAddVideo = (req, res, next) => {
     console.log({ '***** adminController.getAddVideo ***** ': '' });
     res.render('video/add-video.ejs', {
         pageTitle: 'add video page',
+        isAuthenticated: req.isLoggedIn,
     });
 };
 
@@ -57,6 +58,7 @@ exports.postEditVideo = (req, res, next) => {
             res.render('video/edit-video.ejs', {
                 videoArray: result,
                 pageTitle: 'edit videos',
+                isAuthenticated: req.isLoggedIn,
             });
         })
         .catch((err) => {

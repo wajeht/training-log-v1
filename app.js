@@ -3,7 +3,7 @@ const app = express();
 
 // util
 const path = require('path');
-const session = require('express');
+const session = require('express-session');
 
 // routes
 const indexRouter = require('./routes/indexRouter.js');
