@@ -26,6 +26,7 @@ https://tvl.jawstrength.com/
 <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />‏‎ ‎‏‎ 
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> ‎‏‎ 
 <img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white" />‏‎ ‎‏‎ 
+<img src="https://img.shields.io/badge/Materialed--CSS-0081CB?style=for-the-badge&logo=material-ui&logoColor=white" />‏‎ ‎‏‎ 
 
 
 
