@@ -12,9 +12,9 @@ VALUES
 \echo
 
 \echo 'inserting data into "users" table'
-INSERT INTO users (username, password)
+INSERT INTO users (username, password, email)
 VALUES
-('soapwa', 'password'),
-('yanllone', 'password');
+('soapwa', 'password', 'soapwa@dog.com'),
+('yanllone', 'password', 'yanlon@dog.com');
 
 

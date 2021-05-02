@@ -21,7 +21,7 @@ module.exports = class Video {
     static delete(id) {
         return new Promise((resolve, reject) => {
             pool.query('DELETE FROM videos where id=($1)', [id], (err, response) => {
-                if (err) reject(err);
+                if (err) return reject(err);
                 resolve();
             });
         });
@@ -33,7 +33,7 @@ module.exports = class Video {
                 'UPDATE videos SET "videoUrl"=($1), title=($2), message=($3) where id=($4)',
                 [videoUrl, title, message, id],
                 (err, response) => {
-                    if (err) reject(err);
+                    if (err) return reject(err);
                     resolve();
                 }
             );
