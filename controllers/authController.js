@@ -1,7 +1,7 @@
 const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
 
-// ---------- AUTH ----------
+// ---------- LOGIN ----------
 exports.getLogin = (req, res, nexdt) => {
     console.log('isLoggedIn', req.session.isLoggedIn);
     res.render('auth/login.ejs', {
@@ -11,13 +11,34 @@ exports.getLogin = (req, res, nexdt) => {
 };
 
 exports.postLogin = (req, res, next) => {
-    User.findById(1)
+    const { password, email } = req.body;
+
+    User.findByEmail(email)
         .then((user) => {
-            req.session.isLoggedIn = true;
-            req.session.user = user;
-            res.redirect('/');
+            if (user == null) {
+                return res.redirect('/login');
+            }
+            bcrypt
+                .compare(password, user.password)
+                .then((doMatch) => {
+                    if (doMatch) {
+                        req.session.isLoggedIn = true;
+                        req.session.user = user;
+                        return req.session.save((err) => {
+                            console.log(err);
+                            res.redirect('/');
+                        });
+                    }
+                    res.redirect('/login');
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            console.log(err);
+            res.redirect('/login');
+        });
 };
 
 exports.postLogout = (req, res, next) => {
@@ -26,26 +47,29 @@ exports.postLogout = (req, res, next) => {
     res.redirect('/');
 };
 
+// ---------- SIGNUP ----------
 exports.postSignup = (req, res, next) => {
     const { email, username, password } = req.body;
 
+    // Check to see if use exists
     User.findByEmail(email)
-        .then((result) => {
-            // if user exist, redirect to '/signup' page
-            // else do the registration
-            if (result) {
-                // console.log('***** ALREADY EXISTSED *****');
+        .then((user) => {
+            if (user) {
+                console.log({ USER_ALREADY_EXISTED: user });
                 return res.redirect('/signup');
-            } else {
-                User.addUser(email, username, password)
-                    .then((result) => {
-                        // console.log('***** JSUT REGISTERED *****');
-                        return res.redirect('/login');
-                    })
-                    .catch((err) => console.log(err));
             }
+
+            // If not, hash the password and register
+            return bcrypt.hash(password, 10).then((hashPassword) => {
+                User.addUser(email, username, hashPassword).then((user) => {
+                    console.log({ SUCESSFULLY_REGISTERED: user });
+                    return res.redirect('/login');
+                });
+            });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 exports.getSignup = (req, res, next) => {
@@ -55,6 +79,7 @@ exports.getSignup = (req, res, next) => {
     });
 };
 
+// ---------- FORGOT PASSWORD ----------
 exports.getForgotPassword = (req, res, next) => {
     res.render('auth/forgot-password.ejs', {
         isAuthenticated: req.session.user,
