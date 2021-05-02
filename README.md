@@ -14,17 +14,22 @@ Instagram used to be really good before facebook bought it. Now it has gotta a l
 
 # Demo
 
-<em>soon!</em>
+I have a live prototye running at the link below.
 
-# How-To
-
-<em>soon!</em>
+```
+https://tvl.jawstrength.com/
+```
 
 # Technology
+<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />‏‎ ‎‏‎ 
+<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" /> ‎‏‎ 
+<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />‏‎ ‎‏‎ 
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> ‎‏‎ 
+<img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white" />‏‎ ‎‏‎ 
 
-<em>soon!</em>
 
-# Database configuration (do this before development)
+
+# Database configuration
 
 Within this project I have include `.evn.example` file with secret credentials. Name that file to .env and put in proper credentials. And also make sure to install `postgresql` database and create proper account first.
 
@@ -35,11 +40,12 @@ DB_USERNAME="username"
 DB_PASSWORD="password"
 DB_DATABASE="database"
 DB_PORT=0000
+COOKIE_SECRET="THIS IS NOT A SECRET"
 ```
 
 After setting up your `.env` file, set your postgres user credentials within `configureDaatabase.sh`
 
-## Development
+# Development
 
 0. `git clone https://github.com/wajeht/training-vlog.git` to download this repo
 1. `npm run configure` to to set up database and table
