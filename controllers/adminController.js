@@ -6,6 +6,14 @@ const comments = [];
 exports.getVideo = (req, res, next) => {
     const { id } = req.params;
 
+    let currentSessionUser = null;
+
+    if (req.session.user) {
+        currentSessionUser = req.session.user.username;
+    } else {
+        currentSessionUser = null;
+    }
+
     Video.findById(id)
         .then((video) => {
             if (video == undefined) {
@@ -26,9 +34,7 @@ exports.getVideo = (req, res, next) => {
                     comments: comments,
                     isAuthenticated: req.session.user,
                     author: user.username,
-                    currentSessionUser: () => {
-                        return req.session.user ? req.session.user.username : null;
-                    },
+                    currentSessionUser: currentSessionUser,
                 });
             });
         })
