@@ -2,7 +2,10 @@ const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
 
 // ---------- LOGIN ----------
-exports.getLogin = (req, res, nexdt) => {
+exports.getLogin = (req, res, next) => {
+    if (req.session.user) {
+        res.redirect('/');
+    }
     console.log('isLoggedIn', req.session.isLoggedIn);
     res.render('auth/login.ejs', {
         pageTitle: 'Login',
@@ -73,6 +76,9 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
+    if (req.session.user) {
+        res.redirect('/');
+    }
     res.render('auth/signup.ejs', {
         pageTitle: 'Signup',
         isAuthenticated: req.session.user,
