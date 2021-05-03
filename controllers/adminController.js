@@ -1,9 +1,10 @@
 const Video = require('../models/video.js');
+const User = require('../models/user.js');
 const comments = [];
 
 // ---------- VIDEO ----------
 exports.getVideo = (req, res, next) => {
-    const id = req.params.id;
+    const { id } = req.params;
 
     Video.findById(id)
         .then((video) => {
@@ -16,11 +17,17 @@ exports.getVideo = (req, res, next) => {
                 });
             }
             console.log({ '***** adminController.getVideo ***** ': video });
-            res.render('video/video-details.ejs', {
-                video: video,
-                pageTitle: `Video ${id}: ${video.title}`,
-                comments: comments,
-                isAuthenticated: req.session.user,
+
+            // to render post author info
+            User.findById(video.userId).then((user) => {
+                res.render('video/video-details.ejs', {
+                    video: video,
+                    pageTitle: `Video ${id}: ${video.title}`,
+                    comments: comments,
+                    isAuthenticated: req.session.user,
+                    author: user.username,
+                    currentSessionUser: req.session.user.username,
+                });
             });
         })
         .catch((err) => console.log(err));

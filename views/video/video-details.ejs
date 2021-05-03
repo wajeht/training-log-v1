@@ -10,18 +10,28 @@
                             <img src="<%= video.videoUrl %> " />
                         </div>
 
+
+
                         <div class="card-content">
                             <span class="card-title grey-text text-darken-4">
                                 <%= video.title %>
                             </span>
+
+                            <div class="chip">
+                                <img src="<%= video.videoUrl %>">
+                                <%= author %>
+                            </div>
+
+
+
+
                             <div style="white-space: pre-wrap">
                                 <%= video.message %>
                             </div>
                         </div>
 
 
-                        <% if (isAuthenticated) { %>
-
+                        <% if (isAuthenticated && author==currentSessionUser) { %>
 
                             <div class="card-action">
                                 <form class="left" action="/edit-video/<%= video.id %>" method="post">
@@ -44,6 +54,8 @@
                 </div>
             </div>
         </div>
+        <br>
+
 
         <!-- <% if (comments.length> 0) { %> <% for (let comment of comments) { %>
 
