@@ -26,7 +26,9 @@ exports.getVideo = (req, res, next) => {
                     comments: comments,
                     isAuthenticated: req.session.user,
                     author: user.username,
-                    currentSessionUser: req.session.user.username,
+                    currentSessionUser: () => {
+                        return req.session.user ? req.session.user.username : null;
+                    },
                 });
             });
         })
