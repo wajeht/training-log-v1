@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt');
 exports.getLogin = (req, res, nexdt) => {
     console.log('isLoggedIn', req.session.isLoggedIn);
     res.render('auth/login.ejs', {
-        isAuthenticated: req.session.user,
         pageTitle: 'Login',
+        isAuthenticated: req.session.user,
     });
 };
 
@@ -74,15 +74,15 @@ exports.postSignup = (req, res, next) => {
 
 exports.getSignup = (req, res, next) => {
     res.render('auth/signup.ejs', {
-        isAuthenticated: req.session.user,
         pageTitle: 'Signup',
+        isAuthenticated: req.session.user,
     });
 };
 
 // ---------- FORGOT PASSWORD ----------
 exports.getForgotPassword = (req, res, next) => {
     res.render('auth/forgot-password.ejs', {
-        isAuthenticated: req.session.user,
         pageTitle: 'Forgot password?',
+        isAuthenticated: req.session.user,
     });
 };
