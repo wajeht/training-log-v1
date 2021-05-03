@@ -18,3 +18,4 @@
 -- ('yanllone', 'password', 'yanlon@dog.com');
 
 
+ALTER TABLE "public"."videos" ADD FOREIGN KEY ("userId") REFERENCES "public"."users" ("id");

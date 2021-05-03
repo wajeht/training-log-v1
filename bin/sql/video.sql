@@ -4,6 +4,7 @@ CREATE TABLE videos (
     date        TIMESTAMP NOT NULL, 
     "videoUrl"  CHARACTER VARYING(1000) NOT NULL,
     title       CHARACTER VARYING(1000) NOT NULL,
-    message     CHARACTER VARYING(1000) NOT NULL
+    message     CHARACTER VARYING(1000) NOT NULL,
+    "userId"    INTEGER NOT NULL
 );
 \echo

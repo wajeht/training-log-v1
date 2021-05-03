@@ -7,6 +7,14 @@ exports.getVideo = (req, res, next) => {
 
     Video.findById(id)
         .then((video) => {
+            if (video == undefined) {
+                console.log({ 404: ' ##### adminController.getVideo (404) #####' });
+                res.setStatus = 404;
+                return res.render('404.ejs', {
+                    pageTitle: '404',
+                    isAuthenticated: false,
+                });
+            }
             console.log({ '***** adminController.getVideo ***** ': video });
             res.render('video/video-details.ejs', {
                 video: video,
@@ -28,8 +36,9 @@ exports.getAddVideo = (req, res, next) => {
 
 exports.postAddVideo = (req, res, next) => {
     const { date, videoUrl, title, message } = req.body;
+    const userId = req.session.user.id;
 
-    Video.addVideo(date, videoUrl, title, message)
+    Video.addVideo(date, videoUrl, title, message, userId)
         .then(() => {
             console.log({ '***** adminController.postAddVideo ***** ': req.body });
             res.redirect('/');
