@@ -9,6 +9,7 @@ exports.getLogin = (req, res, next) => {
     console.log('isLoggedIn', req.session.isLoggedIn);
     res.render('auth/login.ejs', {
         pageTitle: 'Login',
+        authMessage: req.flash('error'),
     });
 };
 
@@ -17,6 +18,7 @@ exports.postLogin = (req, res, next) => {
     User.findByEmail(email)
         .then((user) => {
             if (user == null) {
+                req.flash('error', 'user does not exist with that credentials');
                 return res.redirect('/login');
             }
             bcrypt
@@ -30,6 +32,7 @@ exports.postLogin = (req, res, next) => {
                             res.redirect('/');
                         });
                     }
+                    req.flash('error', 'wrong email or password');
                     res.redirect('/login');
                 })
                 .catch((err) => {

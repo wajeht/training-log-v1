@@ -4,6 +4,7 @@ const app = express();
 // util
 const path = require('path');
 const config = require('./config/config.js');
+const flash = require('connect-flash');
 
 // to protect session
 const csrf = require('csurf');
@@ -29,6 +30,9 @@ app.set('views', 'views');
 // parse user input
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
+
+// auth err message
+app.use(flash());
 
 // session store
 app.use(

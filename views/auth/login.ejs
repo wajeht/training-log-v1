@@ -9,53 +9,62 @@
                     <div class="card">
                         <div class="card-content">
 
+
                             <div class="row">
                                 <div class="input-field col s12">
                                     <span class="card-title grey-text text-darken-4">Login</span>
                                 </div>
                             </div>
 
-
-                            <form action="/login" method="POST">
-
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="email" type="email" name="email" id="email" class="validate"
-                                               required>
-                                        <label for="email">Email</label>
-                                    </div>
+                            <!-- // display auth error message if failed logi -->
+                            <% if (authMessage.length> 0) { %>
+                                <div class="chip">
+                                    <%= authMessage[0] %>
+                                        <i class="close material-icons">close</i>
                                 </div>
+                                <% } %>
+
+                                    <form action="/login" method="POST">
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="email" type="email" name="email" id="email" class="validate"
+                                                       required>
+                                                <label for="email">Email</label>
+                                            </div>
+                                        </div>
 
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="password" type="password" name="password" id="password"
-                                               class="validate" required>
-                                        <label for="password">Password</label>
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="password" type="password" name="password" id="password"
+                                                       class="validate" required>
+                                                <label for="password">Password</label>
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="input-field right col 12">
-                                        <a class="grey-text text-darken-4" href='/forgot-password'>Forgot
-                                            Password?</a>‏‎ ‎‏‎ ‎‏‎ ‎‏‎
-                                        <a class="grey-text text-darken-4" href='/signup'>Signup</a>
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="center col s12">
-                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                        <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                                name="action">Submit
-                                            <i class="material-icons right ">send</i>
-                                        </button>
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <div class="input-field right col 12">
+                                                <a class="grey-text text-darken-4" href='/forgot-password'>Forgot
+                                                    Password?</a>‏‎ ‎‏‎ ‎‏‎ ‎‏‎
+                                                <a class="grey-text text-darken-4" href='/signup'>Signup</a>
+                                            </div>
+                                        </div>
 
 
-                            </form>
+                                        <div class="row">
+                                            <div class="center col s12">
+                                                <input type="hidden" id="csrfToken" name="_csrf"
+                                                       value="<%= csrfToken %>">
+                                                <button class="btn waves-effect waves-light grey darken-4" type="submit"
+                                                        name="action">Submit
+                                                    <i class="material-icons right ">send</i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
 
 
                         </div>
