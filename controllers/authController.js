@@ -9,13 +9,11 @@ exports.getLogin = (req, res, next) => {
     console.log('isLoggedIn', req.session.isLoggedIn);
     res.render('auth/login.ejs', {
         pageTitle: 'Login',
-        isAuthenticated: req.session.user,
     });
 };
 
 exports.postLogin = (req, res, next) => {
     const { password, email } = req.body;
-
     User.findByEmail(email)
         .then((user) => {
             if (user == null) {
@@ -81,7 +79,6 @@ exports.getSignup = (req, res, next) => {
     }
     res.render('auth/signup.ejs', {
         pageTitle: 'Signup',
-        isAuthenticated: req.session.user,
     });
 };
 
@@ -89,6 +86,5 @@ exports.getSignup = (req, res, next) => {
 exports.getForgotPassword = (req, res, next) => {
     res.render('auth/forgot-password.ejs', {
         pageTitle: 'Forgot password?',
-        isAuthenticated: req.session.user,
     });
 };

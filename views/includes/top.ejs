@@ -65,6 +65,7 @@
                         <li><a href="/add-video">add-video</a></li>
                         <li>
                             <form action="/logout" method="post">
+                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
                                 <button class="btn-flat waves-effect waves-light white black-text text-darken-4"
                                         type="submit">logout</button>
                             </form>
@@ -80,6 +81,7 @@
                     <% if (isAuthenticated) { %>
 
                         <li><a href="/add-video">add-video</a></li>
+
                         <li><a href="/logout">logout</a></li>
 
 

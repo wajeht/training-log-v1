@@ -32,7 +32,6 @@ exports.getVideo = (req, res, next) => {
                     video: video,
                     pageTitle: `Video ${id}: ${video.title}`,
                     comments: comments,
-                    isAuthenticated: req.session.user,
                     author: user.username,
                     currentSessionUser: currentSessionUser,
                 });
@@ -45,7 +44,6 @@ exports.getAddVideo = (req, res, next) => {
     console.log({ '***** adminController.getAddVideo ***** ': '' });
     res.render('video/add-video.ejs', {
         pageTitle: 'add video page',
-        isAuthenticated: req.session.user,
     });
 };
 
@@ -82,7 +80,6 @@ exports.postEditVideo = (req, res, next) => {
             res.render('video/edit-video.ejs', {
                 videoArray: result,
                 pageTitle: 'edit videos',
-                isAuthenticated: req.session.user,
             });
         })
         .catch((err) => {

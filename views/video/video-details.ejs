@@ -38,11 +38,13 @@
                                     <input type="hidden" name="title" id="title" value="<%= video.title %>" />
                                     <input type="hidden" name="message" id="message" value="<%= video.message %>" />
                                     <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                                    <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
                                     <button class="btn waves-effect waves-light grey darken-4" type="submit">edit<i
                                            class="material-icons right">edit</i></button>
                                 </form>
                                 <form class="right" action="/delete-video/<%= video.id %>" method="post">
                                     <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                                    <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
                                     <button class="btn waves-effect waves-light grey darken-4" type="submit">delete<i
                                            class="material-icons right">delete</i></button>
                                 </form>
@@ -119,6 +121,7 @@
 
                                                 <div class="row">
                                                     <div class="center col s12">
+                                        <input type="hidden" id="_csrf" name="csrfToken" value="<%= csrfToken %>">
                                                         <button class="btn waves-effect waves-light grey darken-4"
                                                                 type="submit" name="action">
                                                             Submit

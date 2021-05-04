@@ -5,6 +5,10 @@ const app = express();
 const path = require('path');
 const config = require('./config/config.js');
 
+// to protect session
+const csrf = require('csurf');
+const csrfProtechtion = csrf();
+
 // session
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
@@ -17,9 +21,14 @@ const adminRouter = require('./routes/adminRouter.js');
 const authRouter = require('./routes/authRouter.js');
 const errorController = require('./controllers/errorController.js');
 
-// html
+// html/ejs templatation engine
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+// to serve public files and
+// parse user input
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: false }));
 
 // session store
 app.use(
@@ -29,14 +38,27 @@ app.use(
             tableName: 'session',
         }),
         secret: config.cookie.secret,
-        proxy: true,
-        resave: true,
-        saveUninitialized: true,
+        resave: false,
+        saveUninitialized: false,
     })
 );
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: false }));
+// csrf on all POST request
+// ususally pass it from view
+// for security
+// so bad guys can't use our session store
+app.use(csrfProtechtion);
+app.use((req, res, next) => {
+    // const token = req.csrfToken();
+    // res.cookie('XSRF-TOKEN', token);
+    // res.locals._csrf = token;
+
+    res.locals.csrfToken = req.csrfToken();
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    next();
+});
+
+// routes
 app.use(indexRouter);
 app.use(authRouter);
 app.use(adminRouter);

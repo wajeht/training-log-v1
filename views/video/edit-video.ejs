@@ -1,82 +1,62 @@
 <%- include("../includes/top.ejs") %>
 
-<main>
-    <div class="container">
-        <br /><br />
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <span class="card-title grey-text text-darken-4">edit video</span>
-                            </div>
-                        </div>
-
-                        <form action="/video/<%= videoArray.id %>" method="POST">
+    <main>
+        <div class="container">
+            <br /><br />
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <textarea
-                                        id="icon_prefix"
-                                        id="videoUrl"
-                                        name="videoUrl"
-                                        class="materialize-textarea"
-                                        required
-                                    >
- <%= videoArray.videoUrl %>  </textarea
-                                    >
-                                    <label for="icon_prefix">Video URL</label>
+                                    <span class="card-title grey-text text-darken-4">edit video</span>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="input-field center col s12">
-                                    <textarea
-                                        id="icon_prefix"
-                                        id="title"
-                                        name="title"
-                                        class="materialize-textarea"
-                                        required
-                                    >
-<%= videoArray.title %> </textarea
-                                    >
-                                    <label for="icon_prefix">Title</label>
+                            <form action="/video/<%= videoArray.id %>" method="POST">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="icon_prefix" id="videoUrl" name="videoUrl"
+                                                  class="materialize-textarea" required>
+ <%= videoArray.videoUrl %>  </textarea>
+                                        <label for="icon_prefix">Video URL</label>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="input-field center col s12">
-                                    <textarea
-                                        id="icon_prefix"
-                                        id="message"
-                                        name="message"
-                                        class="materialize-textarea"
-                                        required
-                                    >
-<%= videoArray.message %> </textarea
-                                    >
-                                    <label for="icon_prefix">Message</label>
+                                <div class="row">
+                                    <div class="input-field center col s12">
+                                        <textarea id="icon_prefix" id="title" name="title" class="materialize-textarea"
+                                                  required>
+<%= videoArray.title %> </textarea>
+                                        <label for="icon_prefix">Title</label>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="center col s12">
-                                    <button
-                                        class="btn waves-effect waves-light grey darken-4"
-                                        type="submit"
-                                        name="<%= videoArray.id  %>"
-                                    >
-                                        Update
-                                        <i class="material-icons right">update</i>
-                                    </button>
+                                <div class="row">
+                                    <div class="input-field center col s12">
+                                        <textarea id="icon_prefix" id="message" name="message"
+                                                  class="materialize-textarea" required>
+<%= videoArray.message %> </textarea>
+                                        <label for="icon_prefix">Message</label>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+
+                                <div class="row">
+                                    <div class="center col s12">
+                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+                                        <button class="btn waves-effect waves-light grey darken-4" type="submit"
+                                                name="<%= videoArray.id  %>">
+                                            Update
+                                            <i class="material-icons right">update</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<%- include("../includes/bottom.ejs") %>
+    <%- include("../includes/bottom.ejs") %>
