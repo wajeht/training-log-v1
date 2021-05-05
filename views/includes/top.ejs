@@ -93,14 +93,19 @@
                     <% if (isAuthenticated) { %>
 
                         <li><a href="/add-video">add-video</a></li>
+                     
+                            <form action="/logout" id="log-out" method="post">
+                                <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
 
-                        <li><a href="/logout">logout</a></li>
-
+                                <li><a href="javascript:{}"
+                                   onclick="document.getElementById('log-out').submit(); return false;">logout</a></li>
+                           
+                            </form>
+                        
 
                         <% } else { %>
                             <li><a href="/login">login</a></li>
                             <% } %>
-
                 </ul>
                 <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
