@@ -20,6 +20,10 @@ const config = {
     cookie: {
         secret: process.env.COOKIE_SECRET,
     },
+    sendGrid: {
+        apiKey: process.env.SENDGRID_API_KEY,
+        fromEmail: process.env.SENDGRID_FROM_EMAIL,
+    },
 };
 
 module.exports = config;

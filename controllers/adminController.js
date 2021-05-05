@@ -28,8 +28,11 @@ exports.getVideo = (req, res, next) => {
 
             // to render post author info
             User.findById(video.userId).then((user) => {
+                const date = video.date.toString().split(' ').slice(1, 4).join(" ");
+
                 res.render('video/video-details.ejs', {
                     video: video,
+                    date: date,
                     pageTitle: `Video ${id}: ${video.title}`,
                     comments: comments,
                     author: user.username,

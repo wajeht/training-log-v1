@@ -16,52 +16,58 @@
                             <span class="card-title grey-text text-darken-4">
                                 <%= video.title %>
                             </span>
-
-                            <div class="card-content">
+                            <p>
                                 <%= video.message %>
-                            </div>
+                            </p>
+                        </div>
 
+                        <div class=" card-action">
                             <div class="chip">
                                 <img src="<%= video.videoUrl %>">
                                 <%= author %>
                             </div>
-
                             <div class="chip">
                                 <img src="<%= video.videoUrl %>">
-                                <%= video.date; %>
+                                <%= date %>
                             </div>
+
+
+                            <% if (isAuthenticated && author==currentSessionUser) { %>
+
+
+                                <div class="chip right">
+                                    <form id="edit-video" action="/edit-video/<%= video.id %>" method="post">
+                                        <input type="hidden" name="title" id="title" value="<%= video.title %>" />
+                                        <input type="hidden" name="message" id="message" value="<%= video.message %>" />
+                                        <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+                                        <a href="javascript:{}"
+                                           onclick="document.getElementById('edit-video').submit(); return false;"><i
+                                               class="material-icons grey-text text-darken-2"
+                                               style="font-size: 20px">edit</i></a>
+                                    </form> ‏‎ ‎‏‎
+                                </div>
+
+                                <div class="chip right">
+                                    <form id="delete-video" action="/delete-video/<%= video.id %>" method="post">
+                                        <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+                                        <a href="javascript:{}"
+                                           onclick="document.getElementById('edit-video').submit(); return false;"><i
+                                               class="material-icons grey-text text-darken-2"
+                                               style="font-size: 20px">delete</i></a>
+                                    </form> ‏‎ ‎
+                                </div>
+
+                                <% } %>
                         </div>
-
-
-                        <% if (isAuthenticated && author==currentSessionUser) { %>
-
-                            <div class="card-action">
-                                <form class="left" action="/edit-video/<%= video.id %>" method="post">
-                                    <input type="hidden" name="title" id="title" value="<%= video.title %>" />
-                                    <input type="hidden" name="message" id="message" value="<%= video.message %>" />
-                                    <input type="hidden" name="id" id="id" value="<%= video.id %>" />
-                                    <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                    <button class="btn waves-effect waves-light grey darken-4" type="submit">edit<i
-                                           class="material-icons right">edit</i></button>
-                                </form>
-                                <form class="right" action="/delete-video/<%= video.id %>" method="post">
-                                    <input type="hidden" name="id" id="id" value="<%= video.id %>" />
-                                    <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                    <button class="btn waves-effect waves-light grey darken-4" type="submit">delete<i
-                                           class="material-icons right">delete</i></button>
-                                </form>
-                                <br />
-                                <br />
-                            </div>
-                            <% } %>
                     </div>
                 </div>
             </div>
-        </div>
-        <br>
+            <br>
 
 
-        <!-- <% if (comments.length> 0) { %> <% for (let comment of comments) { %>
+            <!-- <% if (comments.length> 0) { %> <% for (let comment of comments) { %>
 
                 <div class="container">
                     <div class="row">
