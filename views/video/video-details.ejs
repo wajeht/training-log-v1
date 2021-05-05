@@ -17,16 +17,18 @@
                                 <%= video.title %>
                             </span>
 
+                            <div class="card-content">
+                                <%= video.message %>
+                            </div>
+
                             <div class="chip">
                                 <img src="<%= video.videoUrl %>">
                                 <%= author %>
                             </div>
 
-
-
-
-                            <div style="white-space: pre-wrap">
-                                <%= video.message %>
+                            <div class="chip">
+                                <img src="<%= video.videoUrl %>">
+                                <%= video.date; %>
                             </div>
                         </div>
 
