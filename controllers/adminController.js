@@ -6,6 +6,11 @@ const comments = [];
 exports.getVideo = (req, res, next) => {
     const { id } = req.params;
 
+    let username = null;
+    if (req.session.user) {
+        username = req.session.user.username;
+    }
+
     let currentSessionUser = null;
 
     if (req.session.user) {
@@ -32,6 +37,7 @@ exports.getVideo = (req, res, next) => {
                 const date = new Date(video.date.toString()).toLocaleDateString();
 
                 res.render('video/video-details.ejs', {
+                    username: username,
                     video: video,
                     date: date,
                     pageTitle: `Video ${id}: ${video.title}`,
@@ -45,9 +51,14 @@ exports.getVideo = (req, res, next) => {
 };
 
 exports.getAddVideo = (req, res, next) => {
+    let username = null;
+    if (req.session.user) {
+        username = req.session.user.username;
+    }
     console.log({ '***** adminController.getAddVideo ***** ': '' });
     res.render('video/add-video.ejs', {
         pageTitle: 'add video page',
+        username: username,
     });
 };
 
@@ -77,11 +88,17 @@ exports.postUpdateVideo = (req, res, next) => {
 };
 
 exports.postEditVideo = (req, res, next) => {
+    let username = null;
+    if (req.session.user) {
+        username = req.session.user.username;
+    }
+
     const id = parseInt(req.params.id);
     Video.findById(id)
         .then((result) => {
             console.log({ '***** adminController.postEditVideo ***** ': result });
             res.render('video/edit-video.ejs', {
+                username: username,
                 videoArray: result,
                 pageTitle: 'edit videos',
             });

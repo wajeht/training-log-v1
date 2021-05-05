@@ -27,7 +27,7 @@
 
     .post-title {
         font-size: 100%;
-        padding: 10px;
+        padding: 7px;
     }
 
     form#edit-video,
@@ -35,6 +35,23 @@
         font-size: 1px;
         padding-top: 4px;
         width: min-content;
+    }
+
+    .dropdown-content {
+        overflow-y: hidden;
+        top: 100% !important;
+        min-width: max-content;
+    }
+
+    .dropdown-content li>a,
+    .dropdown-content li>span {
+        color: white !important;
+        background-color: #424242;
+    }
+
+    .dropdown-content li>a:hover {
+        border: 1px solid #424242;
+        background-color: #212121 !important;
     }
 </style>
 
@@ -59,6 +76,12 @@
     })
 
 
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(elems);
+    });
+
+
 </script>
 
 
@@ -74,51 +97,65 @@
 
                     <% if (isAuthenticated) { %>
 
-                        <li><a href="/add-video">add-video</a></li>
-                        <li>
+                        <!-- Dropdown Trigger -->
+                        <a class='dropdown-trigger ' href='#' data-target='dropdown'>
+                            <%= username %>
+                        </a>
+
+
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown' class='dropdown-content'>
+
+                            <li><a href="/add-video">add-video</a></li>
                             <form action="/logout" method="post">
                                 <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                <button class="btn-flat waves-effect waves-light white black-text text-darken-4"
-                                        type="submit">logout</button>
+                                <li><a href="javascript:{}"
+                                       onclick="document.getElementById('log-out').submit(); return false;">logout</a>
+                                </li>
                             </form>
-                        </li>
+                        </ul>
+
 
                         <% } else { %>
                             <li><a href="/login">login</a></li>
                             <% } %>
                 </ul>
 
-                <ul id="nav-mobile" class="sidenav">
+
+
+                <ul id="slide-out" class="sidenav">
 
                     <% if (isAuthenticated) { %>
+                        <li class="grey darken-4">
+
+                            <a href="#email"><span class="white-text">
+                                    <%= username %>
+                                </span></a>
+
+                        </li>
 
                         <li><a href="/add-video">add-video</a></li>
-                     
-                            <form action="/logout" id="log-out" method="post">
-                                <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
 
-                                <li><a href="javascript:{}"
+                        <form action="/logout" id="log-out" method="post">
+                            <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+
+                            <li><a href="javascript:{}"
                                    onclick="document.getElementById('log-out').submit(); return false;">logout</a></li>
-                           
-                            </form>
-                        
+
+                        </form>
+
 
                         <% } else { %>
                             <li><a href="/login">login</a></li>
                             <% } %>
                 </ul>
-                <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <!-- <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
             </div>
 
-            <!-- <div class="nav-header container center" style="height: 300px;">
-                <br>
-                <img src="images/sample-1.jpg" alt="" class="circle" width="15%">
-                <h4>yanllone</h4>
-                <br>
-            </div> -->
+
+
 
 
         </nav>
-
-
     </header>
