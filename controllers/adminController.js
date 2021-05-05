@@ -22,14 +22,14 @@ exports.getVideo = (req, res, next) => {
     Video.findById(id)
         .then((video) => {
             if (video == undefined) {
-                console.log({ 404: ' ##### adminController.getVideo (404) #####' });
+                // console.log({ 404: ' ##### adminController.getVideo (404) #####' });
                 res.setStatus = 404;
                 return res.render('404.ejs', {
                     pageTitle: '404',
                     isAuthenticated: false,
                 });
             }
-            console.log({ '***** adminController.getVideo ***** ': video });
+            // console.log({ '***** adminController.getVideo ***** ': video });
 
             // to render post author info
             User.findById(video.userId).then((user) => {
@@ -55,7 +55,7 @@ exports.getAddVideo = (req, res, next) => {
     if (req.session.user) {
         username = req.session.user.username;
     }
-    console.log({ '***** adminController.getAddVideo ***** ': '' });
+    // console.log({ '***** adminController.getAddVideo ***** ': '' });
     res.render('video/add-video.ejs', {
         pageTitle: 'add video page',
         username: username,
@@ -68,7 +68,7 @@ exports.postAddVideo = (req, res, next) => {
 
     Video.addVideo(date, videoUrl, title, message, userId)
         .then(() => {
-            console.log({ '***** adminController.postAddVideo ***** ': req.body });
+            // console.log({ '***** adminController.postAddVideo ***** ': req.body });
             res.redirect('/');
         })
         .catch((err) => {
@@ -96,7 +96,7 @@ exports.postEditVideo = (req, res, next) => {
     const id = parseInt(req.params.id);
     Video.findById(id)
         .then((result) => {
-            console.log({ '***** adminController.postEditVideo ***** ': result });
+            // console.log({ '***** adminController.postEditVideo ***** ': result });
             res.render('video/edit-video.ejs', {
                 username: username,
                 videoArray: result,

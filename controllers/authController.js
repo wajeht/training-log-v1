@@ -76,6 +76,7 @@ exports.postSignup = (req, res, next) => {
 
             // If not, hash the password and register
             return bcrypt.hash(password, 10).then((hashPassword) => {
+                console.log('#################', hashPassword);
                 User.addUser(email, username, hashPassword).then((user) => {
                     console.log({ SUCESSFULLY_REGISTERED: user });
                     return res.redirect('/login');
