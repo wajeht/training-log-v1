@@ -1,4 +1,4 @@
-\echo 'creating "user" table'
+\echo 'creating "users" table'
 CREATE TABLE users (
     id              SERIAL PRIMARY KEY NOT NULL,
     email           CHARACTER VARYING(100) NOT NULL,

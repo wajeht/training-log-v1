@@ -1,22 +1,20 @@
 const Video = require('../models/video.js');
 const User = require('../models/user.js');
-const comments = [];
+const Comment = require('../models/comments.js');
 
 // ---------- VIDEO ----------
 exports.getVideo = (req, res, next) => {
     const { id } = req.params;
 
     let username = null;
-    if (req.session.user) {
-        username = req.session.user.username;
-    }
-
     let currentSessionUser = null;
 
     if (req.session.user) {
+        username = req.session.user.username;
         currentSessionUser = req.session.user.username;
     } else {
         currentSessionUser = null;
+        username = null;
     }
 
     Video.findById(id)
@@ -36,14 +34,20 @@ exports.getVideo = (req, res, next) => {
                 // const date = video.date.toString().split(' ').slice(1, 4).toLocalDateString();
                 const date = new Date(video.date.toString()).toLocaleDateString();
 
-                res.render('video/video-details.ejs', {
-                    username: username,
-                    video: video,
-                    date: date,
-                    pageTitle: `Video ${id}: ${video.title}`,
-                    comments: comments,
-                    author: user.username,
-                    currentSessionUser: currentSessionUser,
+                // fetch comment
+                Comment.fetchComment(video.id).then((result) => {
+                    console.log('###################', result);
+                    return res.render('video/video-details.ejs', {
+                        userId: video.userId,
+                        videId: video.id,
+                        username: username,
+                        video: video,
+                        date: date,
+                        pageTitle: `Video ${id}: ${video.title}`,
+                        comments: result,
+                        author: user.username,
+                        currentSessionUser: currentSessionUser,
+                    });
                 });
             });
         })
@@ -119,10 +123,14 @@ exports.postDeleteVideo = (req, res, next) => {
 
 // ---------- COMMENT ----------
 exports.postAddComment = (req, res, next) => {
-    const data = {
-        name: req.body.name,
-        message: req.body.message,
-    };
-    comments.push(data);
-    res.redirect('/video-details');
+    const date = new Date().toLocaleDateString();
+    const { message, videoId, userId } = req.body;
+
+    Comment.addComment(date, message, videoId, userId)
+        .then((result) => {
+            res.redirect(`/video/${videoId}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
