@@ -1,5 +1,7 @@
 <%- include("../includes/top.ejs") %>
 
+
+
     <main>
 
         <div class="container">
@@ -15,7 +17,31 @@
                                 </div>
                             </div>
 
+
                             <form action="/add-video" method="POST">
+
+
+                                <div id="image-preview" class="row">
+                                    <div class="input-field col s12 center">
+                                        <img id="image-output" width="50%" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <div class="file-field input-field">
+                                            <div class="btn waves-effect waves-light grey darken-4">
+                                                <span>Upload</span>
+                                                <input type="file" multiple>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text"
+                                                       placeholder="Upload one or more files" accept="image/*"
+                                                       name="image-file" id="image-file" onchange="previewFile()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -23,6 +49,7 @@
                                         <label for="icon_prefix">Date</label>
                                     </div>
                                 </div>
+
 
                                 <div class="row">
                                     <div class="input-field col s12">
