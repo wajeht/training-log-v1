@@ -125,7 +125,7 @@ exports.postDeleteVideo = (req, res, next) => {
 
 // ---------- COMMENT ----------
 exports.postAddComment = (req, res, next) => {
-    const date = new Date().toLocaleDateString();
+    const date = new Date();
     let { message, videoId, userId } = req.body;
 
     // had to turn into number bcause

@@ -14,10 +14,15 @@ module.exports = class Comment {
         });
     }
 
+    /**
+     * get a list of comments in accednign order based on video id 
+     * @param {number} videoId 
+     * @returns {array[]} a list of comments
+     */
     static fetchComment(videoId) {
         return new Promise((resolve, reject) => {
             pool.query(
-                'SELECT*FROM"comments" INNER JOIN users ON users.id="userId" where "videoId" = ($1) ORDER BY "comments".id DESC',
+                'SELECT*FROM"comments" INNER JOIN users ON users.id="userId" where "videoId" = ($1) ORDER BY "comments".date ASC',
                 [videoId],
                 (err, response) => {
                     if (err) return reject(err);

@@ -32,12 +32,12 @@ ALTER TABLE "public"."comments" ADD FOREIGN KEY ("videoId") REFERENCES "public".
 ALTER TABLE "public"."comments" ADD FOREIGN KEY ("userId") REFERENCES "public"."users" ("id");
 
 -- \echo 'inserting data into "comment" table'
-INSERT INTO comments (date, comment, "videoId", "userId")
-VALUES
-('04/29/2021', 'This is so cool bruh', 12, 1),
-('04/29/2021', 'Yeah, youre right', 12, 2),
-('04/29/2021', 'You mirin', 12, 3),
-('04/20/2021', 'You mirin', 3, 1),
-('04/20/2021', 'You mirin', 3, 2),
-('04/03/2021', 'You mirin', 11, 1);
+-- INSERT INTO comments (date, comment, "videoId", "userId")
+-- VALUES
+-- ('04/29/2021', 'This is so cool bruh', 12, 1),
+-- ('04/29/2021', 'Yeah, youre right', 12, 2),
+-- ('04/29/2021', 'You mirin', 12, 3),
+-- ('04/20/2021', 'You mirin', 3, 1),
+-- ('04/20/2021', 'You mirin', 3, 2),
+-- ('04/03/2021', 'You mirin', 11, 1);
 -- \echo

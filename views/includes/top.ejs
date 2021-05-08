@@ -41,6 +41,10 @@
         background-color: #424242 !important;
     }
 
+    .auth-font-siize {
+        font-size: 2.1rem;
+    }
+
     .dropdown-content {
         overflow-y: hidden;
         top: 100% !important;
@@ -124,7 +128,7 @@
                     <% if (isAuthenticated) { %>
 
                         <!-- Dropdown Trigger -->
-                        <a class='dropdown-trigger ' href='#' data-target='dropdown'>
+                        <a class='dropdown-trigger  auth-font-siize' href='#' data-target='dropdown'>
                             <%= username %>
                         </a>
 
@@ -143,7 +147,9 @@
 
 
                         <% } else { %>
-                            <li><a href="/login">login</a></li>
+                            <li>
+                                <a href=" /login">login</a>
+                            </li>
                             <% } %>
                 </ul>
 
