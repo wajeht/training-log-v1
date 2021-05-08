@@ -17,7 +17,7 @@ module.exports = class Comment {
     static fetchComment(videoId) {
         return new Promise((resolve, reject) => {
             pool.query(
-                'SELECT*FROM"comments" INNER JOIN users ON users.id="userId" where "videoId" = ($1)',
+                'SELECT*FROM"comments" INNER JOIN users ON users.id="userId" where "videoId" = ($1) ORDER BY "comments".id DESC',
                 [videoId],
                 (err, response) => {
                     if (err) return reject(err);

@@ -38,6 +38,7 @@ exports.getVideo = (req, res, next) => {
 
                 // fetch comment
                 Comment.fetchComment(video.id).then((result) => {
+                    console.log('##############', result);
                     return res.render('video/video-details.ejs', {
                         currentSessionUserId: currentSessionUserId,
                         videId: video.id,
