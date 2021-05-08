@@ -10,6 +10,9 @@ const flash = require('connect-flash');
 const csrf = require('csurf');
 const csrfProtechtion = csrf();
 
+// security
+const helmet = require('helmet');
+
 // session
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
@@ -30,6 +33,18 @@ app.set('views', 'views');
 // parse user input
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
+
+// security
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                'img-src': ["'self'", 'dummyimage.com'],
+            },
+        },
+    })
+);
 
 // auth err message
 app.use(flash());
