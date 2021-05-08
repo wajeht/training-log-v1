@@ -35,16 +35,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 
 // security
-app.use(
-    helmet({
-        contentSecurityPolicy: {
-            directives: {
-                ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                'img-src': ["'self'", 'dummyimage.com'],
-            },
-        },
-    })
-);
+// app.use(
+//     helmet({
+//         contentSecurityPolicy: {
+//             directives: {
+//                 ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+//                 'img-src': ["'self'", 'dummyimage.com'],
+//             },
+//         },
+//     })
+// );
 
 // auth err message
 app.use(flash());

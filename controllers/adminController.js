@@ -8,10 +8,12 @@ exports.getVideo = (req, res, next) => {
 
     let username = null;
     let currentSessionUser = null;
+    let currentSessionUserId = null;
 
     if (req.session.user) {
         username = req.session.user.username;
         currentSessionUser = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
     } else {
         currentSessionUser = null;
         username = null;
@@ -36,9 +38,8 @@ exports.getVideo = (req, res, next) => {
 
                 // fetch comment
                 Comment.fetchComment(video.id).then((result) => {
-                    console.log('###################', result);
                     return res.render('video/video-details.ejs', {
-                        userId: video.userId,
+                        currentSessionUserId: currentSessionUserId,
                         videId: video.id,
                         username: username,
                         video: video,
@@ -124,7 +125,11 @@ exports.postDeleteVideo = (req, res, next) => {
 // ---------- COMMENT ----------
 exports.postAddComment = (req, res, next) => {
     const date = new Date().toLocaleDateString();
-    const { message, videoId, userId } = req.body;
+    let { message, videoId, userId } = req.body;
+
+    // had to turn into number bcause
+    // because req.body.useID was a string
+    userId = Number(userId);
 
     Comment.addComment(date, message, videoId, userId)
         .then((result) => {

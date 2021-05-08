@@ -64,89 +64,88 @@
                     </div>
                 </div>
             </div>
-            <br>
 
+        </div>
+        <% if (comments.length> 0) { %>
+            <% for (let comment of comments) { %>
 
-            <% if (comments.length> 0) { %>
-                <% for (let comment of comments) { %>
-
-                    <div class="container">
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <br />
-                                        <div class="row">
-                                            <div class="col s2">
-                                                <img src="images/sample-1.jpg" alt="" class="circle responsive-img" />
-                                            </div>
-                                            <div class="col s10">
-                                                <span class="card-title grey-text text-darken-4">
-                                                    <%= comment.username %>
-                                                </span>
-                                                <span class="black-text">
-                                                    <p>
-                                                        <%= comment.comment %>
-                                                    </p>
-                                                </span>
-                                            </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <br />
+                                    <div class="row">
+                                        <div class="col s2">
+                                            <img src="images/sample-1.jpg" alt="" class="circle responsive-img" />
+                                        </div>
+                                        <div class="col s10">
+                                            <span class="card-title grey-text text-darken-4">
+                                                <%= comment.username %>
+                                            </span>
+                                            <span class="black-text">
+                                                <p>
+                                                    <%= comment.comment %>
+                                                </p>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <% } %>
                     <% } %>
-                        <% } %>
 
-                            <% if (isAuthenticated) { %>
+                        <% if (isAuthenticated) { %>
 
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <div class="card">
-                                                <div class="card-content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <span class="card-title grey-text text-darken-4">Comment</span>
+                                                    </div>
+                                                </div>
+
+                                                <form action="/add-comment" method="POST">
                                                     <div class="row">
                                                         <div class="input-field col s12">
-                                                            <span
-                                                                  class="card-title grey-text text-darken-4">Comment</span>
+                                                            <textarea id="icon_prefix" id="message" name="message"
+                                                                      class="materialize-textarea" required></textarea>
+                                                            <label for="icon_prefix">Message</label>
                                                         </div>
                                                     </div>
 
-                                                    <form action="/add-comment" method="POST">
-                                                        <div class="row">
-                                                            <div class="input-field col s12">
-                                                                <textarea id="icon_prefix" id="message" name="message"
-                                                                          class="materialize-textarea"
-                                                                          required></textarea>
-                                                                <label for="icon_prefix">Message</label>
-                                                            </div>
-                                                        </div>
+                                                    <div class="row">
+                                                        <div class="center col s12">
+                                                            <input type="hidden" id="videoId" name="videoId"
+                                                                   value="<%= video.id  %>">
+                                                            <input type="hidden" id="userId" name="userId"
+                                                                   value="<%=  currentSessionUserId %>">
+                                                            <input type="hidden" id="csrfToken" name="_csrf"
+                                                                   value="<%= csrfToken %>">
 
-                                                        <div class="row">
-                                                            <div class="center col s12">
-                                                                <input type="hidden" id="videoId" name="videoId"
-                                                                       value="<%= video.id  %>">
-                                                                <input type="hidden" id="userId" name="userId"
-                                                                       value="<%= userId %>">
-                                                                <input type="hidden" id="csrfToken" name="_csrf"
-                                                                       value="<%= csrfToken %>">
-
-                                                                <button class="btn waves-effect waves-light grey darken-4"
-                                                                        type="submit" name="action">
-                                                                    Submit
-                                                                    <i class="material-icons right">send</i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="btn waves-effect waves-light grey darken-4"
+                                                                    type="submit" name="action">
+                                                                Submit
+                                                                <i class="material-icons right">send</i>
+                                                            </button>
                                                         </div>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <% } %>
+                            </div>
+                            <% } %>
+
+                                <br>
     </main>
 
     <%- include("../includes/bottom.ejs") %>
