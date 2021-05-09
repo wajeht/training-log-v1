@@ -98,8 +98,10 @@ exports.postUpdateVideo = (req, res, next) => {
 
 exports.postEditVideo = (req, res, next) => {
     let username = null;
+    let currentSessionUserId = null;
     if (req.session.user) {
         username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
     }
 
     const id = parseInt(req.params.id);
@@ -110,6 +112,7 @@ exports.postEditVideo = (req, res, next) => {
                 username: username,
                 videoArray: result,
                 pageTitle: 'edit videos',
+                currentSessionUserId: currentSessionUserId,
             });
         })
         .catch((err) => {
