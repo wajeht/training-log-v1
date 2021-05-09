@@ -5,16 +5,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
     <title>
         <%= pageTitle %>
     </title>
 </head>
 
 <style>
+    nav.nav-extended {
+        padding-top: 20px;
+        min-height: 100px;
+    }
+
+    html {
+        font-family: 'Poppins', sans-serif;
+    }
+
     body {
         display: flex;
         min-height: 100vh;
@@ -27,7 +36,7 @@
 
     .post-title {
         font-size: 100%;
-        padding: 7px;
+        padding: 10px;
     }
 
     form#edit-video,
@@ -38,11 +47,19 @@
     }
 
     nav ul a:hover {
-        background-color: #424242 !important;
+        color: white !important;
+        background-color: #424242;
+        ;
     }
 
     .auth-font-siize {
         font-size: 2.1rem;
+    }
+
+    .dropdown-trigger {
+        color: #212121;
+        background-color: #ffffff;
+        border-radius: 2px;
     }
 
     .dropdown-content {
@@ -110,8 +127,6 @@
         var elems = document.querySelectorAll('.dropdown-trigger');
         M.Dropdown.init(elems);
     });
-
-
 </script>
 
 
@@ -121,17 +136,16 @@
         <!-- navbar and header goes here -->
         <nav class="nav-extended grey darken-4">
             <div class="nav-wrapper container">
-                <a id="logo-container" href="/" class="brand-logo">training-vlog</a>
-
+                <a id="logo-container" href="/" class="brand-logo">
+                    <img src="/images/logo.png" width="290" height="auto" style="margin: 15px;">
+                </a>
                 <ul class="right hide-on-med-and-down">
-
                     <% if (isAuthenticated) { %>
 
                         <!-- Dropdown Trigger -->
                         <a class='dropdown-trigger  auth-font-siize' href='#' data-target='dropdown'>
                             <%= username %>
                         </a>
-
 
                         <!-- Dropdown Structure -->
                         <ul id='dropdown' class='dropdown-content'>
@@ -146,7 +160,6 @@
                             </form>
                         </ul>
 
-
                         <% } else { %>
                             <li>
                                 <a href=" /login">login</a>
@@ -154,17 +167,13 @@
                             <% } %>
                 </ul>
 
-
-
                 <ul id="slide-out" class="sidenav">
 
                     <% if (isAuthenticated) { %>
                         <li class="grey darken-4">
-
                             <a href="#email"><span class="white-text">
                                     <%= username %>
                                 </span></a>
-
                         </li>
                         <li><a href="/user/<%= currentSessionUserId %> ">user-details</a></li>
                         <li><a href="/add-video">add-video</a></li>
@@ -175,8 +184,6 @@
                                    onclick="document.getElementById('log-out').submit(); return false;">logout</a></li>
 
                         </form>
-
-
                         <% } else { %>
                             <li><a href="/login">login</a></li>
                             <% } %>
@@ -184,9 +191,24 @@
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
 
-
-
-
-
         </nav>
+
+
+        <!-- <div id="index-banner">
+            <div class="section no-pad-bot">
+                <div class="container">
+                    <br>
+                    <h1 class="header center teal-text text-lighten-2">Parallax Template</h1>
+                    <div class="row center">
+                        <h5 class="header col s12 light">A modern responsive front-end framework based on Material
+                            Design</h5>
+                    </div>
+                    <div class="row center">
+                        <a href="http://materializecss.com/getting-started.html" id="download-button"
+                           class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div> -->
     </header>
