@@ -10,6 +10,8 @@ router.get('/video/:id', adminController.getVideo);
 
 router.post('/video/:id', isAuth.isAuth, adminController.postUpdateVideo);
 
+router.get('/my-videos/:username', isAuth.isAuth, adminController.getMyVideos);
+
 // /admin/add-video => GET
 router.get('/add-video', isAuth.isAuth, adminController.getAddVideo);
 

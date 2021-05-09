@@ -1,14 +1,13 @@
-<%- include("./includes/top.ejs") %>
+<%- include("../includes/top.ejs") %>
     <main>
 
         <div class="container">
             <br><br>
             <!-- Page Content goes here -->
             <div class="row">
+                <% if ( videos.length> 0 ) { %>
 
-                <% if ( videosArray.length> 0 ) { %>
-
-                    <% for (let v of videosArray) { %>
+                    <% for (let v of videos) { %>
 
 
                         <div class="col s3">
@@ -37,9 +36,6 @@
 
                                 <% } %>
 
-
-
-
             </div>
             <br>
             <ul class="pagination center">
@@ -55,8 +51,9 @@
             <br>
             <br>
         </div>
+
     </main>
 
 
 
-    <%- include("./includes/bottom.ejs") %>
+    <%- include("../includes/bottom.ejs") %>

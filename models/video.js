@@ -1,3 +1,4 @@
+const { response } = require('express');
 const pool = require('../config/database.js');
 module.exports = class Video {
     static fetchAll() {
@@ -35,6 +36,19 @@ module.exports = class Video {
                 (err, response) => {
                     if (err) return reject(err);
                     resolve();
+                }
+            );
+        });
+    }
+
+    static fetchUserVideo(userId) {
+        return new Promise((resolve, reject) => {
+            pool.query(
+                'SELECT * FROM videos where "userId"=($1) ORDER BY id DESC',
+                [userId],
+                (err, response) => {
+                    if (err) return reject(err);
+                    resolve(response.rows);
                 }
             );
         });

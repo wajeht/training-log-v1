@@ -129,6 +129,22 @@ exports.postDeleteVideo = (req, res, next) => {
         .catch((err) => console.log(err));
 };
 
+// ---------- MY VIDEO ----------
+exports.getMyVideos = (req, res, next) => {
+    Video.fetchUserVideo(req.session.user.id)
+        .then((videos) => {
+            return res.render('video/my-videos.ejs', {
+                videos: videos,
+                username: req.session.user.username,
+                pageTitle: `${req.session.user.username}'s videos`,
+                currentSessionUserId: req.session.user.id,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
 // ---------- COMMENT ----------
 exports.postAddComment = (req, res, next) => {
     const date = new Date();
