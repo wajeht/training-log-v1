@@ -193,6 +193,7 @@
                                 </span></a>
                         </li>
                         <li><a href="/user/<%= currentSessionUserId %> ">user-details</a></li>
+                        <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
                         <li><a href="/add-video">add-video</a></li>
                         <form action="/logout" id="log-out" method="post">
                             <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
