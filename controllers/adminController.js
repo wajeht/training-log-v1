@@ -39,13 +39,14 @@ exports.getVideo = (req, res, next) => {
                 // fetch comment
                 Comment.fetchComment(video.id).then((result) => {
                     return res.render('video/video-details.ejs', {
+                        postAuthorId: user.id,
                         videoUserProfileUrl: user.profilePictureUrl,
                         currentSessionUserId: currentSessionUserId,
                         videId: video.id,
                         username: username,
                         video: video,
                         date: date,
-                        pageTitle: `Video ${id}: ${video.title}`,
+                        pageTitle: `${user.username}'s ${video.title}`,
                         comments: result,
                         author: user.username,
                         currentSessionUser: currentSessionUser,
@@ -138,6 +139,24 @@ exports.getMyVideos = (req, res, next) => {
                 username: req.session.user.username,
                 pageTitle: `${req.session.user.username}'s videos`,
                 currentSessionUserId: req.session.user.id,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+exports.postPostAutherVideos = (req, res, next) => {
+    const userId = Number(req.body.postAuthorId);
+    Video.fetchUserVideo(userId)
+        .then((videos) => {
+            User.findById(userId).then((user) => {
+                return res.render('video/my-videos.ejs', {
+                    videos: videos,
+                    username: user.username,
+                    pageTitle: `${user.username}'s videos`,
+                    currentSessionUserId: user.id,
+                });
             });
         })
         .catch((err) => {
