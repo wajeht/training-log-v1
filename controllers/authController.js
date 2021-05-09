@@ -14,16 +14,20 @@ const transporter = nodemailer.createTransport(
 
 // ---------- LOGIN ----------
 exports.getLogin = (req, res, next) => {
+    let currentSessionUserId = null;
     if (req.session.user) {
         res.redirect('/');
     }
-    console.log('isLoggedIn', req.session.isLoggedIn);
+
+    // console.log('isLoggedIn', req.session.isLoggedIn);
+
     res.render('auth/login.ejs', {
         pageTitle: 'Login',
         authMessage: req.flash('error'),
     });
 };
 
+// ---------- LOGOUT ----------
 exports.postLogin = (req, res, next) => {
     const { password, email } = req.body;
     User.findByEmail(email)
@@ -70,15 +74,15 @@ exports.postSignup = (req, res, next) => {
     User.findByEmail(email)
         .then((user) => {
             if (user) {
-                console.log({ USER_ALREADY_EXISTED: user });
+                // console.log({ USER_ALREADY_EXISTED: user });
                 return res.redirect('/signup');
             }
 
             // If not, hash the password and register
             return bcrypt.hash(password, 10).then((hashPassword) => {
-                console.log('#################', hashPassword);
+                // console.log('#################', hashPassword);
                 User.addUser(email, username, hashPassword).then((user) => {
-                    console.log({ SUCESSFULLY_REGISTERED: user });
+                    // console.log({ SUCESSFULLY_REGISTERED: user });
                     return res.redirect('/login');
                 });
             });
@@ -109,5 +113,33 @@ exports.getSignup = (req, res, next) => {
 exports.getForgotPassword = (req, res, next) => {
     res.render('auth/forgot-password.ejs', {
         pageTitle: 'Forgot password?',
+    });
+};
+
+// ----------  USER DETAILS ----------
+exports.postUserDetails = (req, res, next) => {
+    let currentSessionUserId = null;
+    const { profilePictureUrl } = req.body;
+
+    if (req.session.user) {
+        currentSessionUserId = req.session.user.id;
+    }
+
+    User.updateProfilePicture(profilePictureUrl, currentSessionUserId)
+        .then((result) => {
+            // console.log('########################', result);
+            res.redirect('/');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+exports.getUserDetails = (req, res, next) => {
+    res.render('auth/user-details.ejs', {
+        pageTitle: 'user-details.ejs',
+        username: req.session.user.username,
+        email: req.session.user.email,
+        currentSessionUserId: req.session.user.id,
     });
 };

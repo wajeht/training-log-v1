@@ -38,8 +38,8 @@ exports.getVideo = (req, res, next) => {
 
                 // fetch comment
                 Comment.fetchComment(video.id).then((result) => {
-                    console.log('##############', result);
                     return res.render('video/video-details.ejs', {
+                        videoUserProfileUrl: user.profilePictureUrl,
                         currentSessionUserId: currentSessionUserId,
                         videId: video.id,
                         username: username,
@@ -58,13 +58,16 @@ exports.getVideo = (req, res, next) => {
 
 exports.getAddVideo = (req, res, next) => {
     let username = null;
+    let currentSessionUserId = null;
     if (req.session.user) {
         username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
     }
     // console.log({ '***** adminController.getAddVideo ***** ': '' });
     res.render('video/add-video.ejs', {
         pageTitle: 'add video page',
         username: username,
+        currentSessionUserId: currentSessionUserId,
     });
 };
 

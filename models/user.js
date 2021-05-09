@@ -31,4 +31,17 @@ module.exports = class User {
             );
         });
     }
+
+    static updateProfilePicture(profilePictureUrl, userId) {
+        return new Promise((resolve, reject) => {
+            pool.query(
+                'UPDATE users SET "profilePictureUrl"=($1) where id=($2) RETURNING *',
+                [profilePictureUrl, userId],
+                (err, response) => {
+                    if (err) return reject(err);
+                    resolve(response.rows[0]);
+                }
+            );
+        });
+    }
 };

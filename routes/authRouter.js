@@ -4,6 +4,10 @@ const isAuth = require('../middleware/isAuth.js');
 
 const authController = require('../controllers/authController.js');
 
+router.get('/user/:id', isAuth.isAuth, authController.getUserDetails);
+
+router.post('/user/:id', authController.postUserDetails);
+
 // /admin/login => GET
 router.get('/login', authController.getLogin);
 
