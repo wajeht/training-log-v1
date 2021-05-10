@@ -18,7 +18,13 @@ router.post('/login', authController.postLogin);
 router.post('/logout', isAuth.isAuth, authController.postLogout);
 
 // /admin/forgot-password => GET
-router.get('/forgot-password', authController.getForgotPassword);
+router.get('/forget-password', authController.getForgetPassword);
+
+router.post('/forget-password', authController.postForgetPassword);
+
+router.get('/password-reset/:token', authController.getPasswordReset);
+
+router.post('/new-password', authController.postNewPassword);
 
 // /admin/signup => GET
 router.get('/signup', authController.getSignup);

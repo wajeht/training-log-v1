@@ -3,7 +3,7 @@
 database="trainingvlog"
 
 echo "$(tput setaf 3)configuring database"
-echo "------------------------"
+echo "--------------------------------------------"
 
 dropdb -U node_user $database
 echo "dropped $database database"
@@ -18,5 +18,5 @@ psql -U node_user trainingvlog < ./bin/sql/comment.sql
 psql -U node_user trainingvlog < ./bin/sql/session.sql
 psql -U node_user trainingvlog < ./bin/sql/seed.sql
 
-echo "------------------------"
+echo "--------------------------------------------"
 echo "database has been conigured"

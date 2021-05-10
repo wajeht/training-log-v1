@@ -8,7 +8,7 @@ VALUES
 \echo
 
 
-\echo 'inserting data into "video" table'
+\echo 'inserting data into "videos" table'
 INSERT INTO videos (date, "videoUrl", title, message, "userId")
 VALUES
 ('04/25/2021', 'https://dummyimage.com/500x500/000/fff.jpg&text=pig1', 'pig 1', 'pig 1', 1),
@@ -33,10 +33,11 @@ VALUES
 ('05/08/2021', '/images/computer.jpg', 'week 2 day 4', 'To day I felt computer', 4);
 \echo
 
-\echo "adding fk on videos from user"
+\echo 'adding fk on "videos" from "users"'
 ALTER TABLE "public"."videos" ADD FOREIGN KEY ("userId") REFERENCES "public"."users" ("id");
 ALTER TABLE "public"."comments" ADD FOREIGN KEY ("videoId") REFERENCES "public"."videos" ("id");
 ALTER TABLE "public"."comments" ADD FOREIGN KEY ("userId") REFERENCES "public"."users" ("id");
+\echo
 
 \echo 'inserting data into "comment" table'
 INSERT INTO comments (date, comment, "videoId", "userId")
@@ -51,25 +52,25 @@ VALUES
 ('01/03/2021', 'You mirin', 11, 1);
 \echo
 
-\echo 'updating pig profile picture'
+\echo 'updating "pig" profile picture'
 UPDATE users 
 SET "profilePictureUrl"=('/images/pig.jpg') 
 WHERE id=(1);
 \echo
 
-\echo 'updating cat profile picture'
+\echo 'updating "cat" profile picture'
 UPDATE users 
 SET "profilePictureUrl"=('/images/cat.jpg') 
 WHERE id=(2);
 \echo
 
-\echo 'updating dog profile picture'
+\echo 'updating "dog" profile picture'
 UPDATE users 
 SET "profilePictureUrl"=('/images/dog.jpg') 
 WHERE id=(3);
 \echo
 
-\echo 'updating jaw profile picture'
+\echo 'updating "jaw" profile picture'
 UPDATE users 
 SET "profilePictureUrl"=('/images/computer.jpg') 
 WHERE id=(4);

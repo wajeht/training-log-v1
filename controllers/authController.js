@@ -1,4 +1,5 @@
 const User = require('../models/user.js');
+const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
@@ -110,10 +111,95 @@ exports.getSignup = (req, res, next) => {
 };
 
 // ---------- FORGOT PASSWORD ----------
-exports.getForgotPassword = (req, res, next) => {
-    res.render('auth/forgot-password.ejs', {
+exports.getForgetPassword = (req, res, next) => {
+    res.render('auth/forget-password.ejs', {
         pageTitle: 'Forgot password?',
+        authMessage: req.flash('error'),
     });
+};
+
+exports.postForgetPassword = (req, res, nexxt) => {
+    const { email } = req.body;
+
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err);
+            return res.redirect('/forget-password');
+        }
+        const token = buffer.toString('hex');
+
+        User.findByEmail(email)
+            .then((user) => {
+                if (!user) {
+                    req.flash('error', 'not user found with that email');
+                    return res.redirect('/forget-password');
+                }
+
+                const id = user.id;
+                const resetToken = token;
+                const resetTokenExpiration = new Date(new Date().getTime() + 5 * 60000);
+                return User.updateToken(id, resetToken, resetTokenExpiration);
+            })
+            .then((user) => {
+                res.redirect('/');
+                return transporter.sendMail({
+                    to: email,
+                    from: config.sendGrid.fromEmail,
+                    subject: 'Password reset',
+                    html: `
+                    <p>You requested a password reset</p>
+                    <p>Click <b><i><a href="http://localhost:3000/password-reset/${token}">here</a><i/></b> to reset a new password!</p>
+                    `,
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    });
+};
+
+exports.getPasswordReset = (req, res, nexxt) => {
+    const { token } = req.params;
+    res.render('auth/password-reset.ejs', {
+        pageTitle: 'password-reset',
+        token: token,
+    });
+};
+
+exports.postNewPassword = (req, res, next) => {
+    const { token, newPassword } = req.body;
+
+    let currentSessionUserId = null;
+    if (req.session.user) {
+        res.redirect('/');
+    }
+
+    User.findResetTokenInfo(token)
+        .then((user) => {
+            const { resetTokenExpiration } = user;
+            const now = Date.now();
+
+            // check to see if its been 10
+            // then has password and return
+            if (resetTokenExpiration > now) {
+                return bcrypt.hash(newPassword, 10);
+            }
+
+            res.redirect('/');
+        })
+        .then((hashPassword) => {
+            User.updatePasswordByToken(hashPassword, token).then((user) => {
+                req.flash('error', 'password has been reset, now you can login!');
+
+                return res.render('auth/login.ejs', {
+                    pageTitle: 'Login',
+                    authMessage: req.flash('error'),
+                });
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 // ----------  USER DETAILS ----------
@@ -127,7 +213,6 @@ exports.postUserDetails = (req, res, next) => {
 
     User.updateProfilePicture(profilePictureUrl, currentSessionUserId)
         .then((result) => {
-            // console.log('########################', result);
             res.redirect('/');
         })
         .catch((err) => {
