@@ -167,7 +167,7 @@ exports.getPasswordReset = (req, res, nexxt) => {
 };
 
 exports.postNewPassword = (req, res, next) => {
-    const { token, newPassword } = req.body;
+    const { token, password } = req.body;
 
     let currentSessionUserId = null;
     if (req.session.user) {
@@ -182,21 +182,25 @@ exports.postNewPassword = (req, res, next) => {
             // check to see if its been 10
             // then has password and return
             if (resetTokenExpiration > now) {
-                return bcrypt.hash(newPassword, 10);
+                return bcrypt.hash(password, 10);
             }
 
             res.redirect('/');
         })
         .then((hashPassword) => {
-            User.updatePasswordByToken(hashPassword, token).then((user) => {
-                req.flash('error', 'password has been reset, now you can login!');
-
-                // TODO: DELETE TOKEN INFO
-
-                return res.render('auth/login.ejs', {
-                    pageTitle: 'Login',
+            return User.updatePasswordByToken(hashPassword, token).then((user) => {
+                req.flash('error', 'You can now login with updated password!');
+                res.render('auth/login', {
+                    pageTitle: 'login',
                     authMessage: req.flash('error'),
                 });
+                return user;
+            });
+        })
+        .then((user) => {
+            return User.deletePasswordResetTokenInfo(user.id).then((deleted) => {
+                console.log('token has been deleted', deleted);
+                return;
             });
         })
         .catch((err) => {

@@ -73,6 +73,19 @@ module.exports = class User {
         });
     }
 
+    static deletePasswordResetTokenInfo(userId) {
+        return new Promise((reject, resolve) => {
+            pool.query(
+                'UPDATE users SET "resetToken"=null, "resetTokenExpiration"=null where id = ($1) RETURNING *',
+                [userId],
+                (err, response) => {
+                    if (err) return reject(err);
+                    resolve(response.rows[0]);
+                }
+            );
+        });
+    }
+
     static updatePasswordByToken(password, resetToken) {
         return new Promise((resolve, reject) => {
             pool.query(
