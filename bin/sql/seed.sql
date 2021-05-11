@@ -4,7 +4,9 @@ VALUES
 ('pig', '$2b$10$dN8fJunfRFrOXlcEqSgxTOl.fSuE2/BbJOC2/r/w8Xp6.s8OipgCG', 'pig@pig.com'),
 ('cat', '$2b$10$dN8fJunfRFrOXlcEqSgxTOl.fSuE2/BbJOC2/r/w8Xp6.s8OipgCG', 'cat@cat.com'),
 ('dog', '$2b$10$dN8fJunfRFrOXlcEqSgxTOl.fSuE2/BbJOC2/r/w8Xp6.s8OipgCG', 'dog@dog.com'),
-('jaw', '$2b$10$dN8fJunfRFrOXlcEqSgxTOl.fSuE2/BbJOC2/r/w8Xp6.s8OipgCG', 'jaw@jaw.com');
+('jaw', '$2b$10$dN8fJunfRFrOXlcEqSgxTOl.fSuE2/BbJOC2/r/w8Xp6.s8OipgCG', 'jaw@jaw.com'),
+('zombyard', '$2b$10$dN8fJunfRFrOXlcEqSgxTOl.fSuE2/BbJOC2/r/w8Xp6.s8OipgCG', 'zombyard@gmail.com');
+
 \echo
 
 
@@ -45,11 +47,17 @@ VALUES
 ('03/29/2021', 'This is so cool bruh', 12, 1),
 ('04/29/2021', 'Yeah, youre right', 12, 2),
 ('03/29/2021', 'You mirin', 12, 3),
-('01/20/2021', 'You mirin', 3, 1),
+('01/20/2021', 'shut up pig!', 3, 1),
 ('04/20/2021', 'You mirin', 3, 2),
 ('01/20/2020', 'Why too many screens?', 20, 2),
 ('02/20/2020', 'Do you even lift bruh?', 19, 1),
-('01/03/2021', 'You mirin', 11, 1);
+('01/03/2021', 'You mirin', 11, 1),
+('02/03/2021', 'Nerd', 20, 3),
+('03/03/2021', 'Shut up dog!', 20, 1),
+('03/04/2021', 'Bunch of animals', 20, 4),
+('03/04/2021', 'You sleeping or lifting?', 18, 1),
+('03/04/2021', 'You bout to take a dump?', 17, 2),
+('03/05/2021', 'Yeah, in your face!!', 17, 4);
 \echo
 
 \echo 'updating "pig" profile picture'

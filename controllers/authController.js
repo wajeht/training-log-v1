@@ -191,6 +191,8 @@ exports.postNewPassword = (req, res, next) => {
             User.updatePasswordByToken(hashPassword, token).then((user) => {
                 req.flash('error', 'password has been reset, now you can login!');
 
+                // TODO: DELETE TOKEN INFO
+
                 return res.render('auth/login.ejs', {
                     pageTitle: 'Login',
                     authMessage: req.flash('error'),
