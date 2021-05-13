@@ -17,9 +17,9 @@
                             </div>
 
                             <!-- // display auth error message if failed logi -->
-                            <% if (authMessage.length> 0) { %>
+                            <% if (errorMessage.length> 0) { %>
                                 <div class="chip">
-                                    <%= authMessage[0] %>
+                                    <%= errorMessage[0] %>
                                         <i class="close material-icons">close</i>
                                 </div>
                                 <% } %>

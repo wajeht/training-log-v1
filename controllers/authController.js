@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
 const config = require('../config/config.js');
 
+const { validationResult } = require('express-validator');
+
 const transporter = nodemailer.createTransport(
     sendGridTransport({
         auth: {
@@ -24,7 +26,7 @@ exports.getLogin = (req, res, next) => {
 
     res.render('auth/login.ejs', {
         pageTitle: 'Login',
-        authMessage: req.flash('error'),
+        errorMessage: req.flash('error'),
     });
 };
 
@@ -70,31 +72,41 @@ exports.postLogout = (req, res, next) => {
 // ---------- SIGNUP ----------
 exports.postSignup = (req, res, next) => {
     const { email, username, password } = req.body;
+    const errors = validationResult(req);
+    const oldInput = {
+        email: email,
+        username: username,
+        password: password,
+    };
 
-    // Check to see if use exists
-    User.findByEmail(email)
-        .then((user) => {
-            if (user) {
-                // console.log({ USER_ALREADY_EXISTED: user });
-                return res.redirect('/signup');
-            }
+    // if we failed, render the same page again
+    if (errors.array().length > 0) {
+        return res.status(422).render('auth/signup.ejs', {
+            pageTitle: 'Signup',
+            errorMessage: errors.array(),
+            oldInput: oldInput,
+        });
+    }
 
-            // If not, hash the password and register
-            return bcrypt.hash(password, 10).then((hashPassword) => {
-                // console.log('#################', hashPassword);
-                User.addUser(email, username, hashPassword).then((user) => {
-                    // console.log({ SUCESSFULLY_REGISTERED: user });
-                    return res.redirect('/login');
-                });
+    bcrypt
+        .hash(password, 10)
+        .then((hashPassword) => {
+            // console.log('#################', hashPassword);
+            User.addUser(email, username, hashPassword).then((user) => {
+                // console.log({ SUCESSFULLY_REGISTERED: user });
+                return res.redirect('/login');
             });
         })
         .then(() => {
-            return transporter.sendMail({
-                to: email,
-                from: config.sendGrid.fromEmail,
-                subject: 'Signup succefull',
-                html: '<h1>You go it up!</h1>',
+            console.log('#####', {
+                message: 'SUCCESSFULLY REGISTERED!',
             });
+            // return transporter.sendMail({
+            //     to: email,
+            //     from: config.sendGrid.fromEmail,
+            //     subject: 'Signup succefull',
+            //     html: '<h1>You go it up!</h1>',
+            // });
         })
         .catch((err) => {
             console.log(err);
@@ -102,11 +114,15 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
+    const errorMessage = req.flash('error');
+
     if (req.session.user) {
         res.redirect('/');
     }
     res.render('auth/signup.ejs', {
         pageTitle: 'Signup',
+        errorMessage: errorMessage,
+        oldInput: {},
     });
 };
 
@@ -114,7 +130,7 @@ exports.getSignup = (req, res, next) => {
 exports.getForgetPassword = (req, res, next) => {
     res.render('auth/forget-password.ejs', {
         pageTitle: 'Forgot password?',
-        authMessage: req.flash('error'),
+        errorMessage: req.flash('error'),
     });
 };
 
@@ -142,15 +158,16 @@ exports.postForgetPassword = (req, res, nexxt) => {
             })
             .then((user) => {
                 res.redirect('/');
-                return transporter.sendMail({
-                    to: email,
-                    from: config.sendGrid.fromEmail,
-                    subject: 'Password reset',
-                    html: `
-                    <p>You requested a password reset</p>
-                    <p>Click <b><i><a href="http://localhost:3000/password-reset/${token}">here</a><i/></b> to reset a new password!</p>
-                    `,
-                });
+                // return transporter.sendMail({
+                //     to: email,
+                //     from: config.sendGrid.fromEmail,
+                //     subject: 'Password reset',
+                //     html: `
+                //     <p>You requested a password reset</p>
+                //     <p>Click <b><i><a href="http://localhost:3000/password-reset/${token}">here</a><i/></b> to reset a new password!</p>
+                //     `,
+                // });
+                console.log('http://localhost:3000/password-reset/${token}');
             })
             .catch((err) => {
                 console.log(err);
@@ -192,7 +209,7 @@ exports.postNewPassword = (req, res, next) => {
                 req.flash('error', 'You can now login with updated password!');
                 res.render('auth/login', {
                     pageTitle: 'login',
-                    authMessage: req.flash('error'),
+                    errorMessage: req.flash('error'),
                 });
                 return user;
             });

@@ -13,41 +13,54 @@
                                 </div>
                             </div>
 
-                            <form action="/signup" method="POST">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="email" type="email" name="email" id="email" class="validate"
-                                               required />
-                                        <label for="email">Email</label>
+                            <% if (errorMessage.length> 0) { %>
+                                <% for (let error of errorMessage) { %>
+                                    <div class="chip">
+                                        <%= error.msg %>
+                                            <i class="close material-icons">close</i>
                                     </div>
-                                </div>
+                                    <% } %>
+                                        <% } %>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="username" type="text" name="username" id="username" required />
-                                        <label for="email">Username</label>
-                                    </div>
-                                </div>
+                                            <form action="/signup" method="POST">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <input id="email" type="email" name="email" id="email"
+                                                               class="validate"
+                                                               value="<%= oldInput ? oldInput.email: '' %> " required />
+                                                        <label for="email">Email</label>
+                                                    </div>
+                                                </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="password" type="password" name="password" id="password"
-                                               class="validate" required />
-                                        <label for="password">Password</label>
-                                    </div>
-                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <input id="username" type="text" name="username" id="username"
+                                                               value="<%= oldInput ? oldInput.username: '' %> " required />
+                                                        <label for="email">Username</label>
+                                                    </div>
+                                                </div>
 
-                                <div class="row">
-                                    <div class="center col s12">
-                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                        <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                                name="action">
-                                            Submit
-                                            <i class="material-icons right">send</i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <input id="password" type="password" name="password"
+                                                               value="<%= oldInput ? oldInput.password : '' %> "
+                                                               id="password" class="validate" required />
+                                                        <label for="password">Password</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="center col s12">
+                                                        <input type="hidden" id="csrfToken" name="_csrf"
+                                                               value="<%= csrfToken %>">
+                                                        <button class="btn waves-effect waves-light grey darken-4"
+                                                                type="submit" name="action">
+                                                            Submit
+                                                            <i class="material-icons right">send</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
 
                         </div>
                     </div>
