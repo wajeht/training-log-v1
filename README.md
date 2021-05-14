@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/wajeht/training-vlog/main/public/images/screenshot_index.png" width="400"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/wajeht/training-vlog/main/public/images/logo/training-vlog.png" width="400"></p>
 
 # <p align="center">training-vlog</p>
 
