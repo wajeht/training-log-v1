@@ -71,6 +71,10 @@ exports.postLogout = (req, res, next) => {
 
 // ---------- SIGNUP ----------
 exports.postSignup = (req, res, next) => {
+    if (req.session.user) {
+        return res.redirect('/');
+    }
+
     const { email, username, password } = req.body;
     const errors = validationResult(req);
     const oldInput = {
@@ -117,8 +121,9 @@ exports.getSignup = (req, res, next) => {
     const errorMessage = req.flash('error');
 
     if (req.session.user) {
-        res.redirect('/');
+        return res.redirect('/');
     }
+
     res.render('auth/signup.ejs', {
         pageTitle: 'Signup',
         errorMessage: errorMessage,
@@ -128,6 +133,10 @@ exports.getSignup = (req, res, next) => {
 
 // ---------- FORGOT PASSWORD ----------
 exports.getForgetPassword = (req, res, next) => {
+    if (req.session.user) {
+        return res.redirect('/');
+    }
+
     res.render('auth/forget-password.ejs', {
         pageTitle: 'Forgot password?',
         errorMessage: req.flash('error'),
@@ -135,6 +144,10 @@ exports.getForgetPassword = (req, res, next) => {
 };
 
 exports.postForgetPassword = (req, res, nexxt) => {
+    if (req.session.user) {
+        return res.redirect('/');
+    }
+
     const { email } = req.body;
 
     crypto.randomBytes(32, (err, buffer) => {
