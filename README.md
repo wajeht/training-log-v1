@@ -22,7 +22,7 @@ https://tvl.jawstrength.com/
 
 # Screenshot
 
-<img src="https://raw.githubusercontent.com/wajeht/ShiftScheduler/master/src/images/screenshot.png" width="200"><img src="https://github.com/wajeht/ShiftScheduler/blob/master/src/images/result.png?raw=true" width="200">
+<img src="https://raw.githubusercontent.com/wajeht/training-vlog/main/public/images/screenshots/single_video.png" width="200"><img src="https://raw.githubusercontent.com/wajeht/training-vlog/main/public/images/screenshots/home_page.png" width="200">
 
 # Technology
 <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />‏‎ ‎‏‎ 
