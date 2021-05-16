@@ -54,7 +54,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public/videos', express.static(path.join(__dirname, 'public/videos')));
 
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
-app.use(multer({ storage: fileStorage }).single('video'));
+app.use(
+    multer({
+        storage: fileStorage,
+        limits: {
+            // 10 MB
+            fileSize: 10 * 1024 * 1024,
+        },
+    }).single('video')
+);
 
 // security
 // app.use(
