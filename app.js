@@ -5,6 +5,7 @@ const app = express();
 const path = require('path');
 const config = require('./config/config.js');
 const flash = require('connect-flash');
+const multer = require('multer');
 
 // to protect session
 const csrf = require('csurf');
@@ -29,10 +30,31 @@ const errorController = require('./controllers/errorController.js');
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+// multer file stuff
+const fileFilter = (req, file, cb) => {
+    if (file.minetype === 'video/*') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/videos');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString() + '-' + file.originalname);
+    },
+});
+
 // to serve public files and
 // parse user input
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public/videos', express.static(path.join(__dirname, 'public/videos')));
+
 app.use(express.urlencoded({ extended: false }));
+app.use(multer({ storage: fileStorage }).single('video'));
 
 // security
 // app.use(

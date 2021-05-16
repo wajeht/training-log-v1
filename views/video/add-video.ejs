@@ -18,7 +18,7 @@
                             </div>
 
 
-                            <form action="/add-video" method="POST">
+                            <form action="/add-video" method="POST" enctype="multipart/form-data">
 
 
                                 <div id="image-preview" class="row">
@@ -32,12 +32,12 @@
                                         <div class="file-field input-field">
                                             <div class="btn waves-effect waves-light grey darken-4">
                                                 <span>Upload</span>
-                                                <input type="file" multiple>
+                                                <input type="file" name="video" id="video" multiple>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text"
-                                                       placeholder="Upload one or more files" accept="image/*"
-                                                       name="image-file" id="image-file" onchange="previewFile()">
+                                                       placeholder="Upload one or more files" accept="video/*"
+                                                       onchange="previewFile()">
                                             </div>
                                         </div>
                                     </div>
@@ -51,13 +51,13 @@
                                 </div>
 
 
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="input-field col s12">
                                         <textarea id="icon_prefix" id="videoUrl" name="videoUrl"
                                                   class="materialize-textarea" required></textarea>
                                         <label for="icon_prefix">Video URL</label>
                                     </div>
-                                </div>
+                                </div> -->
 
 
                                 <div class="row">
