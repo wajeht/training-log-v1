@@ -14,7 +14,7 @@
                             <a href="/video/<%= v.id %> ">
                                 <div class="card hoverable">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                        <video width="100%" src="/<%= v.videoUrl %>" >
+                                        <video width="100%" preload="metadata" src="/<%= v.videoUrl %>#t=0.1" >
                                     </div>
                                     <div class="post-title center grey-text text-darken-4">
                                         <%= v.title %>
