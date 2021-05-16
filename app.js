@@ -31,8 +31,6 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 // multer file stuff
-const maxSize = 1 * 1000 * 1000;
-
 const fileFilter = (req, file, cb) => {
     if (file.minetype === 'video/*') {
         cb(null, true);
@@ -55,8 +53,8 @@ const fileStorage = multer.diskStorage({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public/videos', express.static(path.join(__dirname, 'public/videos')));
 
-app.use(express.urlencoded({ extended: false }));
-app.use(multer({ storage: fileStorage, limits: { fileSize: maxSize } }).single('video'));
+app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+app.use(multer({ storage: fileStorage }).single('video'));
 
 // security
 // app.use(
