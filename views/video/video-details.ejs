@@ -29,7 +29,8 @@
 
                         <div class=" card-action">
                             <div class="chip left post-author-chip-left">
-                                <img src="<%= videoUserProfileUrl %>">
+                                <img
+                                     src="<%= !videoUserProfileUrl ? '/images/default_profile_picture.jpg' : videoUserProfileUrl %>">
                                 <form id="post-author-videos" action="/post-author-videos/<%= author %>" method="post">
                                     <input type="hidden" name="postAuthorId" id="postAuthorId"
                                            value="<%= postAuthorId%>" />
