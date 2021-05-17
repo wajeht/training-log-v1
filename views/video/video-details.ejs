@@ -69,16 +69,40 @@
                                     </form> ‏‎ ‎‏‎
                                 </div>
 
+
+                                <!-- Modal Trigger -->
                                 <div class="chip right">
-                                    <form id="delete-video" action="/delete-video/<%= video.id %>" method="post">
-                                        <input type="hidden" name="id" id="id" value="<%= video.id %>" />
-                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                        <a href="javascript:{}"
-                                           onclick="document.getElementById('delete-video').submit(); return false;"><i
-                                               class="material-icons grey-text text-darken-2"
-                                               style="font-size: 20px">delete</i></a>
-                                    </form> ‏‎ ‎
+                                    <a class="modal-trigger" href="#modal1"><i
+                                           class="material-icons grey-text text-darken-2"
+                                           style="font-size: 20px">delete</i></a>
                                 </div>
+
+                                <!-- Modal Structure -->
+                                <div id="modal1" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Confirmation</h4>
+                                        <p>Are you sure you want to delete this post?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form id="delete-video" class="right" action="/delete-video/<%= video.id %>"
+                                              method="post">
+                                            <input type="hidden" name="id" id="id" value="<%= video.id %>" />
+                                            <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+                                            <button class="btn waves-effect waves-green"
+                                                    style="margin-right: 5px; background-color: #114732;"
+                                                    type="submit">Yes</button>
+                                            <a href="#!" style="background-color: #114732; font-weight: bold;" class="modal-close
+                                               waves-effect waves-green btn-flat white-text">No</a>
+                                            <!-- <a href=" javascript:{}"
+                                                    onclick="document.getElementById('delete-video').submit(); return false;">
+                                                <i class="material-icons grey-text text-darken-2"
+                                                   style="font-size: 20px">delete</i>
+                                                </a> -->
+                                        </form> ‏‎ ‎
+                                    </div>
+                                </div>
+
+
 
                                 <% } %>
                         </div>

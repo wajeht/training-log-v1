@@ -101,6 +101,10 @@
         width: min-content;
     }
 
+    #delete-video {
+        display: flex;
+    }
+
     nav ul a:hover {
         color: white !important;
         background-color: #0D5338;
@@ -130,6 +134,13 @@
 
     .dropdown-content li>a:hover {
         background-color: #114732 !important;
+    }
+
+
+    .modal-trigger a,
+    .modal-trigger {
+        margin-right: 0px !important;
+        vertical-align: sub;
     }
 </style>
 
@@ -162,8 +173,10 @@
         };
         var elems = document.querySelector('.datepicker');
         var instance = M.Datepicker.init(elems, options);
-        // instance.open();
-        instance.setDate(new Date());
+
+        if (window.location.pathname == '/add-video') {
+            instance.setDate(new Date());
+        }
 
         // hide on load, because it was taking up too much space 
         const div = document.getElementById('image-preview');
@@ -176,10 +189,17 @@
 
 
     })
+
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.dropdown-trigger');
         M.Dropdown.init(elems);
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems);
+    });
+
 </script>
 
 
