@@ -145,13 +145,20 @@
 </style>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // hide on load, because it was taking up too much space 
+        const div = document.getElementById('video-preview-div');
+        div.style.display = "none";
+    })
+
+
     // instant image prewview on add-video
     function previewFile() {
         // re-show the image prewview
-        const div = document.getElementById('image-preview');
+        const div = document.getElementById('video-preview-div');
         div.style.display = "block";
 
-        const preview = document.querySelector('img');
+        const preview = document.querySelector('video');
         const file = document.querySelector('input[type=file]').files[0];
         const reader = new FileReader();
 
@@ -178,9 +185,6 @@
             instance.setDate(new Date());
         }
 
-        // hide on load, because it was taking up too much space 
-        const div = document.getElementById('image-preview');
-        div.style.display = "none";
     });
 
     document.addEventListener('DOMContentLoaded', function () {
