@@ -276,7 +276,7 @@
         </nav>
 
 
-        <% if (!isAuthenticated) {%>
+        <% if (!isAuthenticated && pageTitle==="Home" ) {%>
             <div id="index-banner">
                 <div class="section no-pad-bot" style=" background-color: #115339;">
                     <div class="container">
@@ -295,7 +295,7 @@
                             </h5>
                         </div>
                         <div class="row center">
-                            <a href="/" class="btn white grey-text text-darken-4">Learn
+                            <a href="#" class="btn white grey-text text-darken-4">Learn
                                 more</a>
                         </div>
                         <br>
