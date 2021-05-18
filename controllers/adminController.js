@@ -1,6 +1,7 @@
 const Video = require('../models/video.js');
 const User = require('../models/user.js');
 const Comment = require('../models/comments.js');
+const fs = require('fs');
 
 // ---------- VIDEO ----------
 exports.getVideo = (req, res, next) => {
@@ -134,14 +135,6 @@ exports.postEditVideo = (req, res, next) => {
 exports.postDeleteVideo = (req, res, next) => {
     const id = parseInt(req.params.id);
 
-    // Video.findById(id)
-    //     .then((video) => {
-    //         console.log('############', video);
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     });
-
     Comment.fetchComment(id)
         .then((comment) => {
             return comment.length > 0;
@@ -157,6 +150,14 @@ exports.postDeleteVideo = (req, res, next) => {
                         // delete video
                         Video.delete(id).then((deletedVideo) => {
                             console.log('deletedVideo', deletedVideo);
+
+                            const { videoUrl } = deletedVideo;
+
+                            fs.unlink(videoUrl, function (err) {
+                                if (err) return console.log(err);
+                                console.log('file deleted successfully');
+                            });
+
                             return res.redirect('/');
                         });
                     })
@@ -164,9 +165,17 @@ exports.postDeleteVideo = (req, res, next) => {
                         console.log('deletedCommentErr', err);
                     });
             }
-
             // else jsut delte vieo
-            Video.delete(id).then(() => {
+            Video.delete(id).then((deletedVideo) => {
+                console.log('deletedVideo', deletedVideo);
+
+                const { videoUrl } = deletedVideo;
+
+                fs.unlink(videoUrl, function (err) {
+                    if (err) return console.log(err);
+                    console.log('file deleted successfully');
+                });
+
                 return res.redirect('/');
             });
         })
