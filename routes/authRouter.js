@@ -19,7 +19,6 @@ router.post(
         .isEmail()
         .withMessage('Please enter a valid email!')
         .custom((value, { req }) => {
-
             return User.findByEmail(value).then((user) => {
                 if (user) {
                     console.log('ALREADY EXIST!!!!');
@@ -27,7 +26,7 @@ router.post(
                 }
             });
         }),
-    body('password', 'Password must be at least 10 character').isLength({ min: 10 }),
+    body('password', 'Password must be at least 10 character').isLength({ min: 8 }),
     authController.postSignup
 );
 router.get('/login', authController.getLogin);
