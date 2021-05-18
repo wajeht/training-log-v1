@@ -25,18 +25,19 @@ https://tvl.jawstrength.com/
 <img src="https://raw.githubusercontent.com/wajeht/training-vlog/main/public/images/screenshots/single_video.png" width="200"><img src="https://raw.githubusercontent.com/wajeht/training-vlog/main/public/images/screenshots/home_page.png" width="200">
 
 # Technology
-<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />‏‎ ‎‏‎ 
-<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" /> ‎‏‎ 
-<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />‏‎ ‎‏‎ 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> ‎‏‎ 
-<img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white" />‏‎ ‎‏‎ 
-<img src="https://img.shields.io/badge/Materialed--CSS-0081CB?style=for-the-badge&logo=material-ui&logoColor=white" />‏‎ ‎‏‎ 
 
-
+<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />‏‎ ‎‏‎
+<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" /> ‎‏‎
+<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />‏‎ ‎‏‎
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> ‎‏‎
+<img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white" />‏‎ ‎‏‎
+<img src="https://img.shields.io/badge/Materialed--CSS-0081CB?style=for-the-badge&logo=material-ui&logoColor=white" />‏‎ ‎‏‎
 
 # Database configuration
 
 Within this project I have include `.evn.example` file with secret credentials. Name that file to .env and put in proper credentials. And also make sure to install `postgresql` database and create proper account first.
+
+I used sendgrip to email user after signing up, so if you want to use that, make sure to signup for sendgrip acc and request api from it.
 
 ```
 PORT=0000
@@ -46,6 +47,8 @@ DB_PASSWORD="password"
 DB_DATABASE="database"
 DB_PORT=0000
 COOKIE_SECRET="THIS IS NOT A SECRET"
+SENDGRID_API_KEY="YOUR SENDGRID API KEYS HERE"
+SENDGRID_FROM_EMAIL="yoremail@domain.com"
 ```
 
 After setting up your `.env` file, set your postgres user credentials within `configureDaatabase.sh`
