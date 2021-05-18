@@ -15,8 +15,8 @@ module.exports = class Comment {
     }
 
     /**
-     * get a list of comments in accednign order based on video id 
-     * @param {number} videoId 
+     * get a list of comments in accednign order based on video id
+     * @param {number} videoId
      * @returns {array[]} a list of comments
      */
     static fetchComment(videoId) {
@@ -37,6 +37,19 @@ module.exports = class Comment {
             pool.query(
                 'INSERT INTO comments (date, comment, "videoId", "userId") VALUES ($1, $2, $3, $4) RETURNING *',
                 [date, comment, videoId, userId],
+                (err, response) => {
+                    if (err) return reject(err);
+                    resolve(response.rows[0]);
+                }
+            );
+        });
+    }
+
+    static deleteCommentByVideoId(videoId) {
+        return new Promise((reject, resolve) => {
+            pool.query(
+                'DELETE FROM comments WHERE "videoId" = ($1) RETURNING *',
+                [videoId],
                 (err, response) => {
                     if (err) return reject(err);
                     resolve(response.rows[0]);

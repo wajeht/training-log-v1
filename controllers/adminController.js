@@ -133,11 +133,46 @@ exports.postEditVideo = (req, res, next) => {
 
 exports.postDeleteVideo = (req, res, next) => {
     const id = parseInt(req.params.id);
-    Video.delete(id)
-        .then((result) => {
-            res.redirect('/');
+
+    // Video.findById(id)
+    //     .then((video) => {
+    //         console.log('############', video);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+
+    Comment.fetchComment(id)
+        .then((comment) => {
+            return comment.length > 0;
         })
-        .catch((err) => console.log(err));
+        .then((hasComments) => {
+            // if vid has comment
+            // delete comment fist
+            // then delte video
+            if (hasComments) {
+                // delete comment
+                Comment.deleteCommentByVideoId(id)
+                    .then(() => {
+                        // delete video
+                        Video.delete(id).then((deletedVideo) => {
+                            console.log('deletedVideo', deletedVideo);
+                            return res.redirect('/');
+                        });
+                    })
+                    .catch((err) => {
+                        console.log('deletedCommentErr', err);
+                    });
+            }
+
+            // else jsut delte vieo
+            Video.delete(id).then(() => {
+                return res.redirect('/');
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 // ---------- MY VIDEO ----------
