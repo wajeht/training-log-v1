@@ -76,7 +76,7 @@ exports.getAddVideo = (req, res, next) => {
 exports.postAddVideo = (req, res, next) => {
     let { date, title, message } = req.body;
     const userId = req.session.user.id;
-    const video = req.file;
+    const video = req.files.video[0];
 
     message = message.replaceAll('<br>', 'chr(10)');
 

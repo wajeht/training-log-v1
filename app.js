@@ -41,7 +41,7 @@ const fileFilter = (req, file, cb) => {
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/videos');
+        cb(null, 'public/uploads');
     },
     filename: (req, file, cb) => {
         cb(null, new Date().toISOString() + '-' + file.originalname);
@@ -51,7 +51,7 @@ const fileStorage = multer.diskStorage({
 // to serve public files and
 // parse user input
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/public/videos', express.static(path.join(__dirname, 'public/videos')));
+app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(
@@ -61,7 +61,10 @@ app.use(
             // 10 MB
             fileSize: 10 * 1024 * 1024,
         },
-    }).single('video')
+    }).fields([
+        { name: 'video', maxCount: 1 },
+        { name: 'picture', maxCount: 1 },
+    ])
 );
 
 // security

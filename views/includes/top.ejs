@@ -151,9 +151,36 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // hide on load, because it was taking up too much space 
-        const div = document.getElementById('video-preview-div');
-        div.style.display = "none";
+        const video = document.getElementById('video-preview-div');
+        video.style.display = "none";
+
     })
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // profile picture url
+        const picture = document.getElementById('profile-picture-preview-div');
+        picture.style.display = 'none';
+    })
+
+    // instant image prewview on add-video
+    function previewProfilePicture() {
+        // re-show the image prewview
+        const div = document.getElementById('profile-picture-preview-div');
+        div.style.display = "block";
+
+        const preview = document.getElementById('picture');
+        const file = document.querySelector('input[type=file]').files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            // convert image file to base64 string
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
 
 
     // instant image prewview on add-video

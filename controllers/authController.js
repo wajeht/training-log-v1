@@ -241,7 +241,8 @@ exports.postNewPassword = (req, res, next) => {
 // ----------  USER DETAILS ----------
 exports.postUserDetails = (req, res, next) => {
     let currentSessionUserId = null;
-    const { profilePictureUrl } = req.body;
+    const picture = req.files.picture[0];
+    const profilePictureUrl = picture.path;
 
     if (req.session.user) {
         currentSessionUserId = req.session.user.id;
