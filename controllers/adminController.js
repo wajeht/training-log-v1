@@ -78,7 +78,7 @@ exports.postAddVideo = (req, res, next) => {
     const userId = req.session.user.id;
     const video = req.files.video[0];
 
-    message = message.replaceAll('<br>', 'chr(10)');
+    message = message.replace(/<br>/g, 'chr(10)');
 
     console.log('########## VIIDEO ######', video);
     if (!video) {
