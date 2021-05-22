@@ -13,13 +13,33 @@
                                 </div>
                             </div>
 
-                            <form action="/video/<%= videoArray.id %>" method="POST">
+                            <form action="/video/<%= videoArray.id %>" method="POST" enctype="multipart/form-data">
+
+
+                                <div id="update-video-preview-div" class="row">
+                                    <div class="input-field col s12 center">
+                                        <video width="80%" controls>
+                                            <source src="/<%= videoArray.videoUrl %>#t=0.1" type="video/mp4"
+                                                    autostart="false">
+                                            Your browser does not support HTML5 video..
+                                        </video>
+                                    </div>
+                                </div>
+
+
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <textarea id="icon_prefix" id="videoUrl" name="videoUrl"
-                                                  class="materialize-textarea" required>
- <%= videoArray.videoUrl %>  </textarea>
-                                        <label for="icon_prefix">Video URL</label>
+                                        <div class="file-field input-field">
+                                            <div class="btn waves-effect waves-light grey darken-4">
+                                                <span>Replace</span>
+                                                <input type="file" name="video" id="video" multiple>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text"
+                                                       placeholder="Upload one or more files" accept="video/*"
+                                                       onchange="previewUpdaedVideo()">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

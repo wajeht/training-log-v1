@@ -99,13 +99,42 @@ exports.postAddVideo = (req, res, next) => {
 
 exports.postUpdateVideo = (req, res, next) => {
     const id = parseInt(req.params.id);
-    const { videoUrl, title, message } = req.body;
+    const { title, message } = req.body;
+    const videoUpload = req.files.video;
 
-    Video.update(videoUrl, title, message, id)
-        .then(() => {
-            res.redirect(`/video/${id}`);
-        })
-        .catch((err) => console.log(err));
+    // if user has seleted a video to swap
+    // delte old vid, then repalce with new vid
+    if (videoUpload != null || videoUpload != undefined) {
+        Video.findById(id)
+            .then((result) => {
+                const { path } = req.files.video[0];
+                const oldVideoPath = result.videoUrl;
+
+                // delete old video
+                fs.unlink(oldVideoPath, function (err) {
+                    if (err) return console.log(err);
+                    console.log('file deleted successfully');
+                });
+
+                // update new view
+                Video.update(path, title, message, id).then(() => {
+                    return res.redirect(`/video/${id}`);
+                });
+            })
+            .catch((err) => console.log(err));
+    } else {
+        // if user didn't choose video
+        Video.findById(id)
+            .then((result) => {
+                console.log(result);
+                const { videoUrl } = result;
+
+                Video.update(videoUrl, title, message, id).then(() => {
+                    return res.redirect(`/video/${id}`);
+                });
+            })
+            .catch((err) => console.log(err));
+    }
 };
 
 exports.postEditVideo = (req, res, next) => {
