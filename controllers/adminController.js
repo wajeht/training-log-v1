@@ -3,6 +3,7 @@ const User = require('../models/user.js');
 const Comment = require('../models/comments.js');
 const fs = require('fs');
 
+// TODO: create video stream instead of reading it
 // ---------- VIDEO ----------
 exports.getVideo = (req, res, next) => {
     const { id } = req.params;

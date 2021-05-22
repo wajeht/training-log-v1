@@ -1,11 +1,27 @@
 const { response } = require('express');
 const pool = require('../config/database.js');
-module.exports = class Video {
-    static fetchAll() {
+
+// SELECT * FROM items LIMIT {itemsPerPage} OFFSET {(page - 1) * itemsPerPage}
+// https://stackoverflow.com/questions/48298555/how-to-implement-pagination-in-nodejs-postgresql
+https: module.exports = class Video {
+    static fetchAll(itemsPerPage, page) {
         return new Promise((resolve, reject) => {
-            pool.query('SELECT * FROM videos ORDER BY id DESC', (error, response) => {
+            pool.query(
+                'SELECT * FROM videos ORDER BY id DESC LIMIT ($1) OFFSET (($2) -1) * ($1)',
+                [itemsPerPage, page],
+                (error, response) => {
+                    if (error) return reject(error);
+                    resolve(response.rows);
+                }
+            );
+        });
+    }
+
+    static countAllVideos() {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT COUNT(*) from videos', (error, response) => {
                 if (error) return reject(error);
-                resolve(response.rows);
+                resolve(response.rows[0]);
             });
         });
     }
