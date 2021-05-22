@@ -133,7 +133,11 @@
                                         </div>
                                         <div class="col s10">
                                             <span class="card-title grey-text text-darken-4">
-                                                <%= comment.username %>
+
+                                                <a style="color: #114732; font-weight: bold;"
+                                                   href="/comment-user-videos/<%= comment.userId %>">
+                                                    <%= comment.username %>
+                                                </a>
                                             </span>
                                             <span class="black-text">
                                                 <%= comment.comment %>

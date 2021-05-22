@@ -29,4 +29,6 @@ router.post('/add-video', isAuth.isAuth, adminController.postAddVideo);
 // /admin/add-video => POST
 router.post('/add-comment', isAuth.isAuth, adminController.postAddComment);
 
+router.get('/comment-user-videos/:userId', adminController.getCommentUserVideos);
+
 module.exports = router;

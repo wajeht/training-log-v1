@@ -229,6 +229,25 @@ exports.getMyVideos = (req, res, next) => {
         });
 };
 
+exports.getCommentUserVideos = (req, res, next) => {
+    const userId = req.params.userId;
+
+    Video.fetchUserVideo(userId)
+        .then((videos) => {
+            User.findById(userId).then((user) => {
+                return res.render('video/my-videos.ejs', {
+                    videos: videos,
+                    username: user.username,
+                    pageTitle: `${user.username}'s videos`,
+                    currentSessionUserId: user.id,
+                });
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
 exports.postPostAutherVideos = (req, res, next) => {
     const userId = Number(req.body.postAuthorId);
     Video.fetchUserVideo(userId)
