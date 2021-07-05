@@ -40,18 +40,22 @@ exports.getVideo = (req, res, next) => {
 
                 // fetch comment
                 Comment.fetchComment(video.id).then((result) => {
-                    return res.render('video/video-details.ejs', {
-                        postAuthorId: user.id,
-                        videoUserProfileUrl: user.profilePictureUrl,
-                        currentSessionUserId: currentSessionUserId,
-                        videId: video.id,
-                        username: username,
-                        video: video,
-                        date: date,
-                        pageTitle: `${user.username}'s ${video.title}`,
-                        comments: result,
-                        author: user.username,
-                        currentSessionUser: currentSessionUser,
+                    Video.fetchUserVideo(video.userId).then((videosArray) => {
+                        const thisWeekVideoArray = videosArray.slice(1, 5);
+                        return res.render('video/video-details.ejs', {
+                            postAuthorId: user.id,
+                            videoUserProfileUrl: user.profilePictureUrl,
+                            currentSessionUserId: currentSessionUserId,
+                            videId: video.id,
+                            username: username,
+                            video: video,
+                            date: date,
+                            videosArray: thisWeekVideoArray,
+                            pageTitle: `${user.username}'s ${video.title}`,
+                            comments: result,
+                            author: user.username,
+                            currentSessionUser: currentSessionUser,
+                        });
                     });
                 });
             });

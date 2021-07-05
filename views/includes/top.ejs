@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
+          media="screen,projection" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap"
+          rel="stylesheet">
     <title>
         <%= pageTitle %>
     </title>
@@ -37,7 +39,17 @@
         .logo-footer {
             text-align: center;
         }
+
+
+
     }
+
+    .recent-videos {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+    }
+
 
     /* only put ths when using image as logo */
     /* .brand-logo {
@@ -281,7 +293,8 @@
 
                         <!-- Dropdown Trigger -->
                         <li>
-                            <a class='dropdown-trigger  auth-font-siize' href='#' data-target='dropdown'>
+                            <a class='dropdown-trigger  auth-font-siize' href='#'
+                               data-target='dropdown'>
                                 <%= username %>
                             </a>
                         </li>
@@ -293,7 +306,8 @@
                             <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
                             <li><a href="/add-video">add-video</a></li>
                             <form action="/logout" method="post">
-                                <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+                                <input type="hidden" id="csrfToken" name="_csrf"
+                                       value="<%= csrfToken %>">
                                 <li><a href="javascript:{}"
                                        onclick="document.getElementById('log-out').submit(); return false;">logout</a>
                                 </li>
@@ -319,17 +333,20 @@
                         <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
                         <li><a href="/add-video">add-video</a></li>
                         <form action="/logout" id="log-out" method="post">
-                            <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+                            <input type="hidden" id="csrfToken" name="_csrf"
+                                   value="<%= csrfToken %>">
 
                             <li><a href="javascript:{}"
-                                   onclick="document.getElementById('log-out').submit(); return false;">logout</a></li>
+                                   onclick="document.getElementById('log-out').submit(); return false;">logout</a>
+                            </li>
 
                         </form>
                         <% } else { %>
                             <li><a href="/login">login</a></li>
                             <% } %>
                 </ul>
-                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i
+                       class="material-icons">menu</i></a>
             </div>
 
         </nav>
@@ -342,14 +359,15 @@
                         <br>
                         <div class="header center white-text">
                             <br>
-                            <img class="hero-banner" src="/images/logo/jaw_strength_presents.png" width="400"
-                                 height="auto">
+                            <img class="hero-banner" src="/images/logo/jaw_strength_presents.png"
+                                 width="400" height="auto">
                             <br>
                         </div>
                         <!-- <h1 class="header center white-text ">Training Vlog</h1> -->
                         <div class="row center">
                             <h5 class="header col s12 light white-text text-lighten-1">
-                                A full-stack web application to log training videos with the respect to weekly
+                                A full-stack web application to log training videos with the respect
+                                to weekly
                                 session. Built by an athlete, for the athletes!
                             </h5>
                         </div>
