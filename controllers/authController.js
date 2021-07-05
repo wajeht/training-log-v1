@@ -105,12 +105,12 @@ exports.postSignup = (req, res, next) => {
             console.log('#####', {
                 message: 'SUCCESSFULLY REGISTERED!',
             });
-            // return transporter.sendMail({
-            //     to: email,
-            //     from: config.sendGrid.fromEmail,
-            //     subject: 'Signup succefull',
-            //     html: '<h1>You go it up!</h1>',
-            // });
+            return transporter.sendMail({
+                to: email,
+                from: config.sendGrid.fromEmail,
+                subject: 'Signup succefull',
+                html: '<h1>You go it up!</h1>',
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -171,15 +171,15 @@ exports.postForgetPassword = (req, res, nexxt) => {
             })
             .then((user) => {
                 res.redirect('/');
-                // return transporter.sendMail({
-                //     to: email,
-                //     from: config.sendGrid.fromEmail,
-                //     subject: 'Password reset',
-                //     html: `
-                //     <p>You requested a password reset</p>
-                //     <p>Click <b><i><a href="http://localhost:3000/password-reset/${token}">here</a><i/></b> to reset a new password!</p>
-                //     `,
-                // });
+                return transporter.sendMail({
+                    to: email,
+                    from: config.sendGrid.fromEmail,
+                    subject: 'Password reset',
+                    html: `
+                    <p>You requested a password reset</p>
+                    <p>Click <b><i><a href="http://localhost:3000/password-reset/${token}">here</a><i/></b> to reset a new password!</p>
+                    `,
+                });
                 console.log('http://localhost:3000/password-reset/${token}');
             })
             .catch((err) => {
