@@ -41,7 +41,7 @@ exports.getVideo = (req, res, next) => {
                 // fetch comment
                 Comment.fetchComment(video.id).then((result) => {
                     Video.fetchUserVideo(video.userId).then((videosArray) => {
-                        const thisWeekVideoArray = videosArray.slice(1, 5);
+                        const thisWeekVideoArray = videosArray.slice(1, 4);
                         return res.render('video/video-details.ejs', {
                             postAuthorId: user.id,
                             videoUserProfileUrl: user.profilePictureUrl,
