@@ -7,13 +7,24 @@ const config = require('../config/config.js');
 
 const { validationResult } = require('express-validator');
 
-const transporter = nodemailer.createTransport(
-    sendGridTransport({
-        auth: {
-            api_key: config.sendGrid.apiKey,
-        },
-    })
-);
+// const transporter = nodemailer.createTransport(
+//     sendGridTransport({
+//         auth: {
+//             api_key: config.sendGrid.apiKey,
+//         },
+//     })
+// );
+
+const smtpConfig = {
+    host: config.email.host,
+    port: config.email.port,
+    secure: config.email.secure,
+    auth: {
+        user: config.email.auth_user,
+        pass: config.email.auth_pass,
+    },
+};
+const transporter = nodemailer.createTransport(smtpConfig);
 
 // ---------- LOGIN ----------
 exports.getLogin = (req, res, next) => {
@@ -27,6 +38,7 @@ exports.getLogin = (req, res, next) => {
     res.render('auth/login.ejs', {
         pageTitle: 'Login',
         errorMessage: req.flash('error'),
+        successMessage: req.flash('success'),
     });
 };
 
@@ -95,22 +107,26 @@ exports.postSignup = (req, res, next) => {
     bcrypt
         .hash(password, 10)
         .then((hashPassword) => {
-            // console.log('#################', hashPassword);
             User.addUser(email, username, hashPassword).then((user) => {
-                // console.log({ SUCESSFULLY_REGISTERED: user });
                 return res.redirect('/login');
             });
         })
         .then(() => {
-            console.log('#####', {
-                message: 'SUCCESSFULLY REGISTERED!',
+            req.flash('success', 'You have successfully registered. Please Login!');
+            return transporter.sendMail({
+                to: email,
+                from: `JAWSTRENGTH.COM <${config.sendGrid.fromEmail}>`,
+                subject: 'You have successfully registered',
+                html: `
+				<h3>Hello, ${username}</h3>
+				<br>
+				<p>You have successfully registered an account with us.</p>
+				<p>Visit <a href='https://tvl.jawstrength.com/login'>https://tvl.jawstrength.com/login</a> to login!
+				<br>
+				<p>Best,</p>
+				<p>Jaw</p>
+				`,
             });
-            // return transporter.sendMail({
-            //     to: email,
-            //     from: config.sendGrid.fromEmail,
-            //     subject: 'Signup succefull',
-            //     html: '<h1>You go it up!</h1>',
-            // });
         })
         .catch((err) => {
             console.log(err);

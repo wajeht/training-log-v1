@@ -1,80 +1,88 @@
 <%- include("../includes/top.ejs") %>
 
-    <main>
+<main>
+    <div class="container">
+        <br /><br />
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <span class="card-title grey-text text-darken-4">Login</span>
+                            </div>
+                        </div>
 
-        <div class="container">
-            <br><br>
-            <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
+                        <!-- // display auth error message if failed logi -->
+                        <% if (errorMessage.length> 0 || successMessage.length> 0) { %>
+                        <div class="chip">
+                            <%= errorMessage[0] %> <%= successMessage[0] %>
+                            <i class="close material-icons">close</i>
+                        </div>
+                        <% } %>
 
-
+                        <form action="/login" method="POST">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <span class="card-title grey-text text-darken-4">Login</span>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        class="validate"
+                                        required
+                                    />
+                                    <label for="email">Email</label>
                                 </div>
                             </div>
 
-                            <!-- // display auth error message if failed logi -->
-                            <% if (errorMessage.length> 0) { %>
-                                <div class="chip">
-                                    <%= errorMessage[0] %>
-                                        <i class="close material-icons">close</i>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        class="validate"
+                                        required
+                                    />
+                                    <label for="password">Password</label>
                                 </div>
-                                <% } %>
+                            </div>
 
-                                    <form action="/login" method="POST">
+                            <div class="row">
+                                <div class="input-field right col 12">
+                                    <!-- <a class="grey-text text-darken-4" href='/forget-password'>Forget
+                                                    Password?</a>‏‎ ‎‏‎ ‎‏‎ ‎‏‎ -->
+                                    <a class="grey-text text-darken-4" href="/signup">Signup</a>
+                                </div>
+                            </div>
 
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                                <input id="email" type="email" name="email" id="email" class="validate"
-                                                       required>
-                                                <label for="email">Email</label>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                                <input id="password" type="password" name="password" id="password"
-                                                       class="validate" required>
-                                                <label for="password">Password</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="input-field right col 12">
-                                                <a class="grey-text text-darken-4" href='/forget-password'>Forget
-                                                    Password?</a>‏‎ ‎‏‎ ‎‏‎ ‎‏‎
-                                                <a class="grey-text text-darken-4" href='/signup'>Signup</a>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="center col s12">
-                                                <input type="hidden" id="csrfToken" name="_csrf"
-                                                       value="<%= csrfToken %>">
-                                                <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                                        name="action">Submit
-                                                    <i class="material-icons right ">send</i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-
-                                    </form>
-
-
-                        </div>
-
+                            <div class="row">
+                                <div class="center col s12">
+                                    <input
+                                        type="hidden"
+                                        id="csrfToken"
+                                        name="_csrf"
+                                        value="<%= csrfToken %>"
+                                    />
+                                    <button
+                                        class="btn waves-effect waves-light grey darken-4"
+                                        type="submit"
+                                        name="action"
+                                    >
+                                        Submit
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
+    </div>
+    <br />
+</main>
 
-    </main>
-
-    <%- include("../includes/bottom.ejs") %>
+<%- include("../includes/bottom.ejs") %>
