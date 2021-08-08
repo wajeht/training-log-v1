@@ -15,7 +15,7 @@ module.exports = class Comment {
     }
 
     /**
-     * get a list of comments in accednign order based on video id
+     * get a list of comments in acceding order based on video id
      * @param {number} videoId
      * @returns {array[]} a list of comments
      */

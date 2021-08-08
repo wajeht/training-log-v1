@@ -1,5 +1,4 @@
 const { response } = require('express');
-const { reset } = require('nodemon');
 const pool = require('../config/database.js');
 
 module.exports = class User {
