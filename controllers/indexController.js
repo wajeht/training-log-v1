@@ -14,7 +14,7 @@ exports.getIndex = async (req, res, next) => {
 
     try {
         const res_countAllVideo = await Video.countAllVideos();
-        let totalVideos = await res_countAllVideo;
+        let totalVideos = await res_countAllVideo.count;
 
         const res_fetchAll = await Video.fetchAll(ITEMS_PER_PAGE, page);
         const videosArray = await res_fetchAll;
