@@ -37,18 +37,27 @@ https://tvl.jawstrength.com/
 
 Within this project I have include `.evn.example` file with secret credentials. Name that file to .env and put in proper credentials. And also make sure to install `postgresql` database and create proper account first.
 
-I used sendgrip to email user after signing up, so if you want to use that, make sure to signup for sendgrip acc and request api from it.
+I use my email as SMTP server.
 
-```
-PORT=0000
+```bash
+PORT=3000
+
+# Database
 DB_HOST="localhost"
-DB_USERNAME="username"
-DB_PASSWORD="password"
-DB_DATABASE="database"
-DB_PORT=0000
+DB_USERNAME="dbusername"
+DB_PASSWORD="dbpassword"
+DB_DATABASE="database name"
+DB_PORT=5432
+
+# Express cooke
 COOKIE_SECRET="THIS IS NOT A SECRET"
-SENDGRID_API_KEY="YOUR SENDGRID API KEYS HERE"
-SENDGRID_FROM_EMAIL="yoremail@domain.com"
+
+# Email credentials
+EMAIL_HOST='mail.yourhost.com'
+EMAIL_PORT=465
+EMAIL_SECURE=true
+EMAIL_AUTH_USER='mail@yourname.com'
+EMAIL_AUTH_PASS='this is your password'
 ```
 
 After setting up your `.env` file, set your postgres user credentials within `configureDaatabase.sh`
