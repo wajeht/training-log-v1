@@ -1,0 +1,2 @@
+#!/bin/sh
+export DB_PASSWORD=YOUR_PG_DATABASE_PASSWORD
