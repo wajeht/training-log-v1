@@ -35,29 +35,43 @@ https://tvl.jawstrength.com/
 
 # Database configuration
 
-Within this project I have include `.evn.example` file with secret credentials. Name that file to .env and put in proper credentials. And also make sure to install `postgresql` database and create proper account first.
+Within this project I have include `.evn.example` file with secret credentials. Name that file to `.env` and put in proper credentials. There is also `.pg_password.example.sh` file inside `/bin` folder. Rename it to `.pg_password.sh` and put proper credentials. Also make sure to install `postgresql` database and create proper account first and password first.
 
-I use my email as SMTP server.
+I use my email as SMTP server.  and OR you can use SendGrid as your mailing stuff!
+
+## For `.pg_password.sh` file inside `/bin` folder
 
 ```bash
+#!/bin/sh
+export DB_PASSWORD=YOUR_PG_DATABASE_PASSWORD
+```
+
+## For `.env` file
+
+```bash
+# Port
 PORT=3000
 
-# Database
+# Database connection
 DB_HOST="localhost"
-DB_USERNAME="dbusername"
-DB_PASSWORD="dbpassword"
-DB_DATABASE="database name"
+DB_USERNAME="node_user"
+DB_PASSWORD="node_password"
+DB_DATABASE="node_database"
 DB_PORT=5432
 
-# Express cooke
+# Express cookie
 COOKIE_SECRET="THIS IS NOT A SECRET"
 
+# Sendgrid credentials
+SENDGRID_API_KEY="RANDOM SENDGRIP API KEYS"
+SENDGRID_FROM_EMAIL="YOUR EMAIL"
+
 # Email credentials
-EMAIL_HOST='mail.yourhost.com'
+EMAIL_HOST='MAIL.YOURSMPTSERER.COM'
 EMAIL_PORT=465
 EMAIL_SECURE=true
-EMAIL_AUTH_USER='mail@yourname.com'
-EMAIL_AUTH_PASS='this is your password'
+EMAIL_AUTH_USER='MAIL@YOURSMTPSERVER.COM'
+EMAIL_AUTH_PASS='YOUR EMAIL PASSWORD'
 ```
 
 After setting up your `.env` file, set your postgres user credentials within `configureDaatabase.sh`
