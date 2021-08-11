@@ -73,12 +73,14 @@ After setting up your `.env` file, set your postgres user credentials within `co
 
 # Contribute
 
-Let me know if you would contribute into this projects. Fork it and work on it on your own branch. Send me a pull request after. I will merge it.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are greatly appreciated.
 
-0. `fork this repo`
-1. `make new branch`
-2. `send pull request`
+1. Fork the Project
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+4. Push to the Branch (git push origin feature/AmazingFeature)
+5. Open a Pull Request
 
 # License
 
-MIT © [wajeht](https://wajeht.github.io/)
+Distributed under the MIT License © [wajeht](https://www.github.com/wajeht/). See LICENSE for more information.
