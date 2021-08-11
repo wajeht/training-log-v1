@@ -1,7 +1,15 @@
+// Models
 const Video = require('../models/video.js');
 const User = require('../models/user.js');
 const Comment = require('../models/comments.js');
+
+// Utils
 const fs = require('fs');
+const path = require('path');
+const { root } = require('../util/directory.js');
+
+// To take screenshots
+var ffmpeg = require('fluent-ffmpeg');
 
 // TODO: create video stream instead of reading it
 // ---------- VIDEO ----------
@@ -85,14 +93,26 @@ exports.postAddVideo = (req, res, next) => {
 
     message = message.replace(/<br>/g, 'chr(10)');
 
-    console.log('########## VIIDEO ######', video);
+    // console.log('########## VIDEO ######', video);
     if (!video) {
         return Error('no');
     }
 
     const videoUrl = video.path;
+    const videoUrlForScreenShot = path.join(root, videoUrl);
+    const screenShotFolderPath = path.join(root, 'public', 'uploads', 'thumbnails');
 
-    Video.addVideo(date, videoUrl, title, message, userId)
+    ffmpeg(videoUrlForScreenShot).screenshots({
+        timestamps: [0],
+        folder: screenShotFolderPath,
+        filename: videoUrl.split('/').pop().concat('_screenshot.png'),
+    });
+
+    const fn = videoUrl.split('/').pop().concat('_screenshot.png');
+
+    const screenshotUrl = path.join('public', 'uploads', 'thumbnails', fn);
+
+    Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
         .then(() => {
             // console.log({ '***** adminController.postAddVideo ***** ': req.body });
             res.redirect('/');

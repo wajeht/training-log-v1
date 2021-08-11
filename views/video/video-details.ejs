@@ -11,13 +11,10 @@
                 <!-- --------------------------VIDEO-DETAILS------------------------------ -->
                 <div class="col s9">
                     <div class="card">
-                        <!-- <div class="card-image">
-                            <img src="<%= video.videoUrl %> " />
-                        </div> -->
 
                         <div class="video-container">
-                            <video controls="controls" preload="metadata">
-                                <source src="/<%= video.videoUrl %>#t=0.1" type="video/mp4" </video>
+                            <video controls preload="none"  poster="../<%= video.screenshotUrl %>">
+                                <source src="/<%= video.videoUrl %>" type="video/mp4"> </video>
                         </div>
 
 
@@ -136,8 +133,7 @@
                             <a href="/video/<%= v.id %> ">
                                 <div class="card hoverable">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                        <video width="100%" preload="metadata"
-                                               src="/<%= v.videoUrl %>#t=0.1" />
+                                        <img src="../<%= v.screenshotUrl %>" alt="">
                                     </div>
                                     <div class="post-title center grey-text text-darken-4">
                                         <%= v.title %>

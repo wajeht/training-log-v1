@@ -1,20 +1,16 @@
 const User = require('../models/user.js');
-const crypto = require('crypto');
-const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
-const sendGridTransport = require('nodemailer-sendgrid-transport');
-const config = require('../config/config.js');
-
 const { validationResult } = require('express-validator');
 
-// const transporter = nodemailer.createTransport(
-//     sendGridTransport({
-//         auth: {
-//             api_key: config.sendGrid.apiKey,
-//         },
-//     })
-// );
+// Hash password
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 
+// Utils
+const config = require('../config/config.js');
+
+// Email
+const nodemailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
 const smtpConfig = {
     host: config.email.host,
     port: config.email.port,
@@ -25,6 +21,13 @@ const smtpConfig = {
     },
 };
 const transporter = nodemailer.createTransport(smtpConfig);
+// const transporter = nodemailer.createTransport(
+//     sendGridTransport({
+//         auth: {
+//             api_key: config.sendGrid.apiKey,
+//         },
+//     })
+// );
 
 // ---------- LOGIN ----------
 exports.getLogin = (req, res, next) => {
@@ -119,9 +122,9 @@ exports.postSignup = (req, res, next) => {
                 subject: 'You have successfully registered',
                 html: `
 				<h3>Hello, ${username}</h3>
-				<br>
 				<p>You have successfully registered an account with us.</p>
 				<p>Visit <a href='https://tvl.jawstrength.com/login'>https://tvl.jawstrength.com/login</a> to login!
+				<br>
 				<br>
 				<p>Best,</p>
 				<p>Jaw</p>

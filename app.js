@@ -67,7 +67,7 @@ app.use(
     ])
 );
 
-// security
+// security to hide all headers info
 // app.use(
 //     helmet({
 //         contentSecurityPolicy: {
@@ -96,8 +96,7 @@ app.use(
 );
 
 // csrf on all POST request
-// ususally pass it from view
-// for security
+// usually pass it from view for security
 // so bad guys can't use our session store
 app.use(csrfProtechtion);
 app.use((req, res, next) => {
