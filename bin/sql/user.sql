@@ -4,7 +4,7 @@ CREATE TABLE users (
     email                       CHARACTER VARYING(100) NOT NULL,
     username                    CHARACTER VARYING(100) NOT NULL,
     password                    CHARACTER VARYING(100) NOT NULL,
-    "isClient"                  BOOLEAN DEFAULT FALSE,
+    "isAdmin"                  BOOLEAN DEFAULT FALSE,
     "profilePictureUrl"         CHARACTER VARYING(500),
     "resetToken"                CHARACTER VARYING(500),
     "resetTokenExpiration"      TIMESTAMP 

@@ -1,4 +1,7 @@
-#1/bin/bash
+#!/bin/bash
+
+source "$(dirname "$0")/.pg_password.sh" # bring in .env file that contains pgpassword
+export PGPASSWORD=$DB_PASSWORD # set the pg password as the password form .env file so we don't have to enter it
 
 database="trainingvlog"
 
