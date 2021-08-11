@@ -2,9 +2,9 @@
 
 # <p align="center">training-vlog</p>
 
-<p align="center"><em>❗❗❗ THIS PROJECT IS UNDNER DEVELOPMENT❗❗❗</em></p>
+<p align="center"><em>❗❗❗ THIS PROJECT IS UNDER DEVELOPMENT❗❗❗</em></p>
 
-<p align="center">A full-stack web application to log taining videos from a 4 days split.</p>
+<p align="center">A full-stack web application to log tainting videos from a 4 days split.</p>
 
 # Motivation
 
@@ -14,7 +14,7 @@ Instagram used to be really good before facebook bought it. Now it has gotta a l
 
 # Demo
 
-I have a live prototye running at the link below.
+I have a live prototype running at the link below.
 
 ```
 https://tvl.jawstrength.com/
@@ -37,7 +37,7 @@ https://tvl.jawstrength.com/
 
 Within this project I have include `.evn.example` file with secret credentials. Name that file to `.env` and put in proper credentials. There is also `.pg_password.example.sh` file inside `/bin` folder. Rename it to `.pg_password.sh` and put proper credentials. Also make sure to install `postgresql` database and create proper account first and password first.
 
-I use my email as SMTP server.  and OR you can use SendGrid as your mailing stuff!
+I use my email as SMTP server. and OR you can use SendGrid as your mailing stuff!
 
 ## For `.pg_password.sh` file inside `/bin` folder
 
@@ -81,7 +81,7 @@ After setting up your `.env` file, set your postgres user credentials within `co
 0. `git clone https://github.com/wajeht/training-vlog.git` to download this repo
 1. `npm run configure` to to set up database and table
 2. `npm install` to install npm packages
-3. `npm run dev` to launch the app in dev enviroment
+3. `npm run dev` to launch the app in dev environment
 4. `npm run start` to launch the app
 5. visit `localhost:6969` or whatever port you set in the browser to visit the site
 

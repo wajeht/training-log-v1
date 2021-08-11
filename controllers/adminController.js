@@ -1,17 +1,15 @@
-// Models
-const Video = require('../models/video.js');
-const User = require('../models/user.js');
-const Comment = require('../models/comments.js');
-
 // Utils
 const fs = require('fs');
 const path = require('path');
+const ffmpeg = require('fluent-ffmpeg');
 const { root } = require('../util/directory.js');
 
-// To take screenshots
-var ffmpeg = require('fluent-ffmpeg');
+// Models
+const Comment = require('../models/comments.js');
+const Video = require('../models/video.js');
+const User = require('../models/user.js');
 
-// TODO: create video stream instead of reading it
+
 // ---------- VIDEO ----------
 exports.getVideo = (req, res, next) => {
     const { id } = req.params;
@@ -53,16 +51,16 @@ exports.getVideo = (req, res, next) => {
                         return res.render('video/video-details.ejs', {
                             postAuthorId: user.id,
                             videoUserProfileUrl: user.profilePictureUrl,
-                            currentSessionUserId: currentSessionUserId,
+                            currentSessionUserId,
                             videId: video.id,
-                            username: username,
-                            video: video,
-                            date: date,
+                            username,
+                            video,
+                            date,
                             videosArray: thisWeekVideoArray,
                             pageTitle: `${user.username}'s ${video.title}`,
                             comments: result,
                             author: user.username,
-                            currentSessionUser: currentSessionUser,
+                            currentSessionUser,
                         });
                     });
                 });
@@ -81,8 +79,8 @@ exports.getAddVideo = (req, res, next) => {
     // console.log({ '***** adminController.getAddVideo ***** ': '' });
     res.render('video/add-video.ejs', {
         pageTitle: 'add video page',
-        username: username,
-        currentSessionUserId: currentSessionUserId,
+        username,
+        currentSessionUserId,
     });
 };
 
@@ -127,8 +125,8 @@ exports.postUpdateVideo = (req, res, next) => {
     const { title, message } = req.body;
     const videoUpload = req.files.video;
 
-    // if user has seleted a video to swap
-    // delte old vid, then repalce with new vid
+    // if user has sleeted a video to swap
+    // delete old vid, then replace with new vid
     if (videoUpload != null || videoUpload != undefined) {
         Video.findById(id)
             .then((result) => {
@@ -136,15 +134,13 @@ exports.postUpdateVideo = (req, res, next) => {
                 const oldVideoPath = result.videoUrl;
 
                 // delete old video
-                fs.unlink(oldVideoPath, function (err) {
+                fs.unlink(oldVideoPath, (err) => {
                     if (err) return console.log(err);
                     console.log('file deleted successfully');
                 });
 
                 // update new view
-                Video.update(path, title, message, id).then(() => {
-                    return res.redirect(`/video/${id}`);
-                });
+                Video.update(path, title, message, id).then(() => res.redirect(`/video/${id}`));
             })
             .catch((err) => console.log(err));
     } else {
@@ -154,9 +150,7 @@ exports.postUpdateVideo = (req, res, next) => {
                 console.log(result);
                 const { videoUrl } = result;
 
-                Video.update(videoUrl, title, message, id).then(() => {
-                    return res.redirect(`/video/${id}`);
-                });
+                Video.update(videoUrl, title, message, id).then(() => res.redirect(`/video/${id}`));
             })
             .catch((err) => console.log(err));
     }
@@ -175,10 +169,10 @@ exports.postEditVideo = (req, res, next) => {
         .then((result) => {
             // console.log({ '***** adminController.postEditVideo ***** ': result });
             res.render('video/edit-video.ejs', {
-                username: username,
+                username,
                 videoArray: result,
                 pageTitle: 'edit videos',
-                currentSessionUserId: currentSessionUserId,
+                currentSessionUserId,
             });
         })
         .catch((err) => {
@@ -190,13 +184,11 @@ exports.postDeleteVideo = (req, res, next) => {
     const id = parseInt(req.params.id);
 
     Comment.fetchComment(id)
-        .then((comment) => {
-            return comment.length > 0;
-        })
+        .then((comment) => comment.length > 0)
         .then((hasComments) => {
             // if vid has comment
             // delete comment fist
-            // then delte video
+            // then delete video
             if (hasComments) {
                 // delete comment
                 Comment.deleteCommentByVideoId(id)
@@ -207,7 +199,7 @@ exports.postDeleteVideo = (req, res, next) => {
 
                             const { videoUrl } = deletedVideo;
 
-                            fs.unlink(videoUrl, function (err) {
+                            fs.unlink(videoUrl, (err) => {
                                 if (err) return console.log(err);
                                 console.log('file deleted successfully');
                             });
@@ -219,13 +211,13 @@ exports.postDeleteVideo = (req, res, next) => {
                         console.log('deletedCommentErr', err);
                     });
             }
-            // else jsut delte vieo
+            // else just delete video
             Video.delete(id).then((deletedVideo) => {
                 console.log('deletedVideo', deletedVideo);
 
                 const { videoUrl } = deletedVideo;
 
-                fs.unlink(videoUrl, function (err) {
+                fs.unlink(videoUrl, (err) => {
                     if (err) return console.log(err);
                     console.log('file deleted successfully');
                 });
@@ -241,32 +233,32 @@ exports.postDeleteVideo = (req, res, next) => {
 // ---------- MY VIDEO ----------
 exports.getMyVideos = (req, res, next) => {
     Video.fetchUserVideo(req.session.user.id)
-        .then((videos) => {
-            return res.render('video/my-videos.ejs', {
-                videos: videos,
+        .then((videos) =>
+            res.render('video/my-videos.ejs', {
+                videos,
                 username: req.session.user.username,
                 pageTitle: `${req.session.user.username}'s videos`,
                 currentSessionUserId: req.session.user.id,
-            });
-        })
+            })
+        )
         .catch((err) => {
             console.log(err);
         });
 };
 
 exports.getCommentUserVideos = (req, res, next) => {
-    const userId = req.params.userId;
+    const { userId } = req.params;
 
     Video.fetchUserVideo(userId)
         .then((videos) => {
-            User.findById(userId).then((user) => {
-                return res.render('video/my-videos.ejs', {
-                    videos: videos,
+            User.findById(userId).then((user) =>
+                res.render('video/my-videos.ejs', {
+                    videos,
                     username: user.username,
                     pageTitle: `${user.username}'s videos`,
                     currentSessionUserId: user.id,
-                });
-            });
+                })
+            );
         })
         .catch((err) => {
             console.log(err);
@@ -277,14 +269,14 @@ exports.postPostAutherVideos = (req, res, next) => {
     const userId = Number(req.body.postAuthorId);
     Video.fetchUserVideo(userId)
         .then((videos) => {
-            User.findById(userId).then((user) => {
-                return res.render('video/my-videos.ejs', {
-                    videos: videos,
+            User.findById(userId).then((user) =>
+                res.render('video/my-videos.ejs', {
+                    videos,
                     username: user.username,
                     pageTitle: `${user.username}'s videos`,
                     currentSessionUserId: user.id,
-                });
-            });
+                })
+            );
         })
         .catch((err) => {
             console.log(err);
@@ -296,7 +288,7 @@ exports.postAddComment = (req, res, next) => {
     const date = new Date();
     let { message, videoId, userId } = req.body;
 
-    // had to turn into number bcause
+    // had to turn into number because
     // because req.body.useID was a string
     userId = Number(userId);
 
