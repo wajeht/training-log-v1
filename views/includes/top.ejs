@@ -178,6 +178,20 @@
         // hide on load, because it was taking up too much space 
         const video = document.getElementById('video-preview-div');
         video.style.display = "none";
+		const loading = document.getElementById('add-video-loading'); 
+		loading.style.display = 'none'
+
+    })
+
+	document.addEventListener("DOMContentLoaded", function () {
+		const button_div = document.getElementById('add-video-add-button-div')
+		const button = document.getElementById('add-video-add-button-id');
+		const loading = document.getElementById('add-video-loading'); 
+
+		button.addEventListener("click", ()=> {
+			button_div.style.display  = 'none'
+			loading.style.display  = ''
+		})
 
     })
 
@@ -266,8 +280,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.sidenav');
         M.Sidenav.init(elems);
-
-
     })
 
     document.addEventListener('DOMContentLoaded', function () {
