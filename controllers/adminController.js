@@ -99,7 +99,7 @@ exports.postAddVideo = (req, res, next) => {
     const videoUrlForScreenShot = path.join(root, videoUrl);
     const screenShotFolderPath = path.join(root, 'public', 'uploads', 'thumbnails');
 
-	// take screenshot at the 0 second then save it at uploads/thumbnails
+    // take screenshot at the 0 second then save it at uploads/thumbnails
     ffmpeg(videoUrlForScreenShot).screenshots({
         timestamps: [0],
         folder: screenShotFolderPath,
@@ -112,7 +112,11 @@ exports.postAddVideo = (req, res, next) => {
 
     Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
         .then(() => {
-            // console.log({ '***** adminController.postAddVideo ***** ': req.body });
+            console.log({
+                '***** adminController.postAddVideo ***** ': req.body,
+                screenshotUrl,
+            });
+
             res.redirect('/');
         })
         .catch((err) => {

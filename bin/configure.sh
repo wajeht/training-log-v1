@@ -20,8 +20,13 @@ echo "$(tput setaf 125)cleaning uploaded files"
 echo "--------------------------------------------"
 echo "Deleting old videos"
 rm ./public/uploads/*mp4
+
 echo "Deleting old videos thumnail"
 rm ./public/uploads/thumbnails/*png
+
+echo "Deleting old profile pictures"
+rm ./public/uploads/*png
+rm ./public/uploads/*jpg
 echo ""
 
 
