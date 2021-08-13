@@ -1,7 +1,8 @@
 // Utils
 const fs = require('fs');
 const path = require('path');
-const ffmpeg = require('@ffmpeg-installer/ffmpeg');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');;
 const { root } = require('../util/directory.js');
 
 // Models
