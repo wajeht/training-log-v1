@@ -1,9 +1,10 @@
 // Utils
 const fs = require('fs');
 const path = require('path');
-const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-const ffmpeg = require('fluent-ffmpeg');;
 const { root } = require('../util/directory.js');
+
+// Screenshot
+const ffmpeg = require('fluent-ffmpeg');
 
 // Models
 const Comment = require('../models/comments.js');
@@ -104,20 +105,31 @@ exports.postAddVideo = (req, res, next) => {
     ffmpeg(videoUrlForScreenShot).screenshots({
         timestamps: [0],
         folder: screenShotFolderPath,
-        filename: videoUrl.split('/').pop().concat('_screenshot.png'),
+        filename: videoUrl.split('/').pop().concat('_screenshot.jpg'),
         size: '640x640',
     });
 
-    const fn = videoUrl.split('/').pop().concat('_screenshot.png');
+    const fn = videoUrl.split('/').pop().concat('_screenshot.jpg');
     const screenshotUrl = path.join('public', 'uploads', 'thumbnails', fn);
+
+    // optimize the image
+    (async () => {
+        const imagemin = (await import('imagemin')).default;
+        const imageminMozjpeg = (await import('imagemin-mozjpeg')).default;
+
+        await imagemin([screenshotUrl], screenShotFolderPath, {
+            use: [imageminMozjpeg()],
+        });
+
+        // console.log('Images optimized');
+    })();
 
     Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
         .then(() => {
-            console.log({
-                '***** adminController.postAddVideo ***** ': req.body,
-                screenshotUrl,
-            });
-
+            // console.log({
+            //     '***** adminController.postAddVideo ***** ': req.body,
+            //     screenshotUrl,
+            // });
             res.redirect('/');
         })
         .catch((err) => {
