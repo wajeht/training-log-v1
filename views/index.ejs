@@ -1,46 +1,32 @@
 <%- include("./includes/top.ejs") %>
-    <main>
+<main>
+    <div class="container">
+        <br /><br />
+        <!-- Page Content goes here -->
+        <div class="row">
+            <% if ( videosArray.length> 0 ) { %> <% for (let v of videosArray) { %>
 
-        <div class="container">
-            <br><br>
-            <!-- Page Content goes here -->
-            <div class="row">
-
-                <% if ( videosArray.length> 0 ) { %>
-
-                    <% for (let v of videosArray) { %>
-
-
-                        <div class="col s3">
-                            <a href="/video/<%= v.id %> ">
-                                <div class="card hoverable">
-                                    <div class="card-image waves-effect waves-block waves-light">
-                                        <video width="100%" preload="metadata"
-                                               src="<%= v.videoUrl %>#t=0.1" />
-                                    </div>
-                                    <div class="post-title center grey-text text-darken-4">
-                                        <%= v.title %>
-
-                                    </div>
-
-                                </div>
-                            </a>
+            <div class="col s3">
+                <a href="/video/<%= v.id %> ">
+                    <div class="card hoverable">
+                        <div class="card-image waves-effect waves-block waves-light">
+							<img src="<%= v.screenshotUrl %>" alt="">
                         </div>
-
-                        <% } %>
-
-                            <% } else { %>
-
-                                <h1 class="header center">empty</h1>
-                                <div class="row center">
-                                    <h5 class="header col s12 light">add more video</h5>
-                                </div>
-
-                                <% } %>
+                        <div class="post-title center grey-text text-darken-4"><%= v.title %></div>
+                    </div>
+                </a>
             </div>
+
+            <% } %> <% } else { %>
+
+            <h1 class="header center">empty</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">add more video</h5>
+            </div>
+
+            <% } %>
         </div>
-    </main>
+    </div>
+</main>
 
-
-
-    <%- include("./includes/bottom.ejs") %>
+<%- include("./includes/bottom.ejs") %>

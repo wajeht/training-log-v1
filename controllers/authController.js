@@ -1,20 +1,17 @@
-const User = require('../models/user.js');
+// Hash password
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
-const sendGridTransport = require('nodemailer-sendgrid-transport');
-const config = require('../config/config.js');
 
+// Utils
+const config = require('../config/config.js');
 const { validationResult } = require('express-validator');
 
-// const transporter = nodemailer.createTransport(
-//     sendGridTransport({
-//         auth: {
-//             api_key: config.sendGrid.apiKey,
-//         },
-//     })
-// );
+// Model
+const User = require('../models/user.js');
 
+// Email
+const nodemailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
 const smtpConfig = {
     host: config.email.host,
     port: config.email.port,
@@ -25,10 +22,17 @@ const smtpConfig = {
     },
 };
 const transporter = nodemailer.createTransport(smtpConfig);
+// const transporter = nodemailer.createTransport(
+//     sendGridTransport({
+//         auth: {
+//             api_key: config.sendGrid.apiKey,
+//         },
+//     })
+// );
 
 // ---------- LOGIN ----------
 exports.getLogin = (req, res, next) => {
-    let currentSessionUserId = null;
+    //   const currentSessionUserId = null;
     if (req.session.user) {
         res.redirect('/');
     }
@@ -90,9 +94,9 @@ exports.postSignup = (req, res, next) => {
     const { email, username, password } = req.body;
     const errors = validationResult(req);
     const oldInput = {
-        email: email,
-        username: username,
-        password: password,
+        email,
+        username,
+        password,
     };
 
     // if we failed, render the same page again
@@ -100,16 +104,14 @@ exports.postSignup = (req, res, next) => {
         return res.status(422).render('auth/signup.ejs', {
             pageTitle: 'Signup',
             errorMessage: errors.array(),
-            oldInput: oldInput,
+            oldInput,
         });
     }
 
     bcrypt
         .hash(password, 10)
         .then((hashPassword) => {
-            User.addUser(email, username, hashPassword).then((user) => {
-                return res.redirect('/login');
-            });
+            User.addUser(email, username, hashPassword).then((user) => res.redirect('/login'));
         })
         .then(() => {
             req.flash('success', 'You have successfully registered. Please Login!');
@@ -118,10 +120,10 @@ exports.postSignup = (req, res, next) => {
                 from: `JAWSTRENGTH.COM <${config.sendGrid.fromEmail}>`,
                 subject: 'You have successfully registered',
                 html: `
-				<h3>Hello, ${username}</h3>
+				<h3>Hello ${username},</h3>
 				<br>
 				<p>You have successfully registered an account with us.</p>
-				<p>Visit <a href='https://tvl.jawstrength.com/login'>https://tvl.jawstrength.com/login</a> to login!
+				<p>Visit <a href='https://tvl.jawstrength.com/login'>https://tvl.jawstrength.com/login</a> to login!</p>
 				<br>
 				<p>Best,</p>
 				<p>Jaw</p>
@@ -142,7 +144,7 @@ exports.getSignup = (req, res, next) => {
 
     res.render('auth/signup.ejs', {
         pageTitle: 'Signup',
-        errorMessage: errorMessage,
+        errorMessage,
         oldInput: {},
     });
 };
@@ -180,7 +182,7 @@ exports.postForgetPassword = (req, res, nexxt) => {
                     return res.redirect('/forget-password');
                 }
 
-                const id = user.id;
+                const { id } = user;
                 const resetToken = token;
                 const resetTokenExpiration = new Date(new Date().getTime() + 5 * 60000);
                 return User.updateToken(id, resetToken, resetTokenExpiration);
@@ -208,14 +210,14 @@ exports.getPasswordReset = (req, res, nexxt) => {
     const { token } = req.params;
     res.render('auth/password-reset.ejs', {
         pageTitle: 'password-reset',
-        token: token,
+        token,
     });
 };
 
 exports.postNewPassword = (req, res, next) => {
     const { token, password } = req.body;
 
-    let currentSessionUserId = null;
+    const currentSessionUserId = null;
     if (req.session.user) {
         res.redirect('/');
     }
@@ -233,24 +235,24 @@ exports.postNewPassword = (req, res, next) => {
 
             res.redirect('/');
         })
-        .then((hashPassword) => {
-            return User.updatePasswordByToken(hashPassword, token).then((user) => {
+        .then((hashPassword) =>
+            User.updatePasswordByToken(hashPassword, token).then((user) => {
                 req.flash('error', 'You can now login with updated password!');
                 res.render('auth/login', {
                     pageTitle: 'login',
                     errorMessage: req.flash('error'),
                 });
                 return user;
-            });
-        })
-        .then((user) => {
-            return User.deletePasswordResetTokenInfo(user.id).then((deleted) => {
-                console.log('token has been deleted', deleted);
-                return;
-            });
-        })
+            })
+        )
+        .then((user) =>
+            User.deletePasswordResetTokenInfo(user.id).then((deleted) => {
+                //   console.log('token has been deleted', deleted);
+            })
+        )
         .catch((err) => {
-            console.log(err);
+            next(err.message);
+            //   console.log(err);
         });
 };
 
@@ -269,11 +271,11 @@ exports.postUserDetails = (req, res, next) => {
             res.redirect('/');
         })
         .catch((err) => {
-            console.log(err);
+            next(err.message);
         });
 };
 
-exports.getUserDetails = (req, res, next) => {
+exports.getUserDetails = (req, res) => {
     res.render('auth/user-details.ejs', {
         pageTitle: 'user-details.ejs',
         username: req.session.user.username,

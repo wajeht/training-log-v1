@@ -70,11 +70,11 @@ https: module.exports = class Video {
         });
     }
 
-    static addVideo(date, videoUrl, title, message, userId) {
+    static addVideo(date, videoUrl, screenshotUrl, title, message, userId) {
         return new Promise((resolve, reject) => {
             pool.query(
-                'INSERT INTO videos (date, "videoUrl", title, message, "userId") VALUES ($1, $2, $3, $4, $5)',
-                [date, videoUrl, title, message, userId],
+                'INSERT INTO videos (date, "videoUrl", "screenshotUrl", title, message, "userId") VALUES ($1, $2, $3, $4, $5, $6)',
+                [date, videoUrl, screenshotUrl, title, message, userId],
                 (error, response) => {
                     if (error) return reject(error);
                     resolve(response.rows[0]);

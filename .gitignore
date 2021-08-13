@@ -28,6 +28,7 @@ lib-cov
 # video
 public/videos
 public/uploads
+public/uploads/thumbnails
 
 # jest testing frame work
 /coverage
