@@ -1,60 +1,61 @@
 <%- include("../includes/top.ejs") %>
+<main>
+    <div class="container">
+        <br /><br />
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <span class="card-title grey-text text-darken-4">Add video</span>
+                            </div>
+                        </div>
 
-
-
-    <main>
-
-        <div class="container">
-            <br><br>
-            <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <span class="card-title grey-text text-darken-4">Add video</span>
+                        <form action="/add-video" method="POST" enctype="multipart/form-data">
+                            <div id="video-preview-div" class="row">
+                                <div class="input-field col s12 center">
+                                    <video width="80%" controls>
+                                        <source />
+                                        Your browser does not support HTML5 video.
+                                    </video>
                                 </div>
                             </div>
 
-
-                            <form action="/add-video" method="POST" enctype="multipart/form-data">
-
-
-                                <div id="video-preview-div" class="row">
-                                    <div class="input-field col s12 center">
-                                        <video width="80%" controls>
-                                            <source>
-                                            Your browser does not support HTML5 video.
-                                        </video>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <div class="file-field input-field">
-                                            <div class="btn waves-effect waves-light grey darken-4">
-                                                <span>Upload</span>
-                                                <input type="file" name="video" id="video" multiple>
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text"
-                                                       placeholder="Upload one or more files" accept="video/*"
-                                                       onchange="previewFile()">
-                                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <div class="file-field input-field">
+                                        <div class="btn waves-effect waves-light grey darken-4">
+                                            <span>Upload</span>
+                                            <input type="file" name="video" id="video" multiple />
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input
+                                                class="file-path validate"
+                                                type="text"
+                                                placeholder="Upload one or more files"
+                                                accept="video/*"
+                                                onchange="previewFile()"
+                                            />
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" class="datepicker" name="date" id="date" required>
-                                        <label for="icon_prefix">Date</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input
+                                        type="text"
+                                        class="datepicker"
+                                        name="date"
+                                        id="date"
+                                        required
+                                    />
+                                    <label for="icon_prefix">Date</label>
                                 </div>
+                            </div>
 
-
-                                <!-- <div class="row">
+                            <!-- <div class="row">
                                     <div class="input-field col s12">
                                         <textarea id="icon_prefix" id="videoUrl" name="videoUrl"
                                                   class="materialize-textarea" required></textarea>
@@ -62,44 +63,76 @@
                                     </div>
                                 </div> -->
 
+                            <div class="row">
+                                <div class="input-field center col s12">
+                                    <textarea
+                                        id="icon_prefix"
+                                        id="title"
+                                        name="title"
+                                        class="materialize-textarea"
+                                        required
+                                    ></textarea>
+                                    <label for="icon_prefix">Title</label>
+                                </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field  center col s12">
-                                        <textarea id="icon_prefix" id="title" name="title" class="materialize-textarea"
-                                                  required></textarea>
-                                        <label for="icon_prefix">Title</label>
+                            <div class="row">
+                                <div class="input-field center col s12">
+                                    <textarea
+                                        id="icon_prefix"
+                                        id="message"
+                                        name="message"
+                                        class="materialize-textarea"
+                                        required
+                                    ></textarea>
+                                    <label for="icon_prefix">Message</label>
+                                </div>
+                            </div>
+
+                            <div class="row" id="add-video-add-button-div">
+                                <div class="center col s12">
+                                    <input
+                                        type="hidden"
+                                        id="csrfToken"
+                                        name="_csrf"
+                                        value="<%= csrfToken %>"
+                                    />
+                                    <button
+                                        class="btn waves-effect waves-light grey darken-4"
+                                        id="add-video-add-button-id"
+                                        type="submit"
+                                        name="action"
+                                    >
+                                        add
+                                        <i class="material-icons right">add</i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row" id="add-video-loading">
+                                <div class="center col s12">
+                                    <div class="preloader-wrapper small active">
+                                        <div class="spinner-layer spinner-green-only">
+                                            <div class="circle-clipper left">
+                                                <div class="circle"></div>
+                                            </div>
+                                            <div class="gap-patch">
+                                                <div class="circle"></div>
+                                            </div>
+                                            <div class="circle-clipper right">
+                                                <div class="circle"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-
-                                <div class="row">
-                                    <div class="input-field  center col s12">
-                                        <textarea id="icon_prefix" id="message" name="message"
-                                                  class="materialize-textarea" required></textarea>
-                                        <label for="icon_prefix">Message</label>
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="center col s12">
-                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                        <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                                name="action">add
-                                            <i class="material-icons right ">add</i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </form>
-
-                        </div>
-
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
-    </main>
+    </div>
+    <br />
+</main>
 
-    <%- include("../includes/bottom.ejs") %>
+<%- include("../includes/bottom.ejs") %>
