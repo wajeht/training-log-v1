@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Making folders for uploads
+echo "$(tput setaf 100)Making folders to store videos and thumbnails"
+echo "--------------------------------------------"
+if [ ! -d ../public/uploads ] || [ ! -d ../public/uploads/thumbnails ]
+then
+  echo "Creating 'upload' folder"
+  mkdir -p ./public/uploads;
+
+  echo "Creating 'thumbnails' folder"
+  mkdir -p ./public/uploads/thumbnails;
+fi
+echo ""
+
+
+
 # Delete old videos and thumbnails
 echo "$(tput setaf 125)cleaning uploaded files"
 echo "--------------------------------------------"
@@ -8,6 +23,8 @@ rm ./public/uploads/*mp4
 echo "Deleting old videos thumnail"
 rm ./public/uploads/thumbnails/*png
 echo ""
+
+
 
 source "$(dirname "$0")/.pg_password.sh" # bring in .env file that contains pgpassword
 export PGPASSWORD=$DB_PASSWORD # set the pg password as the password form .env file so we don't have to enter it

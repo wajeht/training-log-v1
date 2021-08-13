@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node bin/server.js",
         "dev": "nodemon bin/server.js",
-        "configure": "bash bin/configureDatabase.sh"
+        "configure": "bash bin/configure.sh"
     },
     "keywords": [
         "powerlifting",
