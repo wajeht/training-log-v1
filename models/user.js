@@ -46,6 +46,19 @@ module.exports = class User {
         });
     }
 
+    static updateUsername(username, userId) {
+        return new Promise((resolve, reject) => {
+            pool.query(
+                'UPDATE users SET username=($1) WHERE id =($2) RETURNING *',
+                [username, userId],
+                (err, response) => {
+                    if (err) return reject(err);
+                    resolve(response.rows[0]);
+                }
+            );
+        });
+    }
+
     static updateToken(userId, resetToken, resetTokenExpiration) {
         return new Promise((resolve, reject) => {
             pool.query(

@@ -13,7 +13,8 @@
                                 </div>
                             </div>
 
-                            <form action="/user/<%= currentSessionUserId %> " method="POST"
+
+                            <form action="/user/<%= currentSessionUserId %>" method="POST"
                                   enctype="multipart/form-data">
 
                                 <div id="profile-picture-preview-div" class="row">
@@ -27,11 +28,11 @@
                                         <div class="file-field input-field">
                                             <div class="btn waves-effect waves-light grey darken-4">
                                                 <span>Upload</span>
-                                                <input type="file" name="picture" id="picture" multiple>
+                                                <input type="file" name="picture" id="picture" multiple required>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text"
-                                                       placeholder="Upload one or more files" accept="image/*"
+                                                       placeholder="image" accept="image/*"
                                                        onchange="previewProfilePicture()">
                                             </div>
                                         </div>
@@ -49,6 +50,24 @@
                                     </div>
                                 </div>
                             </form>
+							
+							<form action="/user/update-username/<%= currentSessionUserId %>" method="POST">
+                                <div class="row">
+                                    <div class="input-field col s12">
+										<!-- <i class="material-icons prefix">mode_edit</i> -->
+                                        <input type="text" name="username" placeholder="username" id="username" required>
+											<!-- <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>"> -->
+											<!-- <button class="btn waves-effect waves-light grey darken-4" type="submit" name="action">Update<i class="material-icons right">update</i></button> -->
+                                    </div>
+                                </div>
+
+								<div class="row">
+                                    <div class="center col s12">
+											<input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+											<button class="btn waves-effect waves-light grey darken-4" type="submit" name="action">Update<i class="material-icons right">update</i></button>
+                                    </div>
+                                </div>
+							</form>
 
                         </div>
                     </div>

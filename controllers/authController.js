@@ -283,3 +283,20 @@ exports.getUserDetails = (req, res) => {
         currentSessionUserId: req.session.user.id,
     });
 };
+
+exports.postUpdateUsername = (req, res) => {
+    const { username } = req.body;
+    let currentSessionUserId = null;
+
+    if (req.session.user) {
+        currentSessionUserId = req.session.user.id;
+    }
+
+    User.updateUsername(username, currentSessionUserId)
+        .then((data) => {
+            res.redirect('/');
+        })
+        .catch((err) => {
+            next(err.message);
+        });
+};
