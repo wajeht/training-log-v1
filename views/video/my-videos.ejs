@@ -9,12 +9,11 @@
 
                     <% for (let v of videos) { %>
 
-
                         <div class="col s3">
                             <a href="/video/<%= v.id %> ">
                                 <div class="card hoverable">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                        <video width="100%" preload="metadata" src="/<%= v.videoUrl %>#t=0.1">
+										<img src="../../<%= v.screenshotUrl %>" alt="">
                                     </div>
                                     <div class="post-title center grey-text text-darken-4">
                                         <%= v.title %>
@@ -25,16 +24,16 @@
                             </a>
                         </div>
 
-                        <% } %>
+                    <% } %>
 
-                            <% } else { %>
+                <% } else { %>
 
-                                <h1 class="header center">empty</h1>
-                                <div class="row center">
-                                    <h5 class="header col s12 light">add more video</h5>
-                                </div>
+                    <h1 class="header center">empty</h1>
+                    <div class="row center">
+                        <h5 class="header col s12 light">add more video</h5>
+                    </div>
 
-                                <% } %>
+                <% } %>
 
             </div>
         </div>
