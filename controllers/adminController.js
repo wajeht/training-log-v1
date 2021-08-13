@@ -9,7 +9,6 @@ const Comment = require('../models/comments.js');
 const Video = require('../models/video.js');
 const User = require('../models/user.js');
 
-
 // ---------- VIDEO ----------
 exports.getVideo = (req, res, next) => {
     const { id } = req.params;
@@ -100,14 +99,15 @@ exports.postAddVideo = (req, res, next) => {
     const videoUrlForScreenShot = path.join(root, videoUrl);
     const screenShotFolderPath = path.join(root, 'public', 'uploads', 'thumbnails');
 
+	// take screenshot at the 0 second then save it at uploads/thumbnails
     ffmpeg(videoUrlForScreenShot).screenshots({
         timestamps: [0],
         folder: screenShotFolderPath,
         filename: videoUrl.split('/').pop().concat('_screenshot.png'),
+        size: '640x640',
     });
 
     const fn = videoUrl.split('/').pop().concat('_screenshot.png');
-
     const screenshotUrl = path.join('public', 'uploads', 'thumbnails', fn);
 
     Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
