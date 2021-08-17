@@ -49,12 +49,14 @@ exports.getVideo = (req, res, next) => {
                 Comment.fetchComment(video.id).then((result) => {
                     Video.fetchUserVideo(video.userId).then((videosArray) => {
                         const thisWeekVideoArray = videosArray.slice(1, 4);
+
                         return res.render('video/video-details.ejs', {
                             postAuthorId: user.id,
                             videoUserProfileUrl: user.profilePictureUrl,
                             currentSessionUserId,
                             videId: video.id,
-                            username,
+                            username: user.username,
+							userID: user.id,
                             video,
                             date,
                             videosArray: thisWeekVideoArray,
@@ -282,8 +284,9 @@ exports.getCommentUserVideos = (req, res, next) => {
         });
 };
 
-exports.postPostAutherVideos = (req, res, next) => {
-    const userId = Number(req.body.postAuthorId);
+exports.getPostAutherVideos = (req, res, next) => {
+    const userId = req.params.username;
+
     Video.fetchUserVideo(userId)
         .then((videos) => {
             User.findById(userId).then((user) =>
