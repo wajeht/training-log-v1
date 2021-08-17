@@ -6,6 +6,8 @@ const app = express();
 const path = require('path');
 const flash = require('connect-flash');
 const multer = require('multer');
+const compression = require('compression');
+
 
 // to protect session
 const csrf = require('csurf');
@@ -102,6 +104,8 @@ app.use((req, res, next) => {
 });
 
 // routes
+app.use(compression());
+app.use(helmet());
 app.use(indexRouter);
 app.use(authRouter);
 app.use(adminRouter);
