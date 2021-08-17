@@ -12,7 +12,7 @@ router.post('/video/:id', isAuth.isAuth, adminController.postUpdateVideo);
 
 router.get('/my-videos/:username', isAuth.isAuth, adminController.getMyVideos);
 
-router.post('/post-author-videos/:username', adminController.postPostAutherVideos);
+router.get('/videos/:username', adminController.getPostAutherVideos);
 
 // /admin/add-video => GET
 router.get('/add-video', isAuth.isAuth, adminController.getAddVideo);
