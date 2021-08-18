@@ -5,5 +5,10 @@ const router = express.Router();
 const indexController = require('../controllers/indexController.js');
 
 router.get('/', indexController.getIndex);
+router.get('/contact', indexController.getContact);
+router.get('/faq', indexController.getFAQ);
+router.get('/terms', indexController.getTerms);
+router.get('/privacy', indexController.getPrivacy);
+router.get('/learn-more', indexController.getLearnMore);
 
 module.exports = router;
