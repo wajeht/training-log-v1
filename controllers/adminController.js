@@ -56,7 +56,7 @@ exports.getVideo = (req, res, next) => {
                             currentSessionUserId,
                             videId: video.id,
                             username: currentSessionUser,
-							userID: user.id,
+                            userID: user.id,
                             video,
                             date,
                             videosArray: thisWeekVideoArray,
@@ -287,18 +287,24 @@ exports.getCommentUserVideos = (req, res, next) => {
 exports.getPostAutherVideos = (req, res, next) => {
     const userId = req.params.username;
 
+	let username = null;
+    let currentSessionUserId = null;
+    if (req.session.user) {
+        username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
+    }
+
     Video.fetchUserVideo(userId)
         .then((videos) => {
-            User.findById(userId).then((user) =>
+            User.findById(userId).then((user) => {
                 res.render('video/my-videos.ejs', {
                     videos,
-					postAuthor: user.username,
-					username: req.session.user.username,
-
+                    postAuthor: user.username,
+                    username,
                     pageTitle: `${user.username}'s videos`,
                     currentSessionUserId: user.id,
-                })
-            );
+                });
+            });
         })
         .catch((err) => {
             console.log(err);
