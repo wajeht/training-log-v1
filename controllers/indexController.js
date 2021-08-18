@@ -36,3 +36,84 @@ exports.getIndex = async (req, res, next) => {
         next(err.message);
     }
 };
+
+exports.getContact = (req, res) => {
+    let username = null;
+    let currentSessionUserId = null;
+
+    if (req.session.user) {
+        username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
+    }
+
+    res.render('contact.ejs', {
+        pageTitle: 'Contact',
+        username,
+		currentSessionUserId,
+    });
+};
+
+exports.getPrivacy = (req, res) => {
+	let username = null;
+    let currentSessionUserId = null;
+
+    if (req.session.user) {
+        username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
+    }
+
+    res.render('privacy.ejs', {
+        pageTitle: 'Privacy',
+        username,
+		currentSessionUserId,
+    });
+};
+
+exports.getTerms = (req, res) => {
+    let username = null;
+    let currentSessionUserId = null;
+
+    if (req.session.user) {
+        username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
+    }
+
+    res.render('terms.ejs', {
+        pageTitle: 'Terms',
+        username,
+		currentSessionUserId,
+    });
+};
+
+exports.getFAQ = (req, res) => {
+    let username = null;
+    let currentSessionUserId = null;
+
+    if (req.session.user) {
+        username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
+    }
+
+    res.render('faq.ejs', {
+        pageTitle: 'FAQ',
+        username,
+		currentSessionUserId,
+    });
+};
+
+exports.getLearnMore = (req, res) => {
+	let username = null;
+    let currentSessionUserId = null;
+
+    if (req.session.user) {
+        username = req.session.user.username;
+        currentSessionUserId = req.session.user.id;
+    }
+
+    res.render('learn-more.ejs', {
+        pageTitle: 'Learn more',
+        username,
+		currentSessionUserId,
+    });
+};
+
