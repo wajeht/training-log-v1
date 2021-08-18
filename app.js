@@ -72,6 +72,9 @@ app.use(
 );
 
 // security to hide all headers info
+app.use(helmet({
+	contentSecurityPolicy: false,
+  }));
 
 // auth err message
 app.use(flash());
@@ -105,7 +108,6 @@ app.use((req, res, next) => {
 
 // routes
 app.use(compression());
-app.use(helmet());
 app.use(indexRouter);
 app.use(authRouter);
 app.use(adminRouter);
