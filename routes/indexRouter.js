@@ -11,4 +11,6 @@ router.get('/terms', indexController.getTerms);
 router.get('/privacy', indexController.getPrivacy);
 router.get('/learn-more', indexController.getLearnMore);
 
+router.post('/contact', indexController.postContact);
+
 module.exports = router;
