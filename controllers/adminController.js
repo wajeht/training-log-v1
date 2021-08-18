@@ -55,7 +55,7 @@ exports.getVideo = (req, res, next) => {
                             videoUserProfileUrl: user.profilePictureUrl,
                             currentSessionUserId,
                             videId: video.id,
-                            username: user.username,
+                            username: currentSessionUser,
 							userID: user.id,
                             video,
                             date,
@@ -292,7 +292,9 @@ exports.getPostAutherVideos = (req, res, next) => {
             User.findById(userId).then((user) =>
                 res.render('video/my-videos.ejs', {
                     videos,
-                    username: user.username,
+					postAuthor: user.username,
+					username: req.session.user.username,
+
                     pageTitle: `${user.username}'s videos`,
                     currentSessionUserId: user.id,
                 })

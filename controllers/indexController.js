@@ -1,5 +1,21 @@
 const Video = require('../models/video.js');
 
+const config = require('../config/config.js')
+
+// Email
+const nodemailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
+const smtpConfig = {
+    host: config.email.host,
+    port: config.email.port,
+    secure: config.email.secure,
+    auth: {
+        user: config.email.auth_user,
+        pass: config.email.auth_pass,
+    },
+}
+const transporter = nodemailer.createTransport(smtpConfig);
+
 const ITEMS_PER_PAGE = 16;
 
 exports.getIndex = async (req, res, next) => {
@@ -117,3 +133,20 @@ exports.getLearnMore = (req, res) => {
     });
 };
 
+exports.postContact = (req, res) => {
+	const { name, email, message } = req.body;
+
+	 transporter.sendMail({
+		to: `${config.sendGrid.fromEmail}`,
+		from: `${name} <${config.sendGrid.fromEmail}>`,
+		subject: `tvl.jawstrength.com's contact page`,
+		html: `
+		<p>${name}</p>
+		<p>${email}</p>
+		<p>${message}</p>
+		`,
+	 });
+	
+	res.redirect('/');
+
+}
