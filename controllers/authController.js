@@ -13,13 +13,13 @@ const User = require('../models/user.js');
 const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
 const smtpConfig = {
-    host: config.email.host,
-    port: config.email.port,
-    secure: config.email.secure,
-    auth: {
-        user: config.email.auth_user,
-        pass: config.email.auth_pass,
-    },
+  host: config.email.host,
+  port: config.email.port,
+  secure: config.email.secure,
+  auth: {
+    user: config.email.auth_user,
+    pass: config.email.auth_pass,
+  },
 };
 const transporter = nodemailer.createTransport(smtpConfig);
 // const transporter = nodemailer.createTransport(
@@ -32,94 +32,96 @@ const transporter = nodemailer.createTransport(smtpConfig);
 
 // ---------- LOGIN ----------
 exports.getLogin = (req, res, next) => {
-    //   const currentSessionUserId = null;
-    if (req.session.user) {
-        res.redirect('/');
-    }
+  //   const currentSessionUserId = null;
+  if (req.session.user) {
+    res.redirect('/');
+  }
 
-    // console.log('isLoggedIn', req.session.isLoggedIn);
+  // console.log('isLoggedIn', req.session.isLoggedIn);
 
-    res.render('auth/login.ejs', {
-        pageTitle: 'Login',
-        errorMessage: req.flash('error'),
-        successMessage: req.flash('success'),
-    });
+  res.render('auth/login.ejs', {
+    pageTitle: 'Login',
+    errorMessage: req.flash('error'),
+    successMessage: req.flash('success'),
+  });
 };
 
 // ---------- LOGOUT ----------
 exports.postLogin = (req, res, next) => {
-    const { password, email } = req.body;
-    User.findByEmail(email)
-        .then((user) => {
-            if (user == null) {
-                req.flash('error', 'user does not exist with that credentials');
-                return res.redirect('/login');
-            }
-            bcrypt
-                .compare(password, user.password)
-                .then((doMatch) => {
-                    if (doMatch) {
-                        req.session.isLoggedIn = true;
-                        req.session.user = user;
-                        return req.session.save((err) => {
-                            console.log(err);
-                            res.redirect('/');
-                        });
-                    }
-                    req.flash('error', 'wrong email or password');
-                    res.redirect('/login');
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+  const { password, email } = req.body;
+  User.findByEmail(email)
+    .then((user) => {
+      if (user == null) {
+        req.flash('error', 'user does not exist with that credentials');
+        return res.redirect('/login');
+      }
+      bcrypt
+        .compare(password, user.password)
+        .then((doMatch) => {
+          if (doMatch) {
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            return req.session.save((err) => {
+              console.log(err);
+              res.redirect('/');
+            });
+          }
+          req.flash('error', 'wrong email or password');
+          res.redirect('/login');
         })
         .catch((err) => {
-            console.log(err);
-            res.redirect('/login');
+          console.log(err);
         });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect('/login');
+    });
 };
 
 exports.postLogout = (req, res, next) => {
-    delete req.session.user;
-    req.session.isLoggedIn = false;
-    res.redirect('/');
+  delete req.session.user;
+  req.session.isLoggedIn = false;
+  res.redirect('/');
 };
 
 // ---------- SIGNUP ----------
 exports.postSignup = (req, res, next) => {
-    if (req.session.user) {
-        return res.redirect('/');
-    }
+  if (req.session.user) {
+    return res.redirect('/');
+  }
 
-    const { email, username, password } = req.body;
-    const errors = validationResult(req);
-    const oldInput = {
-        email,
-        username,
-        password,
-    };
+  const { email, username, password } = req.body;
+  const errors = validationResult(req);
+  const oldInput = {
+    email,
+    username,
+    password,
+  };
 
-    // if we failed, render the same page again
-    if (errors.array().length > 0) {
-        return res.status(422).render('auth/signup.ejs', {
-            pageTitle: 'Signup',
-            errorMessage: errors.array(),
-            oldInput,
-        });
-    }
+  // if we failed, render the same page again
+  if (errors.array().length > 0) {
+    return res.status(422).render('auth/signup.ejs', {
+      pageTitle: 'Signup',
+      errorMessage: errors.array(),
+      oldInput,
+    });
+  }
 
-    bcrypt
-        .hash(password, 10)
-        .then((hashPassword) => {
-            User.addUser(email, username, hashPassword).then((user) => res.redirect('/login'));
-        })
-        .then(() => {
-            req.flash('success', 'You have successfully registered. Please Login!');
-            return transporter.sendMail({
-                to: email,
-                from: `JAWSTRENGTH.COM <${config.sendGrid.fromEmail}>`,
-                subject: 'You have successfully registered',
-                html: `
+  bcrypt
+    .hash(password, 10)
+    .then((hashPassword) => {
+      User.addUser(email, username, hashPassword).then((user) =>
+        res.redirect('/login')
+      );
+    })
+    .then(() => {
+      req.flash('success', 'You have successfully registered. Please Login!');
+      return transporter.sendMail({
+        to: email,
+        from: `JAWSTRENGTH.COM <${config.sendGrid.fromEmail}>`,
+        subject: 'You have successfully registered',
+        html: `
 				<h3>Hello ${username},</h3>
 				<br>
 				<p>You have successfully registered an account with us.</p>
@@ -128,175 +130,175 @@ exports.postSignup = (req, res, next) => {
 				<p>Best,</p>
 				<p>Jaw</p>
 				`,
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.getSignup = (req, res, next) => {
-    const errorMessage = req.flash('error');
+  const errorMessage = req.flash('error');
 
-    if (req.session.user) {
-        return res.redirect('/');
-    }
+  if (req.session.user) {
+    return res.redirect('/');
+  }
 
-    res.render('auth/signup.ejs', {
-        pageTitle: 'Signup',
-        errorMessage,
-        oldInput: {},
-    });
+  res.render('auth/signup.ejs', {
+    pageTitle: 'Signup',
+    errorMessage,
+    oldInput: {},
+  });
 };
 
 // ---------- FORGOT PASSWORD ----------
 exports.getForgetPassword = (req, res, next) => {
-    if (req.session.user) {
-        return res.redirect('/');
-    }
+  if (req.session.user) {
+    return res.redirect('/');
+  }
 
-    res.render('auth/forget-password.ejs', {
-        pageTitle: 'Forgot password?',
-        errorMessage: req.flash('error'),
-    });
+  res.render('auth/forget-password.ejs', {
+    pageTitle: 'Forgot password?',
+    errorMessage: req.flash('error'),
+  });
 };
 
 exports.postForgetPassword = (req, res, nexxt) => {
-    if (req.session.user) {
-        return res.redirect('/');
+  if (req.session.user) {
+    return res.redirect('/');
+  }
+
+  const { email } = req.body;
+
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err);
+      return res.redirect('/forget-password');
     }
+    const token = buffer.toString('hex');
 
-    const { email } = req.body;
-
-    crypto.randomBytes(32, (err, buffer) => {
-        if (err) {
-            console.log(err);
-            return res.redirect('/forget-password');
+    User.findByEmail(email)
+      .then((user) => {
+        if (!user) {
+          req.flash('error', 'not user found with that email');
+          return res.redirect('/forget-password');
         }
-        const token = buffer.toString('hex');
 
-        User.findByEmail(email)
-            .then((user) => {
-                if (!user) {
-                    req.flash('error', 'not user found with that email');
-                    return res.redirect('/forget-password');
-                }
-
-                const { id } = user;
-                const resetToken = token;
-                const resetTokenExpiration = new Date(new Date().getTime() + 5 * 60000);
-                return User.updateToken(id, resetToken, resetTokenExpiration);
-            })
-            .then((user) => {
-                res.redirect('/');
-                // return transporter.sendMail({
-                //     to: email,
-                //     from: config.sendGrid.fromEmail,
-                //     subject: 'Password reset',
-                //     html: `
-                //     <p>You requested a password reset</p>
-                //     <p>Click <b><i><a href="http://localhost:3000/password-reset/${token}">here</a><i/></b> to reset a new password!</p>
-                //     `,
-                // });
-                console.log('http://localhost:3000/password-reset/${token}');
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    });
+        const { id } = user;
+        const resetToken = token;
+        const resetTokenExpiration = new Date(new Date().getTime() + 5 * 60000);
+        return User.updateToken(id, resetToken, resetTokenExpiration);
+      })
+      .then((user) => {
+        res.redirect('/');
+        // return transporter.sendMail({
+        //     to: email,
+        //     from: config.sendGrid.fromEmail,
+        //     subject: 'Password reset',
+        //     html: `
+        //     <p>You requested a password reset</p>
+        //     <p>Click <b><i><a href="http://localhost:3000/password-reset/${token}">here</a><i/></b> to reset a new password!</p>
+        //     `,
+        // });
+        console.log('http://localhost:3000/password-reset/${token}');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 };
 
 exports.getPasswordReset = (req, res, nexxt) => {
-    const { token } = req.params;
-    res.render('auth/password-reset.ejs', {
-        pageTitle: 'password-reset',
-        token,
-    });
+  const { token } = req.params;
+  res.render('auth/password-reset.ejs', {
+    pageTitle: 'password-reset',
+    token,
+  });
 };
 
 exports.postNewPassword = (req, res, next) => {
-    const { token, password } = req.body;
+  const { token, password } = req.body;
 
-    const currentSessionUserId = null;
-    if (req.session.user) {
-        res.redirect('/');
-    }
+  const currentSessionUserId = null;
+  if (req.session.user) {
+    res.redirect('/');
+  }
 
-    User.findResetTokenInfo(token)
-        .then((user) => {
-            const { resetTokenExpiration } = user;
-            const now = Date.now();
+  User.findResetTokenInfo(token)
+    .then((user) => {
+      const { resetTokenExpiration } = user;
+      const now = Date.now();
 
-            // check to see if its been 10
-            // then has password and return
-            if (resetTokenExpiration > now) {
-                return bcrypt.hash(password, 10);
-            }
+      // check to see if its been 10
+      // then has password and return
+      if (resetTokenExpiration > now) {
+        return bcrypt.hash(password, 10);
+      }
 
-            res.redirect('/');
-        })
-        .then((hashPassword) =>
-            User.updatePasswordByToken(hashPassword, token).then((user) => {
-                req.flash('error', 'You can now login with updated password!');
-                res.render('auth/login', {
-                    pageTitle: 'login',
-                    errorMessage: req.flash('error'),
-                });
-                return user;
-            })
-        )
-        .then((user) =>
-            User.deletePasswordResetTokenInfo(user.id).then((deleted) => {
-                //   console.log('token has been deleted', deleted);
-            })
-        )
-        .catch((err) => {
-            next(err.message);
-            //   console.log(err);
+      res.redirect('/');
+    })
+    .then((hashPassword) =>
+      User.updatePasswordByToken(hashPassword, token).then((user) => {
+        req.flash('error', 'You can now login with updated password!');
+        res.render('auth/login', {
+          pageTitle: 'login',
+          errorMessage: req.flash('error'),
         });
+        return user;
+      })
+    )
+    .then((user) =>
+      User.deletePasswordResetTokenInfo(user.id).then((deleted) => {
+        //   console.log('token has been deleted', deleted);
+      })
+    )
+    .catch((err) => {
+      next(err.message);
+      //   console.log(err);
+    });
 };
 
 // ----------  USER DETAILS ----------
 exports.postUserDetails = (req, res, next) => {
-    let currentSessionUserId = null;
-    const picture = req.files.picture[0];
-    const profilePictureUrl = picture.path;
+  let currentSessionUserId = null;
+  const picture = req.files.picture[0];
+  const profilePictureUrl = picture.path;
 
-    if (req.session.user) {
-        currentSessionUserId = req.session.user.id;
-    }
+  if (req.session.user) {
+    currentSessionUserId = req.session.user.id;
+  }
 
-    User.updateProfilePicture(profilePictureUrl, currentSessionUserId)
-        .then((result) => {
-            res.redirect('/');
-        })
-        .catch((err) => {
-            next(err.message);
-        });
-};
-
-exports.getUserDetails = (req, res) => {
-    res.render('auth/user-details.ejs', {
-        pageTitle: 'user-details.ejs',
-        username: req.session.user.username,
-        email: req.session.user.email,
-        currentSessionUserId: req.session.user.id,
+  User.updateProfilePicture(profilePictureUrl, currentSessionUserId)
+    .then((result) => {
+      res.redirect('/');
+    })
+    .catch((err) => {
+      next(err.message);
     });
 };
 
+exports.getUserDetails = (req, res) => {
+  res.render('auth/user-details.ejs', {
+    pageTitle: 'user-details.ejs',
+    username: req.session.user.username,
+    email: req.session.user.email,
+    currentSessionUserId: req.session.user.id,
+  });
+};
+
 exports.postUpdateUsername = (req, res) => {
-    const { username } = req.body;
-    let currentSessionUserId = null;
+  const { username } = req.body;
+  let currentSessionUserId = null;
 
-    if (req.session.user) {
-        currentSessionUserId = req.session.user.id;
-    }
+  if (req.session.user) {
+    currentSessionUserId = req.session.user.id;
+  }
 
-    User.updateUsername(username, currentSessionUserId)
-        .then((data) => {
-            res.redirect('/');
-        })
-        .catch((err) => {
-            next(err.message);
-        });
+  User.updateUsername(username, currentSessionUserId)
+    .then((data) => {
+      res.redirect('/');
+    })
+    .catch((err) => {
+      next(err.message);
+    });
 };
