@@ -8,16 +8,16 @@ if (addVideoUrl == true || addVideoUrl) {
     loading.style.display = 'none';
   });
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const button_div = document.getElementById('add-video-add-button-div');
-    const button = document.getElementById('add-video-add-button-id');
-    const loading = document.getElementById('add-video-loading');
+  (function addVideoOnSubmit() {
+    document.getElementById('addVideoForm').addEventListener('submit', () => {
+      const button_div = document.getElementById('add-video-add-button-div');
+      const button = document.getElementById('add-video-add-button-id');
+      const loading = document.getElementById('add-video-loading');
 
-    button.addEventListener('click', () => {
       button_div.style.display = 'none';
       loading.style.display = '';
     });
-  });
+  })();
 
   document.addEventListener('DOMContentLoaded', function () {
     // profile picture url
