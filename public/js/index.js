@@ -77,6 +77,8 @@ if (addVideoUrl == true || addVideoUrl) {
     // re-show the image prewview
     const div = document.getElementById('video-preview-div');
     div.style.display = 'block';
+    const limitFileSize = 10 * 1024 * 1024;
+    const errFileMessage = document.getElementById('file-size-limit-msg');
 
     const preview = document.querySelector('video');
     const file = document.querySelector('input[type=file]').files[0];
@@ -92,7 +94,12 @@ if (addVideoUrl == true || addVideoUrl) {
     );
 
     if (file) {
-      reader.readAsDataURL(file);
+      if (file.size > limitFileSize) {
+        errFileMessage.innerHTML = 'File Too large, please choose under 10mb!';
+      } else {
+        errFileMessage.innerHTML = '';
+        reader.readAsDataURL(file);
+      }
     }
   }
 }
