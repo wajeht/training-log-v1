@@ -95,60 +95,64 @@ exports.getAddVideo = (req, res, next) => {
 };
 
 exports.postAddVideo = (req, res, next) => {
-  let { date, title, message } = req.body;
-  const userId = req.session.user.id;
-  const video = req.files.video[0];
+  try {
+    let { date, title, message } = req.body;
+    const userId = req.session.user.id;
+    const video = req.files.video[0];
 
-  message = message.replace(/<br>/g, 'chr(10)');
+    message = message.replace(/<br>/g, 'chr(10)');
 
-  // console.log('########## VIDEO ######', video);
-  if (!video) {
-    return Error('no');
+    // console.log('########## VIDEO ######', video);
+    if (!video) {
+      return Error('no');
+    }
+
+    const videoUrl = video.path;
+    const videoUrlForScreenShot = path.join(root, videoUrl);
+    const screenShotFolderPath = path.join(
+      root,
+      'public',
+      'uploads',
+      'thumbnails'
+    );
+
+    // take screenshot at the 0 second then save it at uploads/thumbnails
+    ffmpeg(videoUrlForScreenShot).screenshots({
+      timestamps: [0],
+      folder: screenShotFolderPath,
+      filename: videoUrl.split('/').pop().concat('_screenshot.jpg'),
+      size: '640x640',
+    });
+
+    const fn = videoUrl.split('/').pop().concat('_screenshot.jpg');
+    const screenshotUrl = path.join('public', 'uploads', 'thumbnails', fn);
+
+    // optimize the image
+    (async () => {
+      const imagemin = (await import('imagemin')).default;
+      const imageminMozjpeg = (await import('imagemin-mozjpeg')).default;
+
+      await imagemin([screenshotUrl], screenShotFolderPath, {
+        use: [imageminMozjpeg()],
+      });
+
+      // console.log('Images optimized');
+    })();
+
+    Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
+      .then(() => {
+        // console.log({
+        //     '***** adminController.postAddVideo ***** ': req.body,
+        //     screenshotUrl,
+        // });
+        res.redirect('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    next(error);
   }
-
-  const videoUrl = video.path;
-  const videoUrlForScreenShot = path.join(root, videoUrl);
-  const screenShotFolderPath = path.join(
-    root,
-    'public',
-    'uploads',
-    'thumbnails'
-  );
-
-  // take screenshot at the 0 second then save it at uploads/thumbnails
-  ffmpeg(videoUrlForScreenShot).screenshots({
-    timestamps: [0],
-    folder: screenShotFolderPath,
-    filename: videoUrl.split('/').pop().concat('_screenshot.jpg'),
-    size: '640x640',
-  });
-
-  const fn = videoUrl.split('/').pop().concat('_screenshot.jpg');
-  const screenshotUrl = path.join('public', 'uploads', 'thumbnails', fn);
-
-  // optimize the image
-  (async () => {
-    const imagemin = (await import('imagemin')).default;
-    const imageminMozjpeg = (await import('imagemin-mozjpeg')).default;
-
-    await imagemin([screenshotUrl], screenShotFolderPath, {
-      use: [imageminMozjpeg()],
-    });
-
-    // console.log('Images optimized');
-  })();
-
-  Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
-    .then(() => {
-      // console.log({
-      //     '***** adminController.postAddVideo ***** ': req.body,
-      //     screenshotUrl,
-      // });
-      res.redirect('/');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 exports.postUpdateVideo = (req, res, next) => {

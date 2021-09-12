@@ -1,0 +1,17 @@
+<%- include("./includes/top.ejs") %>
+
+<main>
+  <div class="container">
+    <br /><br />
+    <h1 class="header center">500</h1>
+    <div class="row center">
+      <% for (e in error) { %>
+      <h5 class="header col s12 light"><%= error[e] %></h5>
+      <% } %>
+    </div>
+    <br /><br />
+  </div>
+  <br />
+</main>
+
+<%- include("./includes/bottom.ejs") %>
