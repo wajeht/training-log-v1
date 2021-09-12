@@ -27,6 +27,10 @@
     margin-top: 10px;
 } */
 
+.badge {
+  background-color: #115339;
+}
+
 .render-line-break {
   white-space: pre-line;
 }
@@ -149,4 +153,8 @@ nav ul a:hover {
 .modal-trigger {
   margin-right: 0px !important;
   vertical-align: sub;
+}
+
+.container--narrow {
+  max-width: 70%;
 }

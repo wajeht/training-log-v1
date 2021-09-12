@@ -64,7 +64,7 @@ exports.getContact = (req, res) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.secure.user.profilePictureUrl;
+    profilePicture = req.session.user.profilePictureUrl;
   }
 
   res.render('contact.ejs', {
@@ -83,7 +83,7 @@ exports.getPrivacy = (req, res) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.secure.user.profilePictureUrl;
+    profilePicture = req.session.user.profilePictureUrl;
   }
 
   res.render('privacy.ejs', {
@@ -102,7 +102,7 @@ exports.getTerms = (req, res) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.secure.user.profilePictureUrl;
+    profilePicture = req.session.user.profilePictureUrl;
   }
 
   res.render('terms.ejs', {
@@ -121,7 +121,7 @@ exports.getFAQ = (req, res) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.secure.user.profilePictureUrl;
+    profilePicture = req.session.user.profilePictureUrl;
   }
 
   res.render('faq.ejs', {
@@ -140,7 +140,7 @@ exports.getLearnMore = (req, res) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.secure.user.profilePictureUrl;
+    profilePicture = req.session.user.profilePictureUrl;
   }
 
   res.render('learn-more.ejs', {
