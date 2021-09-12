@@ -7,33 +7,33 @@
 
             <% if (currentPage !==1 && hasPreviousPage !==1) { %>
                 <li><a href="?page=1">1</a></li>
-                <% } %>
+            <% } %>
 
-                    <!-- <% if (hasPreviousPage) { %>
-                        <li><a href="?page=<%= previousPage %> ">
-                                <%= previousPage %>
-                            </a></li>
-                        <% } %> -->
+            <!-- <% if (hasPreviousPage) { %>
+                <li><a href="?page=<%= previousPage %> ">
+                        <%= previousPage %>
+                    </a></li>
+            <% } %> -->
 
-                            <li class="active green darken-4"><a href="?page=<%= currentPage %> ">
-                                    <%= currentPage %>
-                                </a></li>
+            <li class="active green darken-4"><a href="?page=<%= currentPage %> ">
+                    <%= currentPage %>
+            </a></li>
 
-                            <% if (hasNextPage) { %>
-                                <li><a href="?page=<%= nextPage %> ">
-                                        <%= nextPage %>
-                                    </a></li>
-                                <% } %>
+            <% if (hasNextPage) { %>
+                <li><a href="?page=<%= nextPage %> ">
+                        <%= nextPage %>
+                    </a></li>
+            <% } %>
 
-                                    <% if (lastPage !==currentPage && nextPage !==lastPage) { %>
-                                        <li><a href="?page=<%= lastPage %> ">
-                                                <%= lastPage %>
-                                            </a></li>
-                                        <% } %>
+            <% if (lastPage !==currentPage && nextPage !==lastPage) { %>
+                <li><a href="?page=<%= lastPage %> ">
+                        <%= lastPage %>
+                    </a></li>
+            <% } %>
 
 
-                                            <li class="disabled"><a href="#"><i
-                                                       class="material-icons">chevron_right</i></a></li>
+            <li class="disabled"><a href="#"><i
+                class="material-icons">chevron_right</i></a></li>
         </ul>
         <br>
         <br>
@@ -75,6 +75,7 @@
 
 
         <script type="text/javascript" src="/js/materialize.min.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
         </body>
 
         </html>

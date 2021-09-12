@@ -1,45 +1,38 @@
 <%- include("../includes/top.ejs") %>
-    <main>
+<main>
+  <div class="container">
+    <br /><br />
+    <!-- Page Content goes here -->
+    <div class="row">
+      <% if ( videos.length> 0 ) { %> <% for (let v of videos) { %>
 
-        <div class="container">
-            <br><br>
-            <!-- Page Content goes here -->
-            <div class="row">
-                <% if ( videos.length> 0 ) { %>
-
-                    <% for (let v of videos) { %>
-
-                        <div class="col s3">
-                            <a href="/video/<%= v.id %> ">
-                                <div class="card hoverable">
-                                    <div class="card-image waves-effect waves-block waves-light">
-										<img src="../../<%= v.screenshotUrl %>" alt="">
-                                    </div>
-                                    <div class="post-title center grey-text text-darken-4">
-                                        <%= v.title %>
-
-                                    </div>
-
-                                </div>
-                            </a>
-                        </div>
-
-                    <% } %>
-
-                <% } else { %>
-
-                    <h1 class="header center">empty</h1>
-                    <div class="row center">
-                        <h5 class="header col s12 light">add more video</h5>
-                    </div>
-
-                <% } %>
-
+      <div class="col s3">
+        <a href="/video/<%= v.id %> ">
+          <div class="card hoverable">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img src="../../<%= v.screenshotUrl %>" alt="" />
             </div>
-        </div>
-        <br>
-    </main>
+            <div class="post-title center grey-text text-darken-4">
+              <%= v.title %>
+            </div>
+          </div>
+        </a>
+      </div>
 
+      <% } %> <% } else { %> <% if (isAuthenticated) { %>
+      <h1 class="header center">empty</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">add more video</h5>
+      </div>
+      <% } else { %>
+      <h1 class="header center">empty</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">This user has no video!</h5>
+      </div>
+      <% } %> <% } %>
+    </div>
+  </div>
+  <br />
+</main>
 
-
-    <%- include("../includes/bottom.ejs") %>
+<%- include("../includes/bottom.ejs") %>
