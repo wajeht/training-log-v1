@@ -27,6 +27,11 @@
     margin-top: 10px;
 } */
 
+.training-log {
+  background-color: #f2f2f2;
+  padding: 25px;
+}
+
 .badge {
   background-color: #115339;
 }
