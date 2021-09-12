@@ -278,11 +278,18 @@ exports.postUserDetails = (req, res, next) => {
 };
 
 exports.getUserDetails = (req, res) => {
+  let profilePicture = null;
+
+  if (req.session.user) {
+    profilePicture = req.session.user.profilePictureUrl;
+  }
+
   res.render('auth/user-details.ejs', {
     pageTitle: 'user-details.ejs',
     username: req.session.user.username,
     email: req.session.user.email,
     currentSessionUserId: req.session.user.id,
+    profilePicture,
   });
 };
 

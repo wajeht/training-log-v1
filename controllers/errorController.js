@@ -2,10 +2,12 @@ exports.get404 = (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   const page = +req.query.page || 1;
+  let profilePicture = null;
 
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
+    profilePicture = req.session.user.profilePictureUrl;
   }
 
   res.setStatus = 404;
@@ -14,5 +16,6 @@ exports.get404 = (req, res, next) => {
     currentSessionUserId,
     pageTitle: '404',
     isAuthenticated: req.session.isLoggedIn,
+    profilePicture,
   });
 };
