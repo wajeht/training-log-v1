@@ -8,7 +8,6 @@ const flash = require('connect-flash');
 const multer = require('multer');
 const compression = require('compression');
 
-
 // to protect session
 const csrf = require('csurf');
 
@@ -55,11 +54,15 @@ const fileStorage = multer.diskStorage({
 // to serve public files and
 // parse user input
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use(
+  '/public/uploads',
+  express.static(path.join(__dirname, 'public/uploads'))
+);
 
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(
   multer({
+    fileFilter: fileFilter,
     storage: fileStorage,
     limits: {
       // 10 MB
@@ -68,13 +71,15 @@ app.use(
   }).fields([
     { name: 'video', maxCount: 1 },
     { name: 'picture', maxCount: 1 },
-  ]),
+  ])
 );
 
 // security to hide all headers info
-app.use(helmet({
-	contentSecurityPolicy: false,
-  }));
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // auth err message
 app.use(flash());
@@ -89,7 +94,7 @@ app.use(
     secret: config.cookie.secret,
     resave: false,
     saveUninitialized: false,
-  }),
+  })
 );
 
 // csrf on all POST request
@@ -111,6 +116,7 @@ app.use(compression());
 app.use(indexRouter);
 app.use(authRouter);
 app.use(adminRouter);
+app.use(errorController.get500);
 app.use(errorController.get404);
 
 module.exports = app;

@@ -8,16 +8,16 @@ if (addVideoUrl == true || addVideoUrl) {
     loading.style.display = 'none';
   });
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const button_div = document.getElementById('add-video-add-button-div');
-    const button = document.getElementById('add-video-add-button-id');
-    const loading = document.getElementById('add-video-loading');
+  (function addVideoOnSubmit() {
+    document.getElementById('addVideoForm').addEventListener('submit', () => {
+      const button_div = document.getElementById('add-video-add-button-div');
+      const button = document.getElementById('add-video-add-button-id');
+      const loading = document.getElementById('add-video-loading');
 
-    button.addEventListener('click', () => {
       button_div.style.display = 'none';
       loading.style.display = '';
     });
-  });
+  })();
 
   document.addEventListener('DOMContentLoaded', function () {
     // profile picture url
@@ -126,40 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
   M.Modal.init(elems);
 });
 
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: Utils.numbers(NUMBER_CFG),
-      borderColor: Utils.CHART_COLORS.red,
-      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-    },
-    {
-      label: 'Dataset 2',
-      data: Utils.numbers(NUMBER_CFG),
-      borderColor: Utils.CHART_COLORS.blue,
-      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
-    },
-  ],
-};
-
-const config = {
-  type: 'line',
-  data: data,
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart',
-      },
-    },
-  },
-};
-
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, config);
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('select');
+  M.FormSelect.init(elems);
+});
