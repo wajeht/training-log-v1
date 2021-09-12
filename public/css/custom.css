@@ -150,3 +150,7 @@ nav ul a:hover {
   margin-right: 0px !important;
   vertical-align: sub;
 }
+
+.container--narrow {
+  max-width: 70%;
+}
