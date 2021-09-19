@@ -35,50 +35,50 @@ app.set('views', 'views');
 
 // multer file stuff
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'video/mp4') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
+	if (file.mimetype === 'video/mp4') {
+		cb(null, true);
+	} else {
+		cb(null, false);
+	}
 };
 
 const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/uploads');
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${new Date().toISOString()}-${file.originalname}`);
-  },
+	destination: (req, file, cb) => {
+		cb(null, 'public/uploads');
+	},
+	filename: (req, file, cb) => {
+		cb(null, `${new Date().toISOString()}-${file.originalname}`);
+	},
 });
 
 // to serve public files and
 // parse user input
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
-  '/public/uploads',
-  express.static(path.join(__dirname, 'public/uploads'))
+	'/public/uploads',
+	express.static(path.join(__dirname, 'public/uploads')),
 );
 
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(
-  multer({
-    fileFilter: fileFilter,
-    storage: fileStorage,
-    limits: {
-      // 10 MB
-      fileSize: 10 * 1024 * 1024,
-    },
-  }).fields([
-    { name: 'video', maxCount: 1 },
-    { name: 'picture', maxCount: 1 },
-  ])
+	multer({
+		fileFilter: fileFilter,
+		storage: fileStorage,
+		limits: {
+			// 10 MB
+			fileSize: 10 * 1024 * 1024,
+		},
+	}).fields([
+		{ name: 'video', maxCount: 1 },
+		{ name: 'picture', maxCount: 1 },
+	]),
 );
 
 // security to hide all headers info
 app.use(
-  helmet({
-    contentSecurityPolicy: false,
-  })
+	helmet({
+		contentSecurityPolicy: false,
+	}),
 );
 
 // auth err message
@@ -86,15 +86,15 @@ app.use(flash());
 
 // session store
 app.use(
-  session({
-    store: new pgSession({
-      pool: pgPool,
-      tableName: 'session',
-    }),
-    secret: config.cookie.secret,
-    resave: false,
-    saveUninitialized: false,
-  })
+	session({
+		store: new pgSession({
+			pool: pgPool,
+			tableName: 'session',
+		}),
+		secret: config.cookie.secret,
+		resave: false,
+		saveUninitialized: false,
+	}),
 );
 
 // csrf on all POST request
@@ -102,13 +102,13 @@ app.use(
 // so bad guys can't use our session store
 app.use(csrfProtechtion);
 app.use((req, res, next) => {
-  // const token = req.csrfToken();
-  // res.cookie('XSRF-TOKEN', token);
-  // res.locals._csrf = token;
+	// const token = req.csrfToken();
+	// res.cookie('XSRF-TOKEN', token);
+	// res.locals._csrf = token;
 
-  res.locals.csrfToken = req.csrfToken();
-  res.locals.isAuthenticated = req.session.isLoggedIn;
-  next();
+	res.locals.csrfToken = req.csrfToken();
+	res.locals.isAuthenticated = req.session.isLoggedIn;
+	next();
 });
 
 // routes
