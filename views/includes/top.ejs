@@ -17,25 +17,18 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
           media="screen,projection" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap"
-          rel="stylesheet">
     <link rel="stylesheet" href="/css/custom.css">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
 
     <!-- ---------- linkedin stuff starts ---------- -->
     <meta name="title" property="og:title" content="Training Vlog">
     <meta property="og:type" content="Full-stack Web App">
-    <meta name="image" property="og:image"
+    <meta name="image"
+          property="og:image"
           content="/images/linkedin.jpg" />
     <meta name="description"
-          content="A full-stack web appliaction to log training videos with the respect to weekly split!">
+          content="A full-stack web application to log training videos with the respect to weekly split!">
     <meta name="author" content="wajeht">
     <!-- ---------- linkedin stuff end ---------- -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 
 </head>
 
@@ -54,13 +47,13 @@
                     <% if (isAuthenticated) { %>
 
                         <!-- Dropdown Trigger -->
-                     
+
                         <a href='#' class='show-menu' data-target='dropdown'>
                             <li class='dropdown-trigger'>
                                <img class="dropdown-trigger-img" src="<%= !profilePicture ? '/images/default_profile_picture.jpg' : "/" + profilePicture%>" alt="">
                             </li>
                         </a>
-         
+
 
                         <!-- Dropdown Structure -->
                         <ul id='dropdown' class='dropdown-content'>
