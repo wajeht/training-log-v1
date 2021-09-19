@@ -131,3 +131,23 @@ document.addEventListener('DOMContentLoaded', function () {
 	var elems = document.querySelectorAll('select');
 	M.FormSelect.init(elems);
 });
+
+/**
+ * resize cards on 425px
+ */
+const video_card = document.getElementsByClassName('video-card');
+window.addEventListener('resize', function () {
+	if (window.innerWidth < 818) {
+		for (let i = 0; i < video_card.length; i++) {
+			video_card[i].classList.remove('s3');
+			video_card[i].classList.add('s6');
+		}
+	}
+
+	if (window.innerWidth > 818) {
+		for (let i = 0; i < video_card.length; i++) {
+			video_card[i].classList.remove('s6');
+			video_card[i].classList.add('s3');
+		}
+	}
+});
