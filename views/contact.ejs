@@ -1,79 +1,83 @@
 <%- include("./includes/top.ejs") %>
 
 <main>
-    <div class="container">
-        <br /><br />
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <span class="card-title grey-text text-darken-4">Contact</span>
-                            </div>
-                        </div>
-
-                        <form action="/contact" method="POST">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        class="validate"
-                                        required
-                                    />
-                                    <label for="name">Name</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        name="email"
-                                        class="validate"
-                                        required
-                                    />
-                                    <label for="email">Email</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-									<textarea id="textarea" name="message" class="materialize-textarea"></textarea>
-
-                                    <label for="text">Message</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="center col s12">
-                                    <input
-                                        type="hidden"
-                                        id="csrfToken"
-                                        name="_csrf"
-                                        value="<%= csrfToken %>"
-                                    />
-                                    <button
-                                        class="btn waves-effect waves-light grey darken-4"
-                                        type="submit"
-                                        name="action"
-                                    >
-                                        Send
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+  <div class="container">
+    <br /><br />
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <div class="row">
+              <div class="input-field col s12">
+                <span class="card-title grey-text text-darken-4">Contact</span>
+              </div>
             </div>
+
+            <form action="/contact" method="POST">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    id="name"
+                    class="validate"
+                    required
+                  />
+                  <label for="name">Name</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    class="validate"
+                    required
+                  />
+                  <label for="email">Email</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea
+                    id="textarea"
+                    name="message"
+                    class="materialize-textarea"
+                  ></textarea>
+
+                  <label for="text">Message</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="center col s12">
+                  <input
+                    type="hidden"
+                    id="csrfToken"
+                    name="_csrf"
+                    value="<%= csrfToken %>"
+                  />
+                  <button
+                    class="btn waves-effect waves-light teal darken-4"
+                    type="submit"
+                    name="action"
+                  >
+                    Send
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-    <br />
+  </div>
+  <br />
 </main>
 
 <%- include("./includes/bottom.ejs") %>
