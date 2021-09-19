@@ -22,6 +22,10 @@
 	}
 }
 
+.green-btn {
+	background-color: #134733;
+}
+
 /* only put ths when using image as logo */
 /* .brand-logo {
     margin-top: 10px;

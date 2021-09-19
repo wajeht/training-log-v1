@@ -9,7 +9,7 @@ const { check, body, validationResult } = require('express-validator');
 
 router.get('/user/:id', isAuth.isAuth, authController.getUserDetails);
 
-router.post('/user/:id', authController.postUserDetails);
+router.post('/user/update-profile-picture/:id', authController.postUserDetails);
 
 router.post('/user/update-username/:id', authController.postUpdateUsername);
 

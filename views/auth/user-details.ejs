@@ -16,7 +16,7 @@
 						</div>
 
 						<form
-							action="/user/<%= currentSessionUserId %>"
+							action="/user/update-profile-picture/<%= currentSessionUserId %>"
 							method="POST"
 							enctype="multipart/form-data"
 						>
@@ -29,23 +29,23 @@
 							<div class="row">
 								<div class="input-field col s12">
 									<div class="file-field input-field">
-										<div class="btn waves-effect waves-light grey darken-4">
+										<div class="btn waves-effect waves-light teal darken-4">
 											<span>Upload</span>
 											<input
 												type="file"
 												name="picture"
 												id="picture"
-												multiple
-												required
+												accept="image/*"
 											/>
 										</div>
 										<div class="file-path-wrapper">
 											<input
-												id="profile_picture"
 												class="file-path validate"
 												type="text"
 												placeholder="image"
 												accept="image/*"
+												onchange="previewProfileImage()"
+												required
 											/>
 										</div>
 									</div>
@@ -61,9 +61,10 @@
 										value="<%= csrfToken %>"
 									/>
 									<button
-										class="btn waves-effect waves-light grey darken-4"
+										class="btn waves-effect waves-light teal darken-4"
 										type="submit"
 										name="action"
+										id="profile_picture"
 									>
 										Update
 										<i class="material-icons right">update</i>
@@ -78,7 +79,6 @@
 						>
 							<div class="row">
 								<div class="input-field col s12">
-									<!-- <i class="material-icons prefix">mode_edit</i> -->
 									<input
 										type="text"
 										name="username"
@@ -87,8 +87,6 @@
 										value="<%= username %>"
 										required
 									/>
-									<!-- <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>"> -->
-									<!-- <button class="btn waves-effect waves-light grey darken-4" type="submit" name="action">Update<i class="material-icons right">update</i></button> -->
 								</div>
 							</div>
 
@@ -101,7 +99,7 @@
 										value="<%= csrfToken %>"
 									/>
 									<button
-										class="btn waves-effect waves-light grey darken-4"
+										class="btn waves-effect waves-light teal darken-4"
 										type="submit"
 										name="action"
 									>
