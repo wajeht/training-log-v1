@@ -1,4 +1,13 @@
+@media only screen and (max-width: 500px) {
+	.container--narrow {
+		max-width: 100%;
+	}
+}
 @media only screen and (max-width: 425px) {
+	.container--narrow {
+		max-width: 100%;
+	}
+
 	.post-title {
 		white-space: nowrap;
 		overflow: hidden;
