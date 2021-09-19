@@ -151,3 +151,23 @@ window.addEventListener('resize', function () {
 		}
 	}
 });
+
+function resizeVideoCardForSmallScreen() {
+	if (window.innerWidth < 818) {
+		for (let i = 0; i < video_card.length; i++) {
+			video_card[i].classList.remove('s3');
+			video_card[i].classList.add('s6');
+		}
+	}
+
+	if (window.innerWidth > 818) {
+		for (let i = 0; i < video_card.length; i++) {
+			video_card[i].classList.remove('s6');
+			video_card[i].classList.add('s3');
+		}
+	}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	resizeVideoCardForSmallScreen();
+});
