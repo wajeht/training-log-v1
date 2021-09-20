@@ -191,7 +191,9 @@ exports.postUpdateVideo = (req, res, next) => {
           res.redirect(`/video/${id}`)
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        next(err);
+      });
   }
 };
 
@@ -219,7 +221,7 @@ exports.postEditVideo = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 
@@ -269,7 +271,7 @@ exports.postDeleteVideo = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 
@@ -292,7 +294,7 @@ exports.getMyVideos = (req, res, next) => {
       })
     )
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 
@@ -317,7 +319,7 @@ exports.getCommentUserVideos = (req, res, next) => {
       );
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 
@@ -347,7 +349,7 @@ exports.getPostAutherVideos = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 
@@ -361,10 +363,10 @@ exports.postAddComment = (req, res, next) => {
   userId = Number(userId);
 
   Comment.addComment(date, message, videoId, userId)
-    .then((result) => {
+    .then(() => {
       res.redirect(`/video/${videoId}`);
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };

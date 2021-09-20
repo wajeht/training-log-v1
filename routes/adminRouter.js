@@ -18,7 +18,11 @@ router.get('/videos/:username', adminController.getPostAutherVideos);
 router.get('/add-video', isAuth.isAuth, adminController.getAddVideo);
 
 // /admin/delete-video => POST
-router.post('/delete-video/:id', isAuth.isAuth, adminController.postDeleteVideo);
+router.post(
+  '/delete-video/:id',
+  isAuth.isAuth,
+  adminController.postDeleteVideo
+);
 
 // /admin/edit-video => POST
 router.post('/edit-video/:id', isAuth.isAuth, adminController.postEditVideo);
@@ -29,6 +33,9 @@ router.post('/add-video', isAuth.isAuth, adminController.postAddVideo);
 // /admin/add-video => POST
 router.post('/add-comment', isAuth.isAuth, adminController.postAddComment);
 
-router.get('/comment-user-videos/:userId', adminController.getCommentUserVideos);
+router.get(
+  '/comment-user-videos/:userId',
+  adminController.getCommentUserVideos
+);
 
 module.exports = router;

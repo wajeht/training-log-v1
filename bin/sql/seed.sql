@@ -61,25 +61,25 @@ ALTER TABLE "public"."comments" ADD FOREIGN KEY ("userId") REFERENCES "public"."
 -- \echo
 
 -- \echo 'updating "pig" profile picture'
--- UPDATE users 
--- SET "profilePictureUrl"=('/images/pig.jpg') 
+-- UPDATE users
+-- SET "profilePictureUrl"=('/images/pig.jpg')
 -- WHERE id=(1);
 -- \echo
 
 -- \echo 'updating "cat" profile picture'
--- UPDATE users 
--- SET "profilePictureUrl"=('/images/cat.jpg') 
+-- UPDATE users
+-- SET "profilePictureUrl"=('/images/cat.jpg')
 -- WHERE id=(2);
 -- \echo
 
 -- \echo 'updating "dog" profile picture'
--- UPDATE users 
--- SET "profilePictureUrl"=('/images/dog.jpg') 
+-- UPDATE users
+-- SET "profilePictureUrl"=('/images/dog.jpg')
 -- WHERE id=(3);
 -- \echo
 
 -- \echo 'updating "jaw" profile picture'
--- UPDATE users 
--- SET "profilePictureUrl"=('/images/computer.jpg') 
+-- UPDATE users
+-- SET "profilePictureUrl"=('/images/computer.jpg')
 -- WHERE id=(4);
 -- \echo

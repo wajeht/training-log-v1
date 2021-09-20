@@ -16,20 +16,22 @@ router.post('/user/update-username/:id', authController.postUpdateUsername);
 router.get('/signup', authController.getSignup);
 
 router.post(
-    '/signup',
-    body('email')
-        .isEmail()
-        .withMessage('Please enter a valid email!')
-        .custom((value, { req }) => {
-            return User.findByEmail(value).then((user) => {
-                if (user) {
-                    console.log('ALREADY EXIST!!!!');
-                    return Promise.reject('Email already exist!');
-                }
-            });
-        }),
-    body('password', 'Password must be at least 10 character').isLength({ min: 8 }),
-    authController.postSignup
+  '/signup',
+  body('email')
+    .isEmail()
+    .withMessage('Please enter a valid email!')
+    .custom((value, { req }) => {
+      return User.findByEmail(value).then((user) => {
+        if (user) {
+          console.log('ALREADY EXIST!!!!');
+          return Promise.reject('Email already exist!');
+        }
+      });
+    }),
+  body('password', 'Password must be at least 10 character').isLength({
+    min: 8,
+  }),
+  authController.postSignup
 );
 router.get('/login', authController.getLogin);
 
