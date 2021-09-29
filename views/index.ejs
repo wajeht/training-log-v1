@@ -1,11 +1,10 @@
 <%- include("./includes/top.ejs") %>
+
 <main>
   <div class="container">
     <br /><br />
-    <!-- Page Content goes here -->
     <div class="row">
       <% if ( videosArray.length> 0 ) { %> <% for (let v of videosArray) { %>
-
       <div class="col s3 video-card">
         <a href="/video/<%= v.id %>">
           <div class="card hoverable">
@@ -18,15 +17,17 @@
           </div>
         </a>
       </div>
-
-      <% } %> <% } else { %>
-
+      <% } %> <% } else { %> <% if ( isAuthenticated) { %>
       <h1 class="header center">empty</h1>
       <div class="row center">
-        <h5 class="header col s12 light">add more video</h5>
+        <h5 class="header col s12 light">add more videos!</h5>
       </div>
-
-      <% } %>
+      <% } else { %>
+      <h1 class="header center">empty</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">login to add videos!</h5>
+      </div>
+      <% } %> <% } %>
     </div>
   </div>
 </main>

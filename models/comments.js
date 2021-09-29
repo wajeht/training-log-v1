@@ -1,6 +1,13 @@
 const pool = require('../config/database.js');
 
 module.exports = class Comment {
+  /**
+   * @param {date} date
+   * @param {string} comment
+   * @param {number} videoId
+   * @param {number} userId
+   * @returns list of comments with newly created comment
+   */
   static addComment(date, comment, videoId, userId) {
     return new Promise((resolve, reject) => {
       pool.query(
@@ -32,6 +39,13 @@ module.exports = class Comment {
     });
   }
 
+  /**
+   * @param {date} date
+   * @param {string} comment
+   * @param {number} videoId
+   * @param {number} userId
+   * @returns old comments with newly inserted comment
+   */
   static insertComment(date, comment, videoId, userId) {
     return new Promise((reject, resolve) => {
       pool.query(
@@ -45,6 +59,10 @@ module.exports = class Comment {
     });
   }
 
+  /**
+   * @param {number} videoId
+   * @returns list of comments without the one being deleted
+   */
   static deleteCommentByVideoId(videoId) {
     return new Promise((reject, resolve) => {
       pool.query(

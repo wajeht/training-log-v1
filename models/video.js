@@ -2,7 +2,7 @@ const pool = require('../config/database.js');
 
 // SELECT * FROM items LIMIT {itemsPerPage} OFFSET {(page - 1) * itemsPerPage}
 // https://stackoverflow.com/questions/48298555/how-to-implement-pagination-in-nodejs-postgresql
-https: module.exports = class Video {
+module.exports = class Video {
   static fetchAll(itemsPerPage, page) {
     return new Promise((resolve, reject) => {
       pool.query(

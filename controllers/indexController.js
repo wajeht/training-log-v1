@@ -1,8 +1,7 @@
 const Video = require('../models/video.js');
-
 const config = require('../config/config.js');
 
-// Email
+// Email configuration for contact page
 const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
 const smtpConfig = {
@@ -18,6 +17,13 @@ const transporter = nodemailer.createTransport(smtpConfig);
 
 const ITEMS_PER_PAGE = 16;
 
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns index.ejs
+ */
 exports.getIndex = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
@@ -52,118 +58,182 @@ exports.getIndex = async (req, res, next) => {
       currentSessionUserId: currentSessionUserId,
     });
   } catch (err) {
-    next(err.message);
+    next(err);
   }
 };
 
-exports.getContact = (req, res) => {
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns contact.ejs
+ */
+exports.getContact = (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
 
-  if (req.session.user) {
-    username = req.session.user.username;
-    currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
-  }
+  try {
+    if (req.session.user) {
+      username = req.session.user.username;
+      currentSessionUserId = req.session.user.id;
+      profilePicture = req.session.user.profilePictureUrl;
+    }
 
-  res.render('contact.ejs', {
-    pageTitle: 'Contact',
-    username,
-    currentSessionUserId,
-    profilePicture,
-  });
+    return res.render('contact.ejs', {
+      pageTitle: 'Contact',
+      username,
+      currentSessionUserId,
+      profilePicture,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.getPrivacy = (req, res) => {
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns privacy.ejs
+ */
+exports.getPrivacy = (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
 
-  if (req.session.user) {
-    username = req.session.user.username;
-    currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
-  }
+  try {
+    if (req.session.user) {
+      username = req.session.user.username;
+      currentSessionUserId = req.session.user.id;
+      profilePicture = req.session.user.profilePictureUrl;
+    }
 
-  res.render('privacy.ejs', {
-    pageTitle: 'Privacy',
-    username,
-    currentSessionUserId,
-    profilePicture,
-  });
+    return res.render('privacy.ejs', {
+      pageTitle: 'Privacy',
+      username,
+      currentSessionUserId,
+      profilePicture,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.getTerms = (req, res) => {
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns terms.ejs
+ */
+exports.getTerms = (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
 
-  if (req.session.user) {
-    username = req.session.user.username;
-    currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
-  }
+  try {
+    if (req.session.user) {
+      username = req.session.user.username;
+      currentSessionUserId = req.session.user.id;
+      profilePicture = req.session.user.profilePictureUrl;
+    }
 
-  res.render('terms.ejs', {
-    pageTitle: 'Terms',
-    username,
-    currentSessionUserId,
-    profilePicture,
-  });
+    return res.render('terms.ejs', {
+      pageTitle: 'Terms',
+      username,
+      currentSessionUserId,
+      profilePicture,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.getFAQ = (req, res) => {
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns faq.ejs
+ */
+exports.getFAQ = (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
 
-  if (req.session.user) {
-    username = req.session.user.username;
-    currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
-  }
+  try {
+    if (req.session.user) {
+      username = req.session.user.username;
+      currentSessionUserId = req.session.user.id;
+      profilePicture = req.session.user.profilePictureUrl;
+    }
 
-  res.render('faq.ejs', {
-    pageTitle: 'FAQ',
-    username,
-    currentSessionUserId,
-    profilePicture,
-  });
+    return res.render('faq.ejs', {
+      pageTitle: 'FAQ',
+      username,
+      currentSessionUserId,
+      profilePicture,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.getLearnMore = (req, res) => {
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns learn-more.ejs
+ */
+exports.getLearnMore = (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
 
-  if (req.session.user) {
-    username = req.session.user.username;
-    currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
-  }
+  try {
+    if (req.session.user) {
+      username = req.session.user.username;
+      currentSessionUserId = req.session.user.id;
+      profilePicture = req.session.user.profilePictureUrl;
+    }
 
-  res.render('learn-more.ejs', {
-    pageTitle: 'Learn more',
-    username,
-    currentSessionUserId,
-    profilePicture,
-  });
+    return res.render('learn-more.ejs', {
+      pageTitle: 'Learn more',
+      username,
+      currentSessionUserId,
+      profilePicture,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.postContact = (req, res) => {
-  const { name, email, message } = req.body;
-
-  transporter.sendMail({
-    to: `${config.sendGrid.fromEmail}`,
-    from: `${name} <${config.sendGrid.fromEmail}>`,
-    subject: `tvl.jawstrength.com's contact page`,
-    html: `
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns index.ejs
+ */
+exports.postContact = (req, res, next) => {
+  try {
+    const { name, email, message } = req.body;
+    transporter.sendMail({
+      to: `${config.sendGrid.fromEmail}`,
+      from: `${name} <${config.sendGrid.fromEmail}>`,
+      subject: `tvl.jawstrength.com's contact page`,
+      html: `
 		<p>${name}</p>
 		<p>${email}</p>
 		<p>${message}</p>
 		`,
-  });
-
-  res.redirect('/');
+    });
+    return res.redirect('/');
+  } catch (err) {
+    next(err);
+  }
 };

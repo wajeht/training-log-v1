@@ -10,7 +10,6 @@ const compression = require('compression');
 
 // to protect session
 const csrf = require('csurf');
-
 const csrfProtechtion = csrf();
 
 // security

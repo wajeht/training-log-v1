@@ -33,14 +33,12 @@ exports.getVideo = (req, res, next) => {
   Video.findById(id)
     .then((video) => {
       if (video == undefined) {
-        // console.log({ 404: ' ##### adminController.getVideo (404) #####' });
         res.setStatus = 404;
         return res.render('404.ejs', {
           pageTitle: '404',
           isAuthenticated: false,
         });
       }
-      // console.log({ '***** adminController.getVideo ***** ': video });
 
       // to render post author info
       User.findById(video.userId).then((user) => {
@@ -72,7 +70,7 @@ exports.getVideo = (req, res, next) => {
         });
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => next(err));
 };
 
 exports.getAddVideo = (req, res, next) => {
@@ -85,13 +83,16 @@ exports.getAddVideo = (req, res, next) => {
     currentSessionUserId = req.session.user.id;
     profilePicture = req.session.user.profilePictureUrl;
   }
-  // console.log({ '***** adminController.getAddVideo ***** ': '' });
-  res.render('video/add-video.ejs', {
-    pageTitle: 'add video page',
-    username,
-    currentSessionUserId,
-    profilePicture,
-  });
+  try {
+    res.render('video/add-video.ejs', {
+      pageTitle: 'add video page',
+      username,
+      currentSessionUserId,
+      profilePicture,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.postAddVideo = (req, res, next) => {
@@ -102,7 +103,6 @@ exports.postAddVideo = (req, res, next) => {
 
     message = message.replace(/<br>/g, 'chr(10)');
 
-    // console.log('########## VIDEO ######', video);
     if (!video) {
       return Error('no');
     }
@@ -135,16 +135,10 @@ exports.postAddVideo = (req, res, next) => {
       await imagemin([screenshotUrl], screenShotFolderPath, {
         use: [imageminMozjpeg()],
       });
-
-      // console.log('Images optimized');
     })();
 
     Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
       .then(() => {
-        // console.log({
-        //     '***** adminController.postAddVideo ***** ': req.body,
-        //     screenshotUrl,
-        // });
         res.redirect('/');
       })
       .catch((err) => {
@@ -211,7 +205,6 @@ exports.postEditVideo = (req, res, next) => {
   const id = parseInt(req.params.id);
   Video.findById(id)
     .then((result) => {
-      // console.log({ '***** adminController.postEditVideo ***** ': result });
       res.render('video/edit-video.ejs', {
         username,
         videoArray: result,
@@ -231,9 +224,6 @@ exports.postDeleteVideo = (req, res, next) => {
   Comment.fetchComment(id)
     .then((comment) => comment.length > 0)
     .then((hasComments) => {
-      // if vid has comment
-      // delete comment fist
-      // then delete video
       if (hasComments) {
         // delete comment
         Comment.deleteCommentByVideoId(id)
@@ -253,7 +243,7 @@ exports.postDeleteVideo = (req, res, next) => {
             });
           })
           .catch((err) => {
-            console.log('deletedCommentErr', err);
+            next(err);
           });
       }
       // else just delete video

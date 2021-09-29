@@ -38,8 +38,6 @@ exports.getLogin = (req, res, next) => {
       res.redirect('/');
     }
 
-    // console.log('isLoggedIn', req.session.isLoggedIn);
-
     res.render('auth/login.ejs', {
       pageTitle: 'Login',
       errorMessage: req.flash('error'),
@@ -187,7 +185,7 @@ exports.postForgetPassword = (req, res, next) => {
 
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
-      console.log(err);
+      next(err);
       return res.redirect('/forget-password');
     }
     const token = buffer.toString('hex');
@@ -218,7 +216,7 @@ exports.postForgetPassword = (req, res, next) => {
         console.log('http://localhost:3000/password-reset/${token}');
       })
       .catch((err) => {
-        console.log(err);
+        next(err);
       });
   });
 };
@@ -271,8 +269,7 @@ exports.postNewPassword = (req, res, next) => {
       })
     )
     .catch((err) => {
-      next(err.message);
-      //   console.log(err);
+      next(err);
     });
 };
 
@@ -281,8 +278,6 @@ exports.postUserDetails = (req, res, next) => {
   let currentSessionUserId = null;
   const picture = req.files.picture[0];
   const profilePictureUrl = picture.path;
-
-  console.log('###################', req.files);
 
   if (req.session.user) {
     currentSessionUserId = req.session.user.id;
@@ -293,7 +288,7 @@ exports.postUserDetails = (req, res, next) => {
       res.redirect('/');
     })
     .catch((err) => {
-      next(err.message);
+      next(err);
     });
 };
 
@@ -329,6 +324,6 @@ exports.postUpdateUsername = (req, res, next) => {
       res.redirect('/');
     })
     .catch((err) => {
-      next(err.message);
+      next(err);
     });
 };
