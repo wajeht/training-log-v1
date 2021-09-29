@@ -23,7 +23,6 @@ router.post(
     .custom((value, { req }) => {
       return User.findByEmail(value).then((user) => {
         if (user) {
-          console.log('ALREADY EXIST!!!!');
           return Promise.reject('Email already exist!');
         }
       });

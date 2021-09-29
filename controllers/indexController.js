@@ -1,5 +1,6 @@
 const Video = require('../models/video.js');
 const config = require('../config/config.js');
+const { validationResult } = require('express-validator');
 
 // Email configuration for contact page
 const nodemailer = require('nodemailer');
@@ -56,36 +57,6 @@ exports.getIndex = async (req, res, next) => {
       lastPage: Math.ceil(totalVideos / ITEMS_PER_PAGE),
       isAuthenticated: req.session.isLoggedIn,
       currentSessionUserId: currentSessionUserId,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
-/**
- *
- * @param {*} req request
- * @param {*} res response
- * @param {*} next next middleware
- * @returns contact.ejs
- */
-exports.getContact = (req, res, next) => {
-  let username = null;
-  let currentSessionUserId = null;
-  let profilePicture = null;
-
-  try {
-    if (req.session.user) {
-      username = req.session.user.username;
-      currentSessionUserId = req.session.user.id;
-      profilePicture = req.session.user.profilePictureUrl;
-    }
-
-    return res.render('contact.ejs', {
-      pageTitle: 'Contact',
-      username,
-      currentSessionUserId,
-      profilePicture,
     });
   } catch (err) {
     next(err);
@@ -217,11 +188,40 @@ exports.getLearnMore = (req, res, next) => {
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns index.ejs
+ * @returns contact.ejs
  */
 exports.postContact = (req, res, next) => {
+  let username = null;
+  let currentSessionUserId = null;
+  let profilePicture = null;
+
+  if (req.session.user) {
+    username = req.session.user.username;
+    currentSessionUserId = req.session.user.id;
+    profilePicture = req.session.user.profilePictureUrl;
+  }
+
+  const errors = validationResult(req);
+  const { name, email, message } = req.body;
+  const oldInput = {
+    name,
+    email,
+    message,
+  };
+
+  // if we failed, render the same page again
+  if (errors.array().length > 0) {
+    return res.status(422).render('contact.ejs', {
+      pageTitle: 'Contact',
+      username,
+      currentSessionUserId,
+      profilePicture,
+      errorMessage: errors.array(),
+      oldInput,
+    });
+  }
+
   try {
-    const { name, email, message } = req.body;
     transporter.sendMail({
       to: `${config.sendGrid.fromEmail}`,
       from: `${name} <${config.sendGrid.fromEmail}>`,
@@ -233,6 +233,38 @@ exports.postContact = (req, res, next) => {
 		`,
     });
     return res.redirect('/');
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ *
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next next middleware
+ * @returns contact.ejs
+ */
+exports.getContact = (req, res, next) => {
+  let username = null;
+  let currentSessionUserId = null;
+  let profilePicture = null;
+  const errorMessage = req.flash('error');
+
+  try {
+    if (req.session.user) {
+      username = req.session.user.username;
+      currentSessionUserId = req.session.user.id;
+      profilePicture = req.session.user.profilePictureUrl;
+    }
+
+    return res.render('contact.ejs', {
+      pageTitle: 'Contact',
+      username,
+      currentSessionUserId,
+      profilePicture,
+      errorMessage,
+    });
   } catch (err) {
     next(err);
   }

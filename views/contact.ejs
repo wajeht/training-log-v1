@@ -13,10 +13,18 @@
               </div>
             </div>
 
+            <% if (errorMessage.length > 0) { %>
+            <div class="chip">
+              <%= errorMessage[0].msg %>
+              <i class="close material-icons">close</i>
+            </div>
+            <% } %>
+
             <form action="/contact" method="POST">
               <div class="row">
                 <div class="input-field col s12">
                   <input
+                    value="<%= oldInput ? oldInput.name: '' %>"
                     id="name"
                     type="text"
                     name="name"
@@ -31,6 +39,7 @@
               <div class="row">
                 <div class="input-field col s12">
                   <input
+                    value="<%= oldInput ? oldInput.email: '' %>"
                     id="email"
                     type="email"
                     name="email"
@@ -44,6 +53,7 @@
               <div class="row">
                 <div class="input-field col s12">
                   <textarea
+                    value="<%= oldInput ? oldInput.message: '' %>"
                     id="textarea"
                     name="message"
                     class="materialize-textarea"
