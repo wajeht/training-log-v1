@@ -1,9 +1,8 @@
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns 404.ejs
+ * @returns 404.ejs page
  */
 exports.get404 = (req, res, next) => {
   let username = null;
@@ -24,7 +23,7 @@ exports.get404 = (req, res, next) => {
       username,
       currentSessionUserId,
       pageTitle: '404',
-      isAuthenticated: req.session.isLoggedIn,
+      isAuthenticated,
       profilePicture,
     });
   } catch (err) {

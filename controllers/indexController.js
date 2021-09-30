@@ -19,11 +19,10 @@ const transporter = nodemailer.createTransport(smtpConfig);
 const ITEMS_PER_PAGE = 16;
 
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns index.ejs
+ * @returns index.ejs page
  */
 exports.getIndex = async (req, res, next) => {
   let username = null;
@@ -64,11 +63,10 @@ exports.getIndex = async (req, res, next) => {
 };
 
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns privacy.ejs
+ * @returns privacy.ejs page
  */
 exports.getPrivacy = (req, res, next) => {
   let username = null;
@@ -94,11 +92,10 @@ exports.getPrivacy = (req, res, next) => {
 };
 
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns terms.ejs
+ * @returns terms.ejs page
  */
 exports.getTerms = (req, res, next) => {
   let username = null;
@@ -124,11 +121,10 @@ exports.getTerms = (req, res, next) => {
 };
 
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns faq.ejs
+ * @returns faq.ejs page
  */
 exports.getFAQ = (req, res, next) => {
   let username = null;
@@ -154,11 +150,10 @@ exports.getFAQ = (req, res, next) => {
 };
 
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns learn-more.ejs
+ * @returns learn-more.ejs page
  */
 exports.getLearnMore = (req, res, next) => {
   let username = null;
@@ -184,11 +179,10 @@ exports.getLearnMore = (req, res, next) => {
 };
 
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns contact.ejs
+ * @returns contact.ejs page
  */
 exports.postContact = (req, res, next) => {
   let username = null;
@@ -209,19 +203,19 @@ exports.postContact = (req, res, next) => {
     message,
   };
 
-  // if we failed, render the same page again
-  if (errors.array().length > 0) {
-    return res.status(422).render('contact.ejs', {
-      pageTitle: 'Contact',
-      username,
-      currentSessionUserId,
-      profilePicture,
-      errorMessage: errors.array(),
-      oldInput,
-    });
-  }
-
   try {
+    // if we failed, render the same page again
+    if (errors.array().length > 0) {
+      return res.status(422).render('contact.ejs', {
+        pageTitle: 'Contact',
+        username,
+        currentSessionUserId,
+        profilePicture,
+        errorMessage: errors.array(),
+        oldInput,
+      });
+    }
+
     transporter.sendMail({
       to: `${config.sendGrid.fromEmail}`,
       from: `${name} <${config.sendGrid.fromEmail}>`,
@@ -239,17 +233,22 @@ exports.postContact = (req, res, next) => {
 };
 
 /**
- *
  * @param {*} req request
  * @param {*} res response
  * @param {*} next next middleware
- * @returns contact.ejs
+ * @returns contact.ejs page
  */
 exports.getContact = (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
   const errorMessage = req.flash('error');
+  const { name, email, message } = req.body;
+  const oldInput = {
+    name,
+    email,
+    message,
+  };
 
   try {
     if (req.session.user) {
@@ -264,6 +263,7 @@ exports.getContact = (req, res, next) => {
       currentSessionUserId,
       profilePicture,
       errorMessage,
+      oldInput,
     });
   } catch (err) {
     next(err);

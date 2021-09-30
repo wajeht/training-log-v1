@@ -11,7 +11,7 @@ const User = require('../models/user.js');
 
 // Email
 const nodemailer = require('nodemailer');
-const sendGridTransport = require('nodemailer-sendgrid-transport');
+// const sendGridTransport = require('nodemailer-sendgrid-transport');
 const smtpConfig = {
   host: config.email.host,
   port: config.email.port,
