@@ -23,6 +23,8 @@ rm ./public/uploads/*mp4
 
 echo "Deleting old videos thumnail"
 rm ./public/uploads/thumbnails/*png
+rm ./public/uploads/thumbnails/*jpg
+rm ./public/uploads/thumbnails/*jpeg
 
 echo "Deleting old profile pictures"
 rm ./public/uploads/*png

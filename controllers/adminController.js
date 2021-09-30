@@ -15,19 +15,16 @@ const User = require('../models/user.js');
 exports.getVideo = (req, res, next) => {
   const { id } = req.params;
 
-  let username = null;
   let currentSessionUser = null;
   let currentSessionUserId = null;
   let profilePicture = null;
 
   if (req.session.user) {
-    username = req.session.user.username;
     currentSessionUser = req.session.user.username;
     currentSessionUserId = req.session.user.id;
     profilePicture = req.session.user.profilePictureUrl;
   } else {
     currentSessionUser = null;
-    username = null;
   }
 
   Video.findById(id)
@@ -154,22 +151,58 @@ exports.postUpdateVideo = (req, res, next) => {
   const { title, message } = req.body;
   const videoUpload = req.files.video;
 
-  // if user has sleeted a video to swap
-  // delete old vid, then replace with new vid
+  // if user has sleeted a video to swap delete old vid, then replace with new vid
   if (videoUpload != null || videoUpload != undefined) {
     Video.findById(id)
-      .then((result) => {
-        const { path } = req.files.video[0];
-        const oldVideoPath = result.videoUrl;
+      .then((oldVideo) => {
+        const video = req.files.video[0];
+
+        const oldVideoArray = [oldVideo.videoUrl, oldVideo.screenshotUrl];
 
         // delete old video
-        fs.unlink(oldVideoPath, (err) => {
-          if (err) return console.log(err);
-          console.log('file deleted successfully');
+        for (let file of oldVideoArray) {
+          fs.unlink(file, (err) => {
+            if (err) return next(err);
+          });
+        }
+
+        const videoUrl = video.path;
+        const videoUrlForScreenShot = path.join(root, videoUrl);
+        const screenShotFolderPath = path.join(
+          root,
+          'public',
+          'uploads',
+          'thumbnails'
+        );
+
+        // take screenshot at the 0 second then save it at uploads/thumbnails
+        ffmpeg(videoUrlForScreenShot).screenshots({
+          timestamps: [0],
+          folder: screenShotFolderPath,
+          filename: videoUrl.split('/').pop().concat('_screenshot.jpg'),
+          size: '640x640',
         });
 
-        // update new view
-        Video.update(path, title, message, id).then(() =>
+        const fn = videoUrl.split('/').pop().concat('_screenshot.jpg');
+        const newScreenshotUrl = path.join(
+          'public',
+          'uploads',
+          'thumbnails',
+          fn
+        );
+
+        // optimize the image
+        (async () => {
+          const imagemin = (await import('imagemin')).default;
+          const imageminMozjpeg = (await import('imagemin-mozjpeg')).default;
+
+          await imagemin([newScreenshotUrl], screenShotFolderPath, {
+            use: [imageminMozjpeg()],
+          });
+        })();
+
+        // update new video
+        Video.update(videoUrl, newScreenshotUrl, title, message, id).then(() =>
           res.redirect(`/video/${id}`)
         );
       })
@@ -177,11 +210,10 @@ exports.postUpdateVideo = (req, res, next) => {
   } else {
     // if user didn't choose video
     Video.findById(id)
-      .then((result) => {
-        console.log(result);
-        const { videoUrl } = result;
+      .then((oldVideo) => {
+        const { videoUrl, screenshotUrl } = oldVideo;
 
-        Video.update(videoUrl, title, message, id).then(() =>
+        Video.update(videoUrl, screenshotUrl, title, message, id).then(() =>
           res.redirect(`/video/${id}`)
         );
       })
@@ -316,12 +348,10 @@ exports.getCommentUserVideos = (req, res, next) => {
 exports.getPostAutherVideos = (req, res, next) => {
   const userId = req.params.username;
   let username = null;
-  let currentSessionUserId = null;
   let profilePicture = null;
 
   if (req.session.user) {
     username = req.session.user.username;
-    currentSessionUserId = req.session.user.id;
     profilePicture = req.session.user.profilePictureUrl;
   }
 

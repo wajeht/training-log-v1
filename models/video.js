@@ -51,14 +51,14 @@ module.exports = class Video {
     });
   }
 
-  static update(videoUrl, title, message, id) {
+  static update(videoUrl, screenshotUrl, title, message, id) {
     return new Promise((resolve, reject) => {
       pool.query(
-        'UPDATE videos SET "videoUrl"=($1), title=($2), message=($3) where id=($4)',
-        [videoUrl, title, message, id],
+        'UPDATE videos SET "videoUrl"=($1), "screenshotUrl"=($2), title=($3), message=($4) where id=($5)',
+        [videoUrl, screenshotUrl, title, message, id],
         (err, response) => {
           if (err) return reject(err);
-          resolve();
+          resolve(response.rows[0]);
         }
       );
     });

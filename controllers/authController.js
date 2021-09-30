@@ -117,7 +117,7 @@ exports.postSignup = (req, res, next) => {
   bcrypt
     .hash(password, 10)
     .then((hashPassword) => {
-      User.addUser(email, username, hashPassword).then((user) =>
+      User.addUser(email, username, hashPassword).then(() =>
         res.redirect('/login')
       );
     })
@@ -202,7 +202,7 @@ exports.postForgetPassword = (req, res, next) => {
         const resetTokenExpiration = new Date(new Date().getTime() + 5 * 60000);
         return User.updateToken(id, resetToken, resetTokenExpiration);
       })
-      .then((user) => {
+      .then(() => {
         res.redirect('/');
         // return transporter.sendMail({
         //     to: email,
@@ -264,7 +264,7 @@ exports.postNewPassword = (req, res, next) => {
       })
     )
     .then((user) =>
-      User.deletePasswordResetTokenInfo(user.id).then((deleted) => {
+      User.deletePasswordResetTokenInfo(user.id).then(() => {
         //   console.log('token has been deleted', deleted);
       })
     )

@@ -1,136 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      <%= pageTitle %>
-    </title>
+    <title><%= pageTitle %></title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
-    <link rel="stylesheet" href="/css/custom.css">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/materialize.min.css"
+      media="screen,projection"
+    />
+    <link rel="stylesheet" href="/css/custom.css" />
 
     <!-- ---------- linkedin link preview image starts ---------- -->
-    <meta name="title" property="og:title" content="Training Vlog">
-    <meta property="og:type" content="Full-stack Web App">
+    <meta name="title" property="og:title" content="Training Vlog" />
+    <meta property="og:type" content="Full-stack Web App" />
     <meta name="image" property="og:image" content="/images/linkedin.jpg" />
-    <meta name="description"
-      content="A full-stack web application to log training videos with the respect to weekly split!">
-    <meta name="author" content="wajeht">
+    <meta
+      name="description"
+      content="A full-stack web application to log training videos with the respect to weekly split!"
+    />
+    <meta name="author" content="wajeht" />
     <!-- ---------- linkedin link preview image ends ---------- -->
-
   </head>
 
-
   <body class="grey lighten-2">
-
     <header>
       <!-- ---------- navbar ----------  -->
-      <nav style="background-color: #134733;">
+      <nav style="background-color: #134733">
         <div class="nav-wrapper container nav-bar">
           <a id="logo-container" href="/" class="brand-logo">
             <!-- <img src="/images/logo.png" width="250" height="auto"> -->
-            <a href="/" class="brand-logo">training-vlog</a>
+            <a class="nav-font" id="nav-title" href="/">training-vlog</a>
           </a>
 
           <ul class="right hide-on-med-and-down">
             <% if (isAuthenticated) { %>
 
             <!-- ---------- dropdown ----------  -->
-            <a href='#' class='show-menu' data-target='dropdown'>
-              <li class='dropdown-trigger'>
-                <img class="dropdown-trigger-img"
-                  src="<%= !profilePicture ? '/images/default_profile_picture.jpg' : "/" + profilePicture%>"
-                  alt="">
+            <a href="#" class="show-menu" data-target="dropdown">
+              <li class="dropdown-trigger">
+                <img class="dropdown-trigger-img" src="<%= !profilePicture ?
+                '/images/default_profile_picture.jpg' : "/" + profilePicture%>"
+                alt="">
               </li>
             </a>
 
-
             <!-- ---------- dropdown structure ----------  -->
-            <ul id='dropdown' class='dropdown-content'>
-
-              <li><a href="/user/<%= currentSessionUserId %> ">user-details</a></li>
+            <ul id="dropdown" class="dropdown-content">
+              <li>
+                <a href="/user/<%= currentSessionUserId %> ">user-details</a>
+              </li>
               <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
               <li><a href="/add-video">add-video</a></li>
               <form action="/logout" method="post">
-                <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                <li><a href="javascript:{}"
-                    onclick="document.getElementById('log-out').submit(); return false;">logout</a>
+                <input
+                  type="hidden"
+                  id="csrfToken"
+                  name="_csrf"
+                  value="<%= csrfToken %>"
+                />
+                <li>
+                  <a
+                    href="javascript:{}"
+                    onclick="document.getElementById('log-out').submit(); return false;"
+                    >logout</a
+                  >
                 </li>
               </form>
             </ul>
 
             <% } else { %>
             <li>
-              <a class="auth-font-siize" href="/login">login</a> </h5>
+              <a class="nav-font" href="/login">login</a>
             </li>
             <% } %>
           </ul>
 
           <ul id="slide-out" class="sidenav">
-
             <% if (isAuthenticated) { %>
             <li class="grey darken-4">
-              <a href="#email"><span class="white-text">
-                  <%= username %>
-                </span></a>
+              <a href="#email"
+                ><span class="white-text"> <%= username %> </span></a
+              >
             </li>
-            <li><a href="/user/<%= currentSessionUserId %> ">user-details</a></li>
+            <li>
+              <a href="/user/<%= currentSessionUserId %> ">user-details</a>
+            </li>
             <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
             <li><a href="/add-video">add-video</a></li>
             <form action="/logout" id="log-out" method="post">
-              <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
+              <input
+                type="hidden"
+                id="csrfToken"
+                name="_csrf"
+                value="<%= csrfToken %>"
+              />
 
-              <li><a href="javascript:{}"
-                  onclick="document.getElementById('log-out').submit(); return false;">logout</a>
+              <li>
+                <a
+                  href="javascript:{}"
+                  onclick="document.getElementById('log-out').submit(); return false;"
+                  >logout</a
+                >
               </li>
-
             </form>
             <% } else { %>
             <li><a href="/login">login</a></li>
             <% } %>
           </ul>
-          <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <a href="#" data-target="slide-out" class="sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
         </div>
-
       </nav>
-
 
       <% if (!isAuthenticated && pageTitle==="JawStrength's TrainingVlog" ) {%>
       <div id="index-banner">
-        <div class="section no-pad-bot" style=" background-color: #115339;">
+        <div class="section no-pad-bot" style="background-color: #115339">
           <div class="container">
-            <br>
+            <br />
             <div class="header center white-text">
-              <br>
-              <img class="hero-banner" src="/images/logo/jaw_strength_presents.png" width="400"
-                height="auto">
-              <br>
+              <br />
+              <img
+                class="hero-banner"
+                src="/images/logo/jaw_strength_presents.png"
+                width="400"
+                height="auto"
+              />
+              <br />
             </div>
             <div class="row center container--narrow">
-              <h5 class="header col s12 light white-text text-lighten-1 ">
-                A full-stack web application to log training videos with the respect
-                to weekly
-                session. Built by an athlete, for the athletes!
+              <h5 class="header col s12 light white-text text-lighten-1">
+                A full-stack web application to log training videos with the
+                respect to weekly session. Built by an athlete, for the
+                athletes!
               </h5>
             </div>
             <div class="row center">
-              <a href="/learn-more"
-                class="btn white grey-text waves-effect text-darken-4 waves-dark">Learn
-                more</a>
+              <a
+                href="/learn-more"
+                class="
+                  btn
+                  white
+                  grey-text
+                  waves-effect
+                  text-darken-4
+                  waves-dark
+                "
+                >Learn more</a
+              >
             </div>
-            <br>
+            <br />
           </div>
         </div>
       </div>
       <% } %>
-
     </header>
+  </body>
+</html>

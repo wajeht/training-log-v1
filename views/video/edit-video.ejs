@@ -1,83 +1,113 @@
 <%- include("../includes/top.ejs") %>
 
-    <main>
-        <div class="container">
-            <br /><br />
+<main>
+  <div class="container">
+    <br /><br />
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
             <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <span class="card-title grey-text text-darken-4">edit video</span>
-                                </div>
-                            </div>
-
-                            <form action="/video/<%= videoArray.id %>" method="POST" enctype="multipart/form-data">
-
-
-                                <div id="update-video-preview-div" class="row">
-                                    <div class="input-field col s12 center">
-                                        <video width="80%" controls>
-                                            <source src="/<%= videoArray.videoUrl %>#t=0.1" type="video/mp4"
-                                                    autostart="false">
-                                            Your browser does not support HTML5 video..
-                                        </video>
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <div class="file-field input-field">
-                                            <div class="btn waves-effect waves-light grey darken-4">
-                                                <span>Replace</span>
-                                                <input type="file" name="video" id="video" multiple>
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text"
-                                                       placeholder="Upload one or more files" accept="video/*"
-                                                       onchange="previewUpdaedVideo()">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field center col s12">
-                                        <textarea id="icon_prefix" id="title" name="title" class="materialize-textarea"
-                                                  required>
-<%= videoArray.title %> </textarea>
-                                        <label for="icon_prefix">Title</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field center col s12">
-                                        <textarea id="icon_prefix" id="message" name="message"
-                                                  class="materialize-textarea" required>
-<%= videoArray.message %> </textarea>
-                                        <label for="icon_prefix">Message</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="center col s12">
-                                        <input type="hidden" id="csrfToken" name="_csrf" value="<%= csrfToken %>">
-                                        <button class="btn waves-effect waves-light grey darken-4" type="submit"
-                                                name="<%= videoArray.id  %>">
-                                            Update
-                                            <i class="material-icons right">update</i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+              <div class="input-field col s12">
+                <span class="card-title grey-text text-darken-4"
+                  >edit video</span
+                >
+              </div>
             </div>
-        </div>
-        <br>
-    </main>
 
-    <%- include("../includes/bottom.ejs") %>
+            <form
+              action="/video/<%= videoArray.id %>"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div id="update-video-preview-div" class="row">
+                <div class="input-field col s12 center">
+                  <video width="80%" controls>
+                    <source
+                      src="/<%= videoArray.videoUrl %>#t=0.1"
+                      type="video/mp4"
+                      autostart="false"
+                    />
+                    Your browser does not support HTML5 video..
+                  </video>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <div class="file-field input-field">
+                    <div class="btn waves-effect waves-light grey darken-4">
+                      <span>Replace</span>
+                      <input type="file" name="video" id="video" multiple />
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input
+                        class="file-path validate"
+                        type="text"
+                        placeholder="Upload one or more files"
+                        accept="video/*"
+                        onchange="previewUpdaedVideo()"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field center col s12">
+                  <textarea
+                    id="icon_prefix"
+                    id="title"
+                    name="title"
+                    class="materialize-textarea"
+                    required
+                  >
+<%= videoArray.title %> </textarea
+                  >
+                  <label for="icon_prefix">Title</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field center col s12">
+                  <textarea
+                    id="icon_prefix"
+                    id="message"
+                    name="message"
+                    class="materialize-textarea"
+                    required
+                  >
+<%= videoArray.message %> </textarea
+                  >
+                  <label for="icon_prefix">Message</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="center col s12">
+                  <input
+                    type="hidden"
+                    id="csrfToken"
+                    name="_csrf"
+                    value="<%= csrfToken %>"
+                  />
+                  <button
+                    class="btn waves-effect waves-light grey darken-4"
+                    type="submit"
+                    name="<%= videoArray.id  %>"
+                  >
+                    Update
+                    <i class="material-icons right">update</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+</main>
+
+<%- include("../includes/bottom.ejs") %>

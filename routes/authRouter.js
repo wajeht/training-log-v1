@@ -5,7 +5,7 @@ const isAuth = require('../middleware/isAuth.js');
 const authController = require('../controllers/authController.js');
 const User = require('../models/user.js');
 
-const { check, body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
 router.get('/user/:id', isAuth.isAuth, authController.getUserDetails);
 
