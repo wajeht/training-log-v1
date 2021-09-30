@@ -13,6 +13,7 @@
     margin: 0 30px;
   }
 }
+
 @media only screen and (max-width: 425px) {
   .container--narrow {
     max-width: 100%;
@@ -48,6 +49,13 @@
 
   .logo-footer {
     text-align: center;
+  }
+}
+
+@media (min-width: 1000px) {
+  .footer-even {
+    display: flex;
+    justify-content: end;
   }
 }
 
