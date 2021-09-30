@@ -6,7 +6,7 @@
 
 		<div class="row">
 			<!-- --------------------------VIDEO-DETAILS------------------------------ -->
-			<div class="col s9">
+			<div class="<%= videosArray.length === 0 ? 'col s12' : 'col s9'%>">
 				<div class="card">
 					<div class="video-container">
 						<video controls preload="none" poster="../<%= video.screenshotUrl %>">
@@ -170,7 +170,7 @@
 			</div>
 
 			<!-- --------------------------RECENT-VIDEOS----------------------------- -->
-			<% if ( videosArray.length> 0 ) { %> <% for (let v of videosArray) { %>
+			<% if ( videosArray.length > 0 ) { %> <% for (let v of videosArray) { %>
 
 			<div class="col s3">
 				<a href="/video/<%= v.id %> ">
@@ -188,7 +188,7 @@
 			<!-- --------------------------COMMENTS------------------------------ -->
 			<% if (comments.length> 0) { %> <% for (let comment of comments) { %>
 
-			<div class="col s9 comment-message">
+			<div class="<%= videosArray.length === 0 ? 'col s12' : 'col s9'%> comment-message">
 				<div class="card">
 					<div class="card-content">
 						<br />
@@ -219,7 +219,7 @@
 			<% } %> <% } %>
 
 			<!-- --------------------------COMMENTS-BOX----------------------------- -->
-			<div class="col s9">
+			<div class="<%= videosArray.length === 0 ? 'col s12' : 'col s9'%>">
 				<div class="card">
 					<div class="card-content">
 						<% if (isAuthenticated) { %>

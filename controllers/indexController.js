@@ -43,6 +43,7 @@ exports.getIndex = async (req, res, next) => {
     const res_fetchAll = await Video.fetchAll(ITEMS_PER_PAGE, page);
     const videosArray = await res_fetchAll;
 
+
     return res.render('index.ejs', {
       profilePicture,
       username: username,

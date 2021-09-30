@@ -84,11 +84,6 @@
   text-transform: lowercase;
 }
 
-nav.nav-extended {
-  padding-top: 20px;
-  min-height: 100px;
-}
-
 html {
   font-family: sans-serif;
 }
@@ -140,14 +135,22 @@ nav ul a:hover {
 /* position: absolute; */
 /* } */
 
+.hide-on-med-and-down {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .dropdown-trigger-img {
   border: 2px solid white;
   border-radius: 50%;
 
-  margin-left: -40px;
+  /* margin-left: -40px; */
 
-  max-width: 100%;
-  max-height: 100%;
+  top: 25%;
+
+  max-width: 50%;
+  max-height: 50%;
   position: absolute;
 }
 
@@ -155,6 +158,7 @@ nav ul a:hover {
   overflow-y: hidden;
   top: 100% !important;
   min-width: max-content;
+  left: 65px;
 }
 
 .dropdown-content li > a,
