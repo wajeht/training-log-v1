@@ -1,7 +1,7 @@
 // Utils
 const fs = require('fs');
 const path = require('path');
-const { root } = require('../util/directory.js');
+const { root } = require('../../util/directory.js');
 
 // Screenshot
 const ffmpeg = require('fluent-ffmpeg');
@@ -108,7 +108,7 @@ exports.postAddVideo = (req, res, next) => {
     const videoUrlForScreenShot = path.join(root, videoUrl);
     const screenShotFolderPath = path.join(
       root,
-      'public',
+      'data',
       'uploads',
       'thumbnails'
     );
@@ -122,7 +122,7 @@ exports.postAddVideo = (req, res, next) => {
     });
 
     const fn = videoUrl.split('/').pop().concat('_screenshot.jpg');
-    const screenshotUrl = path.join('public', 'uploads', 'thumbnails', fn);
+    const screenshotUrl = path.join('data', 'uploads', 'thumbnails', fn);
 
     // optimize the image
     (async () => {
@@ -170,7 +170,7 @@ exports.postUpdateVideo = (req, res, next) => {
         const videoUrlForScreenShot = path.join(root, videoUrl);
         const screenShotFolderPath = path.join(
           root,
-          'public',
+          'data',
           'uploads',
           'thumbnails'
         );
@@ -184,12 +184,7 @@ exports.postUpdateVideo = (req, res, next) => {
         });
 
         const fn = videoUrl.split('/').pop().concat('_screenshot.jpg');
-        const newScreenshotUrl = path.join(
-          'public',
-          'uploads',
-          'thumbnails',
-          fn
-        );
+        const newScreenshotUrl = path.join('data', 'uploads', 'thumbnails', fn);
 
         // optimize the image
         (async () => {
@@ -262,13 +257,13 @@ exports.postDeleteVideo = (req, res, next) => {
           .then(() => {
             // delete video
             Video.delete(id).then((deletedVideo) => {
-              console.log('deletedVideo', deletedVideo);
-
-              const { videoUrl } = deletedVideo;
+              const { videoUrl, screenshotUrl } = deletedVideo;
 
               fs.unlink(videoUrl, (err) => {
                 if (err) return console.log(err);
-                console.log('file deleted successfully');
+              });
+              fs.unlink(screenshotUrl, (err) => {
+                if (err) return console.log(err);
               });
 
               return res.redirect('/');
@@ -280,13 +275,13 @@ exports.postDeleteVideo = (req, res, next) => {
       }
       // else just delete video
       Video.delete(id).then((deletedVideo) => {
-        console.log('deletedVideo', deletedVideo);
-
-        const { videoUrl } = deletedVideo;
+        const { videoUrl, screenshotUrl } = deletedVideo;
 
         fs.unlink(videoUrl, (err) => {
           if (err) return console.log(err);
-          console.log('file deleted successfully');
+        });
+        fs.unlink(screenshotUrl, (err) => {
+          if (err) return console.log(err);
         });
 
         return res.redirect('/');

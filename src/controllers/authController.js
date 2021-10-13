@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
 // Utils
-const config = require('../config/config.js');
+const config = require('../../config/config.js');
 const { validationResult } = require('express-validator');
 
 // Model

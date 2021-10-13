@@ -1,4 +1,4 @@
-const pool = require('../config/database.js');
+const pool = require('../../config/database.js');
 
 module.exports = class User {
   static findByEmail(email) {

@@ -1,4 +1,4 @@
-const pool = require('../config/database.js');
+const pool = require('../../config/database.js');
 
 // SELECT * FROM items LIMIT {itemsPerPage} OFFSET {(page - 1) * itemsPerPage}
 // https://stackoverflow.com/questions/48298555/how-to-implement-pagination-in-nodejs-postgresql

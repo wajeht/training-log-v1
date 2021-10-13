@@ -19,8 +19,8 @@ const helmet = require('helmet');
 // session
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
-const config = require('./config/config.js');
-const pgPool = require('./config/database.js');
+const config = require('../config/config.js');
+const pgPool = require('../config/database.js');
 
 // routes
 const indexRouter = require('./routes/indexRouter.js');
@@ -31,7 +31,7 @@ const errorController = require('./controllers/errorController.js');
 
 // html/ejs templatation engine
 app.set('view engine', 'ejs');
-app.set('views', 'views');
+app.set('views', './src/views');
 
 // multer file stuff
 const fileFilter = (req, file, cb) => {
@@ -44,7 +44,7 @@ const fileFilter = (req, file, cb) => {
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/uploads');
+    cb(null, 'data/uploads');
   },
   filename: (req, file, cb) => {
     cb(null, `${new Date().toISOString()}-${file.originalname}`);
@@ -54,10 +54,7 @@ const fileStorage = multer.diskStorage({
 // to serve public files and
 // parse user input
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(
-  '/public/uploads',
-  express.static(path.join(__dirname, 'public/uploads'))
-);
+app.use('/data/uploads', express.static('data/uploads'));
 
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(

@@ -1,4 +1,4 @@
-const app = require('../app.js');
+const app = require('../src/app.js');
 const config = require('../config/config.js');
 const PORT = config.port.serverPort || 6969;
 
