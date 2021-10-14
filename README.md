@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/wajeht/training-vlog/main/public/images/logo/training-vlog.png" width="400"></p>
+<p align="center"><img src="./src/public/images/logo/training-vlog.png" width="400"></p>
 
 # <p align="center">training-vlog</p>
 
@@ -33,7 +33,6 @@ https://tvl.jawstrength.com/
 <img src="https://img.shields.io/badge/Docker-0081CB?style=for-the-badge&logo=docker&logoColor=white" />‏‎ ‎‏‎
 <img src="https://img.shields.io/badge/CSS3-239120?&style=for-the-badge&logo=css3&logoColor=white" />‏‎ ‎‏‎
 <img src="https://img.shields.io/badge/Materialed--CSS-0081CB?style=for-the-badge&logo=material-ui&logoColor=white" />‏‎ ‎‏‎
-
 
 # Database configuration
 
