@@ -112,6 +112,10 @@
   text-transform: lowercase;
 }
 
+.cmt-msg {
+  margin-top: 22px;
+}
+
 html {
   font-family: sans-serif;
 }
@@ -124,6 +128,10 @@ body {
 
 main {
   flex: 1 0 auto;
+}
+
+.chip-right {
+  padding: 6px;
 }
 
 .post-title {

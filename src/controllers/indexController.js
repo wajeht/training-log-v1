@@ -17,7 +17,7 @@ const smtpConfig = {
 };
 const transporter = nodemailer.createTransport(smtpConfig);
 
-const ITEMS_PER_PAGE = 16;
+const ITEMS_PER_PAGE = 24;
 
 /**
  * @param {*} req request

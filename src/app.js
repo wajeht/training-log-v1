@@ -59,14 +59,14 @@ const fileStorage = multer.diskStorage({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/data/uploads', express.static('data/uploads'));
 
-app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+app.use(express.urlencoded({ extended: false, limit: '20mb' }));
 app.use(
   multer({
     fileFilter: fileFilter,
     storage: fileStorage,
     limits: {
       // 10 MB
-      fileSize: 10 * 1024 * 1024,
+      fileSize: 20 * 1024 * 1024,
     },
   }).fields([
     { name: 'video', maxCount: 1 },

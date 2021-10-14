@@ -2,9 +2,11 @@
 
 <main>
 	<div class="container">
-		<br /><br />
+		<br />
+		<br />
 
 		<div class="row">
+
 			<!-- --------------------------VIDEO-DETAILS------------------------------ -->
 			<div class="<%= videosArray.length === 0 ? 'col s12' : 'col s9'%>">
 				<div class="card">
@@ -62,7 +64,7 @@
 						<!-- --------------------------UPDATE-&-DELETE------------------------------ -->
 						<% if (isAuthenticated && author==currentSessionUser) { %>
 
-						<div class="chip right">
+						<div class="chip right chip-right">
 							<form
 								id="edit-video"
 								action="/edit-video/<%= video.id %>"
@@ -92,7 +94,7 @@
 									onclick="document.getElementById('edit-video').submit(); return false;"
 									><i
 										class="material-icons grey-text text-darken-2"
-										style="font-size: 20px"
+										style="font-size: 20px; display: flex; justify-content: center; align-items: center;"
 										>edit</i
 									></a
 								>
@@ -101,11 +103,11 @@
 						</div>
 
 						<!-- Modal Trigger -->
-						<div class="chip right">
+						<div class="chip right chip-right">
 							<a class="modal-trigger" href="#modal1"
 								><i
 									class="material-icons grey-text text-darken-2"
-									style="font-size: 20px"
+									style="font-size: 20px flex; justify-content: center; align-items: center;"
 									>delete</i
 								></a
 							>
@@ -167,29 +169,10 @@
 						<% } %>
 					</div>
 				</div>
-			</div>
 
-			<!-- --------------------------RECENT-VIDEOS----------------------------- -->
-			<% if ( videosArray.length > 0 ) { %> <% for (let v of videosArray) { %>
-
-			<div class="col s3">
-				<a href="/video/<%= v.id %> ">
-					<div class="card hoverable">
-						<div class="card-image waves-effect waves-block waves-light">
-							<img src="../<%= v.screenshotUrl %>" alt="" />
-						</div>
-						<div class="post-title center grey-text text-darken-4"><%= v.title %></div>
-					</div>
-				</a>
-			</div>
-
-			<% } %> <% } %>
-
-			<!-- --------------------------COMMENTS------------------------------ -->
-			<% if (comments.length> 0) { %> <% for (let comment of comments) { %>
-
-			<div class="<%= videosArray.length === 0 ? 'col s12' : 'col s9'%> comment-message">
-				<div class="card">
+				<!-- --------------------------COMMENTS------------------------------ -->
+				<% if (comments.length> 0) { %> <% for (let comment of comments) { %>
+					<div class="card cmt-msg">
 					<div class="card-content">
 						<br />
 						<div class="row">
@@ -213,15 +196,12 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+					</div>
+				<% } %> <% } %>
 
-			<% } %> <% } %>
-
-			<!-- --------------------------COMMENTS-BOX----------------------------- -->
-			<div class="<%= videosArray.length === 0 ? 'col s12' : 'col s9'%>">
+				<!-- --------------------------COMMENTS-BOX----------------------------- -->
 				<div class="card">
-					<div class="card-content">
+					<div class="card-content cmt-msg">
 						<% if (isAuthenticated) { %>
 						<div class="row">
 							<div class="input-field col s12">
@@ -286,15 +266,33 @@
 										<p><a href="/login" style="color: #114732; font-weight: bold">Login</a> to comment!</p>
 									</i>
 								</div>
+							</div>
 						<% } %>
 					</div>
 				</div>
+
 			</div>
 
+			<!-- --------------------------RECENT-VIDEOS----------------------------- -->
+			<% if ( videosArray.length > 0 ) { %> <% for (let v of videosArray) { %>
+			<div class="col s3">
+				<a href="/video/<%= v.id %> ">
+					<div class="card hoverable">
+						<div class="card-image waves-effect waves-block waves-light">
+							<img src="../<%= v.screenshotUrl %>" alt="" />
+						</div>
+						<div class="post-title center grey-text text-darken-4"><%= v.title %></div>
+					</div>
+				</a>
+			</div>
+			<% } %> <% } %>
+
 		</div>
+
 	</div>
 
 	<br />
+
 </main>
 
 <%- include("../includes/bottom.ejs") %>
