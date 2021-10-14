@@ -203,7 +203,7 @@ exports.postUpdateVideo = (req, res, next) => {
           res.redirect(`/video/${id}`)
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => next(err));
   } else {
     // if user didn't choose video
     Video.findById(id)
@@ -263,10 +263,10 @@ exports.postDeleteVideo = (req, res, next) => {
               const { videoUrl, screenshotUrl } = deletedVideo;
 
               fs.unlink(videoUrl, (err) => {
-                if (err) return console.log(err);
+                if (err) return next(err);
               });
               fs.unlink(screenshotUrl, (err) => {
-                if (err) return console.log(err);
+                if (err) return next(err);
               });
 
               return res.redirect('/');
@@ -281,10 +281,10 @@ exports.postDeleteVideo = (req, res, next) => {
         const { videoUrl, screenshotUrl } = deletedVideo;
 
         fs.unlink(videoUrl, (err) => {
-          if (err) return console.log(err);
+          if (err) return next(err);
         });
         fs.unlink(screenshotUrl, (err) => {
-          if (err) return console.log(err);
+          if (err) return next(err);
         });
 
         return res.redirect('/');
