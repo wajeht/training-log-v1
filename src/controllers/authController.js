@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 // Utils
 const config = require('../../config/config.js');
 const { validationResult } = require('express-validator');
+const fs = require('fs');
 
 // Model
 const User = require('../models/user.js');
@@ -277,13 +278,25 @@ exports.postNewPassword = (req, res, next) => {
 exports.postUserDetails = (req, res, next) => {
   let currentSessionUserId = null;
   const picture = req.files.picture[0];
-  const profilePictureUrl = picture.path;
+  const newProfilePictureUrl = picture.path;
 
   if (req.session.user) {
     currentSessionUserId = req.session.user.id;
   }
 
-  User.updateProfilePicture(profilePictureUrl, currentSessionUserId)
+  // delete old profile picture
+  User.findById(currentSessionUserId).then((user) => {
+    const { profilePictureUrl } = user;
+    if (profilePictureUrl) {
+      fs.unlink(profilePictureUrl, (err) => {
+        if (err) {
+          next(err);
+        }
+      });
+    }
+  });
+
+  User.updateProfilePicture(newProfilePictureUrl, currentSessionUserId)
     .then(() => {
       res.redirect('/');
     })
@@ -292,12 +305,15 @@ exports.postUserDetails = (req, res, next) => {
     });
 };
 
-exports.getUserDetails = (req, res, next) => {
+exports.getUserDetails = async (req, res, next) => {
+  let currentSessionUserId = null;
   let profilePicture = null;
 
   try {
     if (req.session.user) {
-      profilePicture = req.session.user.profilePictureUrl;
+      currentSessionUserId = req.session.user.id;
+      const { profilePictureUrl } = await User.findById(currentSessionUserId);
+      profilePicture = profilePictureUrl;
     }
     res.render('auth/user-details.ejs', {
       pageTitle: 'user-details.ejs',

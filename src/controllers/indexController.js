@@ -1,4 +1,5 @@
 const Video = require('../models/video.js');
+const User = require('../models/user.js');
 const config = require('../../config/config.js');
 const { validationResult } = require('express-validator');
 
@@ -33,7 +34,8 @@ exports.getIndex = async (req, res, next) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   }
 
   try {
@@ -45,8 +47,8 @@ exports.getIndex = async (req, res, next) => {
 
     return res.render('index.ejs', {
       profilePicture,
-      username: username,
-      videosArray: videosArray,
+      username,
+      videosArray,
       pageTitle: "JawStrength's TrainingVlog",
       currentPage: page,
       hasNextPage: ITEMS_PER_PAGE * page < totalVideos,
@@ -55,7 +57,7 @@ exports.getIndex = async (req, res, next) => {
       previousPage: page - 1,
       lastPage: Math.ceil(totalVideos / ITEMS_PER_PAGE),
       isAuthenticated: req.session.isLoggedIn,
-      currentSessionUserId: currentSessionUserId,
+      currentSessionUserId,
     });
   } catch (err) {
     next(err);
@@ -68,7 +70,7 @@ exports.getIndex = async (req, res, next) => {
  * @param {*} next next middleware
  * @returns privacy.ejs page
  */
-exports.getPrivacy = (req, res, next) => {
+exports.getPrivacy = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -77,7 +79,8 @@ exports.getPrivacy = (req, res, next) => {
     if (req.session.user) {
       username = req.session.user.username;
       currentSessionUserId = req.session.user.id;
-      profilePicture = req.session.user.profilePictureUrl;
+      const { profilePictureUrl } = await User.findById(currentSessionUserId);
+      profilePicture = profilePictureUrl;
     }
 
     return res.render('privacy.ejs', {
@@ -97,7 +100,7 @@ exports.getPrivacy = (req, res, next) => {
  * @param {*} next next middleware
  * @returns terms.ejs page
  */
-exports.getTerms = (req, res, next) => {
+exports.getTerms = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -106,7 +109,8 @@ exports.getTerms = (req, res, next) => {
     if (req.session.user) {
       username = req.session.user.username;
       currentSessionUserId = req.session.user.id;
-      profilePicture = req.session.user.profilePictureUrl;
+      const { profilePictureUrl } = await User.findById(currentSessionUserId);
+      profilePicture = profilePictureUrl;
     }
 
     return res.render('terms.ejs', {
@@ -126,7 +130,7 @@ exports.getTerms = (req, res, next) => {
  * @param {*} next next middleware
  * @returns faq.ejs page
  */
-exports.getFAQ = (req, res, next) => {
+exports.getFAQ = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -135,7 +139,8 @@ exports.getFAQ = (req, res, next) => {
     if (req.session.user) {
       username = req.session.user.username;
       currentSessionUserId = req.session.user.id;
-      profilePicture = req.session.user.profilePictureUrl;
+      const { profilePictureUrl } = await User.findById(currentSessionUserId);
+      profilePicture = profilePictureUrl;
     }
 
     return res.render('faq.ejs', {
@@ -155,7 +160,7 @@ exports.getFAQ = (req, res, next) => {
  * @param {*} next next middleware
  * @returns learn-more.ejs page
  */
-exports.getLearnMore = (req, res, next) => {
+exports.getLearnMore = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -164,7 +169,8 @@ exports.getLearnMore = (req, res, next) => {
     if (req.session.user) {
       username = req.session.user.username;
       currentSessionUserId = req.session.user.id;
-      profilePicture = req.session.user.profilePictureUrl;
+      const { profilePictureUrl } = await User.findById(currentSessionUserId);
+      profilePicture = profilePictureUrl;
     }
 
     return res.render('learn-more.ejs', {
@@ -184,7 +190,7 @@ exports.getLearnMore = (req, res, next) => {
  * @param {*} next next middleware
  * @returns contact.ejs page
  */
-exports.postContact = (req, res, next) => {
+exports.postContact = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -192,7 +198,8 @@ exports.postContact = (req, res, next) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   }
 
   const errors = validationResult(req);
@@ -238,7 +245,7 @@ exports.postContact = (req, res, next) => {
  * @param {*} next next middleware
  * @returns contact.ejs page
  */
-exports.getContact = (req, res, next) => {
+exports.getContact = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -254,7 +261,8 @@ exports.getContact = (req, res, next) => {
     if (req.session.user) {
       username = req.session.user.username;
       currentSessionUserId = req.session.user.id;
-      profilePicture = req.session.user.profilePictureUrl;
+      const { profilePictureUrl } = await User.findById(currentSessionUserId);
+      profilePicture = profilePictureUrl;
     }
 
     return res.render('contact.ejs', {

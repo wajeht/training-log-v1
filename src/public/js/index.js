@@ -19,30 +19,6 @@ if (addVideoUrl == true || addVideoUrl) {
     });
   })();
 
-  document.addEventListener('DOMContentLoaded', function () {
-    // profile picture url
-    const picture = document.getElementById('profile-picture-preview-div');
-    picture.style.display = 'none';
-  });
-
-  // instant image preview on add-video
-  function previewProfilePicture() {
-    // re-show the image preview
-    const div = document.getElementById('profile-picture-preview-div');
-    div.style.display = 'block';
-
-    const preview = document.getElementById('picture');
-    const file = document.querySelector('input[type=file]').files[0];
-    const reader = new FileReader();
-    const pp = document.getElementById('profile_picture');
-
-    pp.addEventListener('change', () => {
-      if (file) {
-        preview.src = URL.createObjectURL(file);
-      }
-    });
-  }
-
   function previewUpdaedVideo() {
     // re-show the image preview
     const div = document.getElementById('update-video-preview-div');
@@ -97,6 +73,32 @@ if (addVideoUrl == true || addVideoUrl) {
     }
   }
 }
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // profile picture url
+    const picture = document.getElementById('profile-picture-preview-div');
+    picture.style.display = 'none';
+  });
+
+  // instant image preview on add-video
+  function previewProfilePicture() {
+    // re-show the image preview
+    const div = document.getElementById('profile-picture-preview-div');
+    div.style.display = 'block';
+
+    const preview = document.getElementById('picture');
+    const file = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader();
+    const pp = document.getElementById('profile_picture');
+
+    pp.addEventListener('change', () => {
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    });
+  }
+
 
 // this will auto set default date object when add-video loaded
 document.addEventListener('DOMContentLoaded', function () {

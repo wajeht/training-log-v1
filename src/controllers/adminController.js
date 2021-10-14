@@ -12,17 +12,18 @@ const Video = require('../models/video.js');
 const User = require('../models/user.js');
 
 // ---------- VIDEO ----------
-exports.getVideo = (req, res, next) => {
+exports.getVideo = async (req, res, next) => {
   const { id } = req.params;
 
   let currentSessionUser = null;
   let currentSessionUserId = null;
-  let profilePicture = null;
+  var profilePicture = null;
 
   if (req.session.user) {
     currentSessionUser = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   } else {
     currentSessionUser = null;
   }
@@ -70,7 +71,7 @@ exports.getVideo = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-exports.getAddVideo = (req, res, next) => {
+exports.getAddVideo = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -78,7 +79,8 @@ exports.getAddVideo = (req, res, next) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   }
   try {
     res.render('video/add-video.ejs', {
@@ -139,7 +141,7 @@ exports.postAddVideo = (req, res, next) => {
         res.redirect('/');
       })
       .catch((err) => {
-        console.log(err);
+        next(err);
       });
   } catch (error) {
     next(error);
@@ -218,7 +220,7 @@ exports.postUpdateVideo = (req, res, next) => {
   }
 };
 
-exports.postEditVideo = (req, res, next) => {
+exports.postEditVideo = async (req, res, next) => {
   let username = null;
   let currentSessionUserId = null;
   let profilePicture = null;
@@ -226,7 +228,8 @@ exports.postEditVideo = (req, res, next) => {
   if (req.session.user) {
     username = req.session.user.username;
     currentSessionUserId = req.session.user.id;
-    profilePicture = req.session.user.profilePictureUrl;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   }
 
   const id = parseInt(req.params.id);
@@ -293,11 +296,14 @@ exports.postDeleteVideo = (req, res, next) => {
 };
 
 // ---------- MY VIDEO ----------
-exports.getMyVideos = (req, res, next) => {
+exports.getMyVideos = async (req, res, next) => {
+  let currentSessionUserId = null;
   let profilePicture = null;
 
   if (req.session.user) {
-    profilePicture = req.session.user.profilePictureUrl;
+    currentSessionUserId = req.session.user.id;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   }
 
   Video.fetchUserVideo(req.session.user.id)
@@ -315,12 +321,15 @@ exports.getMyVideos = (req, res, next) => {
     });
 };
 
-exports.getCommentUserVideos = (req, res, next) => {
+exports.getCommentUserVideos = async (req, res, next) => {
   const { userId } = req.params;
+  let currentSessionUserId = null;
   let profilePicture = null;
 
   if (req.session.user) {
-    profilePicture = req.session.user.profilePictureUrl;
+    currentSessionUserId = req.session.user.id;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   }
 
   Video.fetchUserVideo(userId)
@@ -340,14 +349,17 @@ exports.getCommentUserVideos = (req, res, next) => {
     });
 };
 
-exports.getPostAutherVideos = (req, res, next) => {
+exports.getPostAutherVideos = async (req, res, next) => {
   const userId = req.params.username;
   let username = null;
+  let currentSessionUserId = null;
   let profilePicture = null;
 
   if (req.session.user) {
     username = req.session.user.username;
-    profilePicture = req.session.user.profilePictureUrl;
+    currentSessionUserId = req.session.user.id;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    profilePicture = profilePictureUrl;
   }
 
   Video.fetchUserVideo(userId)

@@ -35,8 +35,11 @@ app.set('views', './src/views');
 
 // multer file stuff
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'video/mp4') {
-    cb(null, true);
+  const fileTypes = /jpeg|jpg|png|gif|mp4|mov|mpeg/;
+  const mimetype = fileTypes.test(file.mimetype);
+  const extname = fileTypes.test(path.extname(file.originalname));
+  if (mimetype && extname) {
+    return cb(null, true);
   } else {
     cb(null, false);
   }
