@@ -9,6 +9,9 @@ lerna-debug.log*
 # Mac stuff
 .DS_Store
 /.DS_store
+data
+./data
+/data
 
 #PostgresSQL password
 .pg_password.sh
