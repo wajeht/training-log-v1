@@ -7,12 +7,6 @@ const User = require('../models/user.js');
 
 const { body } = require('express-validator');
 
-router.get('/user/:id', isAuth.isAuth, authController.getUserDetails);
-
-router.post('/user/update-profile-picture/:id', authController.postUserDetails);
-
-router.post('/user/update-username/:id', authController.postUpdateUsername);
-
 router.get('/signup', authController.getSignup);
 
 router.post(

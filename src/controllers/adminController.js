@@ -397,3 +397,60 @@ exports.postAddComment = (req, res, next) => {
       next(err);
     });
 };
+
+// ----------  USER DETAILS ----------
+exports.postUserDetails = (req, res, next) => {
+  let currentSessionUserId = null;
+  const picture = req.files.picture[0];
+  const newProfilePictureUrl = picture.path;
+
+  if (req.session.user) {
+    currentSessionUserId = req.session.user.id;
+  }
+
+  const { username, email, password } = req.body;
+  const { path } = req.files.picture[0];
+
+  // delete old profile picture
+  User.findById(currentSessionUserId).then((user) => {
+    const { profilePictureUrl } = user;
+    if (profilePictureUrl) {
+      fs.unlink(profilePictureUrl, (err) => {
+        if (err) {
+          next(err);
+        }
+      });
+    }
+  });
+
+  User.updateProfilePicture(newProfilePictureUrl, currentSessionUserId)
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.getUserDetails = async (req, res, next) => {
+  let currentSessionUserId = null;
+  let profilePicture = null;
+
+  try {
+    if (req.session.user) {
+      currentSessionUserId = req.session.user.id;
+      const { profilePictureUrl } = await User.findById(currentSessionUserId);
+      profilePicture = profilePictureUrl;
+    }
+    res.render('auth/user-details.ejs', {
+      pageTitle: 'user-details.ejs',
+      username: req.session.user.username,
+      email: req.session.user.email,
+      currentSessionUserId: req.session.user.id,
+      oldInfo: req.session.user,
+      profilePicture,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

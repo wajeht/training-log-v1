@@ -36,6 +36,25 @@ module.exports = class User {
     });
   }
 
+  static updateUserDetails(
+    username,
+    email,
+    password,
+    profilePictureUrl,
+    userId
+  ) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        'UPDATE users SET username=($1), email=($2), password=($3) "profilePictureUrl"=($4) WHERE id =($5) RETURNING *',
+        [username, email, password, profilePictureUrl, userId],
+        (err, response) => {
+          if (err) return reject(err);
+          resolve(response.rows[0]);
+        }
+      );
+    });
+  }
+
   static updateProfilePicture(profilePictureUrl, userId) {
     return new Promise((resolve, reject) => {
       pool.query(

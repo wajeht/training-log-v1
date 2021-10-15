@@ -116,6 +116,10 @@
   margin-top: 22px;
 }
 
+#slide-out a:hover {
+  background-color: #144733;
+}
+
 html {
   font-family: sans-serif;
 }

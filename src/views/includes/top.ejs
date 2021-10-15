@@ -60,7 +60,9 @@
             <!-- ---------- dropdown structure ----------  -->
             <ul id="dropdown" class="dropdown-content">
               <li>
-                <a href="/user/<%= currentSessionUserId %> ">user-details</a>
+                <a href="/user-details/<%= currentSessionUserId %> "
+                  >user-details</a
+                >
               </li>
               <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
               <li><a href="/add-video">add-video</a></li>
@@ -90,13 +92,20 @@
 
           <ul id="slide-out" class="sidenav">
             <% if (isAuthenticated) { %>
-            <li class="grey darken-4">
-              <a href="#email"
-                ><span class="white-text"> <%= username %> </span></a
+            <li style="background-color: #144733">
+              <img style="width: 20%; height: 20%; margin-left: 26px;
+              margin-bottom: -20px; margin-top: 20px;" class="circle
+              responsive-img" src="<%= !profilePicture ?
+              '/images/default_profile_picture.jpg' : "../" + profilePicture %>"
+              alt="">
+              <a href="#email">
+                <span class="white-text"> <%= username %> </span></a
               >
             </li>
             <li>
-              <a href="/user/<%= currentSessionUserId %> ">user-details</a>
+              <a href="/user-details/<%= currentSessionUserId %> "
+                >user-details</a
+              >
             </li>
             <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
             <li><a href="/add-video">add-video</a></li>

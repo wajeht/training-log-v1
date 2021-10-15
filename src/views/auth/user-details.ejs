@@ -2,28 +2,33 @@
 
 <main>
   <div class="container">
-    <br /><br />
+    <br />
+    <br />
+
     <div class="row">
       <div class="col s12">
         <div class="card">
           <div class="card-content">
             <div class="row">
               <div class="input-field col s12">
-                <h4>User details</h4>
+                <h5>User details</h5>
+              </div>
+            </div>
+
+            <!-- ---------- image preview ---------- -->
+            <div class="row">
+              <div class="input-field col s12 center">
+                <img style="width: 30%; height: 30%;" class="circle
+                responsive-img " src="<%="/" + profilePicture%>" />
               </div>
             </div>
 
             <form
-              action="/user/update-profile-picture/<%= currentSessionUserId %>"
+              action="/user-details/<%=currentSessionUserId%>"
               method="POST"
               enctype="multipart/form-data"
             >
-              <div id="profile-picture-preview-div" class="row">
-                <div class="input-field col s12 center">
-                  <img width="80%" id="picture" src="" alt="" />
-                </div>
-              </div>
-
+              <!-- ---------- image upload ---------- -->
               <div class="row">
                 <div class="input-field col s12">
                   <div class="file-field input-field">
@@ -40,52 +45,57 @@
                       <input
                         class="file-path validate"
                         type="text"
-                        placeholder="image"
-                        onchange="previewProfilePicture()"
+                        placeholder="Image"
                       />
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="center col s12">
-                  <input
-                    type="hidden"
-                    id="csrfToken"
-                    name="_csrf"
-                    value="<%= csrfToken %>"
-                  />
-                  <button
-                    class="btn waves-effect waves-light teal darken-4"
-                    type="submit"
-                    name="action"
-                    id="profile_picture"
-                  >
-                    Update
-                    <i class="material-icons right">update</i>
-                  </button>
-                </div>
-              </div>
-            </form>
-
-            <form
-              action="/user/update-username/<%= currentSessionUserId %>"
-              method="POST"
-            >
+              <!-- ---------- username ---------- -->
               <div class="row">
                 <div class="input-field col s12">
                   <input
+                    value="<%= oldInfo.username %>"
+                    id="username"
                     type="text"
                     name="username"
-                    placeholder="username"
                     id="username"
-                    value="<%= username %>"
-                    required
+                    class="validate"
                   />
+                  <label for="name">username</label>
                 </div>
               </div>
 
+              <!-- ---------- email ---------- -->
+              <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    value="<%= oldInfo.email %>"
+                    id="email"
+                    type="email"
+                    name="email"
+                    class="validate"
+                  />
+                  <label for="email">Email</label>
+                </div>
+              </div>
+
+              <!-- ---------- password ---------- -->
+              <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    value="<%= oldInfo.password  %>"
+                    id="password"
+                    type="password"
+                    id="password"
+                    class="validate"
+                  />
+                  <label for="password">Password</label>
+                </div>
+              </div>
+
+              <!-- ---------- update ---------- -->
               <div class="row">
                 <div class="center col s12">
                   <input
@@ -99,7 +109,8 @@
                     type="submit"
                     name="action"
                   >
-                    Update<i class="material-icons right">update</i>
+                    Update
+                    <i class="material-icons right">update</i>
                   </button>
                 </div>
               </div>

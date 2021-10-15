@@ -4,6 +4,14 @@ const isAuth = require('../middleware/isAuth.js');
 
 const adminController = require('../controllers/adminController.js');
 
+router.get('/user-details/:id', isAuth.isAuth, adminController.getUserDetails);
+
+router.post(
+  '/user-details/:id',
+  isAuth.isAuth,
+  adminController.postUserDetails
+);
+
 router.get('/video/:id', adminController.getVideo);
 
 router.post('/video/:id', isAuth.isAuth, adminController.postUpdateVideo);
