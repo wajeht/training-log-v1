@@ -157,6 +157,20 @@ form#delete-video {
   display: flex;
 }
 
+nav {
+  z-index: 999;
+  position: fixed;
+}
+
+#index-banner {
+  margin-top: 56px;
+  margin-bottom: -56px;
+}
+
+main {
+  margin-top: 56px;
+}
+
 nav ul a:hover {
   color: white !important;
   background-color: #0d5338;

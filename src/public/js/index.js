@@ -1,4 +1,7 @@
 const addVideoUrl = window.location.pathname == '/add-video';
+const indexUrl = window.location.pathname == '/';
+document.querySelector('main').style.marginTop = '56px';
+
 if (addVideoUrl == true || addVideoUrl) {
   document.addEventListener('DOMContentLoaded', function () {
     // hide on load, because it was taking up too much space
@@ -74,31 +77,29 @@ if (addVideoUrl == true || addVideoUrl) {
   }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  // profile picture url
+  const picture = document.getElementById('profile-picture-preview-div');
+  picture.style.display = 'none';
+});
 
-  document.addEventListener('DOMContentLoaded', function () {
-    // profile picture url
-    const picture = document.getElementById('profile-picture-preview-div');
-    picture.style.display = 'none';
+// instant image preview on add-video
+function previewProfilePicture() {
+  // re-show the image preview
+  const div = document.getElementById('profile-picture-preview-div');
+  div.style.display = 'block';
+
+  const preview = document.getElementById('picture');
+  const file = document.querySelector('input[type=file]').files[0];
+  const reader = new FileReader();
+  const pp = document.getElementById('profile_picture');
+
+  pp.addEventListener('change', () => {
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+    }
   });
-
-  // instant image preview on add-video
-  function previewProfilePicture() {
-    // re-show the image preview
-    const div = document.getElementById('profile-picture-preview-div');
-    div.style.display = 'block';
-
-    const preview = document.getElementById('picture');
-    const file = document.querySelector('input[type=file]').files[0];
-    const reader = new FileReader();
-    const pp = document.getElementById('profile_picture');
-
-    pp.addEventListener('change', () => {
-      if (file) {
-        preview.src = URL.createObjectURL(file);
-      }
-    });
-  }
-
+}
 
 // this will auto set default date object when add-video loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -155,6 +156,7 @@ window.addEventListener('resize', function () {
 });
 
 function resizeVideoCardForSmallScreen() {
+
   if (window.innerWidth < 818) {
     for (let i = 0; i < video_card.length; i++) {
       video_card[i].classList.remove('s3');
