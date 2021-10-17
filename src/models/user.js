@@ -37,16 +37,16 @@ module.exports = class User {
   }
 
   static updateUserDetails(
-    username,
     email,
+    username,
     password,
     profilePictureUrl,
     userId
   ) {
     return new Promise((resolve, reject) => {
       pool.query(
-        'UPDATE users SET username=($1), email=($2), password=($3) "profilePictureUrl"=($4) WHERE id =($5) RETURNING *',
-        [username, email, password, profilePictureUrl, userId],
+        'UPDATE users SET email=($1), username=($2), password=($3), "profilePictureUrl"=($4) WHERE id =($5) RETURNING *',
+        [email, username, password, profilePictureUrl, userId],
         (err, response) => {
           if (err) return reject(err);
           resolve(response.rows[0]);
@@ -73,6 +73,32 @@ module.exports = class User {
       pool.query(
         'UPDATE users SET username=($1) WHERE id =($2) RETURNING *',
         [username, userId],
+        (err, response) => {
+          if (err) return reject(err);
+          resolve(response.rows[0]);
+        }
+      );
+    });
+  }
+
+  static updateEmail(email, userId) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        'UPDATE users SET email=($1) WHERE id =($2) RETURNING *',
+        [email, userId],
+        (err, response) => {
+          if (err) return reject(err);
+          resolve(response.rows[0]);
+        }
+      );
+    });
+  }
+
+  static updatePassword(password, userId) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        'UPDATE users SET password=($1) WHERE userID=($2) RETURNING *',
+        [password, userId],
         (err, response) => {
           if (err) return reject(err);
           resolve(response.rows[0]);

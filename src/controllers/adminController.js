@@ -1,7 +1,8 @@
 // Utils
 const fs = require('fs');
 const path = require('path');
-const { root } = require('../../util/directory.js');
+const { root, current } = require('../../util/directory.js');
+const bcrypt = require('bcrypt');
 
 // Screenshot
 const ffmpeg = require('fluent-ffmpeg');
@@ -399,37 +400,97 @@ exports.postAddComment = (req, res, next) => {
 };
 
 // ----------  USER DETAILS ----------
-exports.postUserDetails = (req, res, next) => {
+exports.postUserDetails = async (req, res, next) => {
   let currentSessionUserId = null;
-  const picture = req.files.picture[0];
-  const newProfilePictureUrl = picture.path;
+  var oldProfilePictureUrl = null;
+  var newProfilePictureUrl = null;
 
   if (req.session.user) {
     currentSessionUserId = req.session.user.id;
+    const { profilePictureUrl } = await User.findById(currentSessionUserId);
+    oldProfilePictureUrl = profilePictureUrl;
   }
 
-  const { username, email, password } = req.body;
-  const { path } = req.files.picture[0];
+  const { username, email } = req.body;
+  const { picture } = req.files;
+  const { password } = await User.findById(currentSessionUserId);
 
-  // delete old profile picture
-  User.findById(currentSessionUserId).then((user) => {
-    const { profilePictureUrl } = user;
-    if (profilePictureUrl) {
-      fs.unlink(profilePictureUrl, (err) => {
+  // update only if user select a picture
+  if (picture != null || picture != undefined) {
+    newProfilePictureUrl = picture[0].path;
+
+    // delete if old picture exist
+    if (oldProfilePictureUrl != null) {
+      fs.unlink(oldProfilePictureUrl, (err) => {
         if (err) {
           next(err);
         }
       });
-    }
-  });
 
-  User.updateProfilePicture(newProfilePictureUrl, currentSessionUserId)
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((err) => {
-      next(err);
-    });
+      return User.updateUserDetails(
+        email,
+        username,
+        password,
+        newProfilePictureUrl,
+        currentSessionUserId
+      )
+        .then(() => {
+          res.redirect('/');
+        })
+        .catch((err) => {
+          next(err);
+        });
+    } else {
+      // delete if old picture does not exist
+      return User.updateUserDetails(
+        email,
+        username,
+        password,
+        newProfilePictureUrl,
+        currentSessionUserId
+      )
+        .then(() => {
+          res.redirect('/');
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
+  } else {
+    // only update if user enter new password
+    const newPassword = req.body.password;
+    if (newPassword != password) {
+      bcrypt.hash(newPassword, 10).then((hashedPassword) => {
+        User.updateUserDetails(
+          email,
+          username,
+          hashedPassword,
+          oldProfilePictureUrl,
+          currentSessionUserId
+        )
+          .then(() => {
+            res.redirect('/');
+          })
+          .catch((err) => {
+            next(err);
+          });
+      });
+    } else {
+      User.updateUserDetails(
+        email,
+        username,
+        password,
+        oldProfilePictureUrl,
+        currentSessionUserId
+      )
+        .then(() => {
+          res.redirect('/');
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
+  }
 };
 
 exports.getUserDetails = async (req, res, next) => {
