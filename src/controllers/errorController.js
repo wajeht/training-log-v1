@@ -46,9 +46,19 @@ exports.get500 = (err, req, res, next) => {
 
   try {
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    const error = {
+
+    const e = {
+      status: err.status,
+      name: err.name,
+      path: err.path,
+      errors: err.errors,
       message: err.message,
-      stack: process.env.NODE_ENV === 'production' ? err.message : err.stack,
+      stack: err.stack,
+    };
+
+    const error = {
+      message: process.env.NODE_ENV === 'development' ? err.status : err.status,
+      stack: process.env.NODE_ENV === 'development' ? err.stack : e,
     };
 
     res.status(statusCode);
