@@ -95,7 +95,7 @@ exports.getAddVideo = async (req, res, next) => {
   }
 };
 
-exports.postAddVideo = (req, res, next) => {
+exports.postAddVideo = async (req, res, next) => {
   try {
     let { date, title, message } = req.body;
     const userId = req.session.user.id;
@@ -128,22 +128,20 @@ exports.postAddVideo = (req, res, next) => {
     const screenshotUrl = path.join('data', 'uploads', 'thumbnails', fn);
 
     // optimize the image
-    (async () => {
-      const imagemin = (await import('imagemin')).default;
-      const imageminMozjpeg = (await import('imagemin-mozjpeg')).default;
+    // (async () => {
+    const imagemin = (await import('imagemin')).default;
+    const imageminMozjpeg = (await import('imagemin-mozjpeg')).default;
 
-      await imagemin([screenshotUrl], screenShotFolderPath, {
-        use: [imageminMozjpeg()],
-      });
-    })();
+    await imagemin([screenshotUrl], screenShotFolderPath, {
+      use: [imageminMozjpeg()],
+    });
+    // })();
 
-    Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId)
-      .then(() => {
+    Video.addVideo(date, videoUrl, screenshotUrl, title, message, userId).then(
+      () => {
         res.redirect('/');
-      })
-      .catch((err) => {
-        next(err);
-      });
+      }
+    );
   } catch (error) {
     next(error);
   }
