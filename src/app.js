@@ -8,6 +8,7 @@ const path = require('path');
 const flash = require('connect-flash');
 const multer = require('multer');
 const compression = require('compression');
+const { root } = require('../util/directory.js');
 
 // to protect session
 const csrf = require('csurf');
@@ -55,9 +56,11 @@ const fileStorage = multer.diskStorage({
 });
 
 // to serve public files and
-// parse user input
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/data/uploads', express.static('data/uploads'));
+app.use(express.static(path.join(root, 'data')));
+
+console.log(path.join(root, 'data'));
 
 app.use(express.urlencoded({ extended: false, limit: '20mb' }));
 app.use(
