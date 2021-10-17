@@ -30,6 +30,7 @@ const config = {
     auth_user: process.env.EMAIL_AUTH_USER,
     auth_pass: process.env.EMAIL_AUTH_PASS,
   },
+  isProd: process.env.NODE_ENV,
 };
 
 module.exports = config;

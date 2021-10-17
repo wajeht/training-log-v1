@@ -1,3 +1,4 @@
+const { isProd } = require('../../config/config.js');
 /**
  * @param {*} req request
  * @param {*} res response
@@ -44,32 +45,36 @@ exports.get500 = (err, req, res, next) => {
   let profilePicture = null;
   let isAuthenticated = null;
 
+  console.log(req.session);
+
   try {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-
-    const e = {
-      status: err.status,
-      name: err.name,
-      path: err.path,
-      errors: err.errors,
-      message: err.message,
-      stack: err.stack,
-    };
-
-    const error = {
-      message: process.env.NODE_ENV === 'development' ? err.status : err.status,
-      stack: process.env.NODE_ENV === 'development' ? err.stack : e,
-    };
-
-    res.status(statusCode);
-
-    if (req.session.user) {
+    if (req.session != null) {
       username = req.session.user.username;
       currentSessionUserId = req.session.user.id;
       profilePicture = req.session.user.profilePictureUrl;
       isAuthenticated = req.session.isLoggedIn;
     }
 
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+
+    // const e = {
+    //   status: err.status,
+    //   name: err.name,
+    //   path: err.path,
+    //   errors: err.errors,
+    //   message: err.message,
+    //   stack: err.stack,
+    // };
+
+    const error = {
+      message: isProd == 'dev' ? err.message : 'Internal Server Error',
+      stack:
+        isProd == 'dev'
+          ? err.stack
+          : 'Something went wrong, please contact us immediately',
+    };
+
+    res.status(statusCode);
     return res.render('500.ejs', {
       username,
       currentSessionUserId,
