@@ -57,10 +57,7 @@ const fileStorage = multer.diskStorage({
 
 // to serve public files and
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/data/uploads', express.static('data/uploads'));
-app.use(express.static(path.join(root, 'data')));
-
-console.log(path.join(root, 'data'));
+app.use('/data/', express.static('data'));
 
 app.use(express.urlencoded({ extended: false, limit: '20mb' }));
 app.use(
