@@ -8,7 +8,6 @@ const path = require('path');
 const flash = require('connect-flash');
 const multer = require('multer');
 const compression = require('compression');
-const { root } = require('../util/directory.js');
 
 // to protect session
 const csrf = require('csurf');
@@ -91,8 +90,9 @@ app.use(
       pool: pgPool,
       tableName: 'session',
     }),
-    secret: config.cookie.secret,
     resave: false,
+    httpOnly: true,
+    secret: config.cookie.secret,
     saveUninitialized: false,
   })
 );

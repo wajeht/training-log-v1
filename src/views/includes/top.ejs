@@ -61,11 +61,12 @@
             <ul id="dropdown" class="dropdown-content">
               <li>
                 <a href="/user-details/<%= currentSessionUserId %> "
-                  >user-details</a
+                  >Settings</a
                 >
               </li>
-              <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
-              <li><a href="/add-video">add-video</a></li>
+              <li><a href="/my-videos/<%= username %> ">My profile</a></li>
+              <li><a href="/add-video">Add video</a></li>
+              <li class="divider" tabindex="-1"></li>
               <form action="/logout" method="post">
                 <input
                   type="hidden"
@@ -77,7 +78,7 @@
                   <a
                     href="javascript:{}"
                     onclick="document.getElementById('log-out').submit(); return false;"
-                    >logout</a
+                    >Log Out</a
                   >
                 </li>
               </form>
@@ -104,11 +105,11 @@
             </li>
             <li>
               <a href="/user-details/<%= currentSessionUserId %> "
-                >user-details</a
+                >Settings</a
               >
             </li>
-            <li><a href="/my-videos/<%= username %> ">my-videos</a></li>
-            <li><a href="/add-video">add-video</a></li>
+            <li><a href="/my-videos/<%= username %> ">My profile</a></li>
+            <li><a href="/add-video">Add video</a></li>
             <form action="/logout" id="log-out" method="post">
               <input
                 type="hidden"
@@ -121,7 +122,7 @@
                 <a
                   href="javascript:{}"
                   onclick="document.getElementById('log-out').submit(); return false;"
-                  >logout</a
+                  >Log Out</a
                 >
               </li>
             </form>
