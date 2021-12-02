@@ -1,8 +1,12 @@
+ <font size="6"><p align="center"><em>❗❗❗ Project files moved to https://github.com/wajeht/training-log-v2 ❗❗❗</em></p></font>
+
+ </br>
+ </br>
+ </br>
+
 <p align="center"><img src="./src/public/images/logo/training-vlog.png" width="400"></p>
 
 # <p align="center">training-vlog</p>
-
-<p align="center"><em>❗❗❗ THIS PROJECT IS UNDER DEVELOPMENT❗❗❗</em></p>
 
 <p align="center">A full-stack web application to log tainting videos from a 4 days split.</p>
 
