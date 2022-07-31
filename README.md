@@ -1,4 +1,4 @@
- <font size="6"><p align="center"><em>❗❗❗ Project files moved to https://github.com/wajeht/training-log-v2 ❗❗❗</em></p></font>
+ # <font size="6"><p align="center"><em>❗❗❗ Project files moved to https://github.com/wajeht/training-log-v2 ❗❗❗</em></p></font>
 
  </br>
  </br>
